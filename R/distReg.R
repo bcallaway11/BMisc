@@ -14,7 +14,6 @@ dr.inner <- function(yval, formla, data) {
 #' @param formla the regression to run
 #' @param y.seq the values of y to run the regression on
 #' 
-#' @return 
 dr <- function(formla, data, y.seq) {
     distreg <- lapply(y.seq, dr.inner, formla, data)
     DR(y.seq, distreg)    
