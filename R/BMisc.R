@@ -1,5 +1,18 @@
-##takes in a variable e.g. union and runs bivariate regression
-## of x on treatment (for summary statistics)
+#' @title compareBinary
+#'
+#' @description \code{compareBinary} ##takes in a variable e.g. union
+#' and runs bivariate regression of x on treatment (for summary statistics)
+#' 
+#' @param x variables to run regression on
+#' @param on binary variable
+#' @param dta the data to use
+#' @param w weights
+#' @param report which type of report to make; diff is the difference between
+#'  the two variables by group
+#'
+#' 
+#' @return matrix of results
+#' @export
 compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","levels","both")) {
     coefmat <- summary(lm(as.formula(paste(x, on ,sep=" ~ ")), data=dta,
                           weights=w))$coefficients
