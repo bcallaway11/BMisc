@@ -247,7 +247,7 @@ getWeightedDf <- function(y, y.seq=NULL, weights=NULL, norm=TRUE) {
     makeDist(y.seq, dvals)
 }
 
-@title cs2panel
+#' @title cs2panel
 #'
 #' @description Turn repeated cross sections data into panel data by imposing rank invariance; does not
 #'  that the inputs have the same length
