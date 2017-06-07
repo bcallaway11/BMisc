@@ -110,7 +110,9 @@ id2rownum <- function(id, data, idname) {
 #'  computation is somewhat faster if already sorted
 #' @examples
 #' y <- rnorm(100)
+#' y <- y[order(y)]
 #' u <- runif(100)
+#' u <- u[order(u)]
 #' F <- makeDist(y,u)
 #' 
 #' @return ecdf
