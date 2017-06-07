@@ -21,3 +21,9 @@ ecdf
 turn vectors of a values and their distribution function values
  into an ecdf.  Vectors should be the same length and both increasing.
 }
+\examples{
+y <- rnorm(100)
+u <- runif(100)
+F <- makeDist(y,u)
+
+}

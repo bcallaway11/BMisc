@@ -1,0 +1,19 @@
+reference:
+  - title: "Available Functions"
+    desc: >
+    	  Miscellaneous functions available in the BMisc Package
+    contents: 
+      - makeBalancedPanel
+      - panel2cs
+      - ids2rownum
+      - makeDist
+      - checkFun
+      - weighted.checkFun
+      - getWeightedQuantiles
+      - getWeightedMean
+      - getWeightedDf
+      - cs2panel
+      - compareBinary
+      - dropCovFromFormula
+      - combineDfs
+

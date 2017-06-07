@@ -1,11 +1,12 @@
 Package: BMisc
 Title: Brant Miscellaneous  Functions
+Date: 2017-06-07
 Version: 1.0
 Authors@R: person("Brantly", "Callaway", email = "brantly.callaway@temple.edu", role = c("aut", "cre"))
-Description: Miscellaneous functions
+Description: These are miscellaneous functions for working with panel data, quantiles, and printing results.
 Depends: R (>= 2.1.0)
-Imports: formula.tools
-License: What license is it under?
+Imports: formula.tools, qte
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1

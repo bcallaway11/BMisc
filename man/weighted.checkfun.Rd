@@ -9,6 +9,8 @@ weighted.checkfun(q, cvec, tau, weights)
 \arguments{
 \item{q}{the value to check}
 
+\item{cvec}{vector of data to compute quantiles for}
+
 \item{tau}{between 0 and 1, ex. .5 implies get the median}
 
 \item{weights}{the weights, weighted.checkfun normalizes the weights

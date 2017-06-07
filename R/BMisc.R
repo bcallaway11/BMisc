@@ -10,6 +10,13 @@
 #' @param data data.frame used in function
 #' @param idname unique id
 #' @param tname time period name
+#' @examples
+#' id <- rep(seq(1,100,1),2) ## individual ids for setting up a two period panel
+#' t <- rep(seq(1,2),100) ## time periods
+#' y <- rnorm(200) ## outcomes
+#' dta <- data.frame(id=id, t=t, y=y) ## make into data frame
+#' dta <- dta[-7,] ## drop the 7th row from the dataset (which creates an unbalanced panel)
+#' dta <- makeBalancedPanel(dta, idname="id", tname="t")
 #' 
 #' @return data.frame that is a balanced panel
 #' @export
@@ -101,6 +108,10 @@ id2rownum <- function(id, data, idname) {
 #' @param Fx vector of the distribution function values
 #' @param sorted boolean indicating whether or not x is already sorted;
 #'  computation is somewhat faster if already sorted
+#' @examples
+#' y <- rnorm(100)
+#' u <- runif(100)
+#' F <- makeDist(y,u)
 #' 
 #' @return ecdf
 #' @export
@@ -138,6 +149,7 @@ checkfun <- function(a, tau) {
 #' @description Weights the check function
 #' 
 #' @param q the value to check
+#' @param cvec vector of data to compute quantiles for
 #' @param tau between 0 and 1, ex. .5 implies get the median
 #' @param weights the weights, weighted.checkfun normalizes the weights
 #'  to sum to 1.
@@ -177,7 +189,7 @@ getWeightedQuantile <- function(tau, cvec, weights=NULL, norm=TRUE) {
                     cvec=cvec, tau=tau, weights=weights)$minimum)
 }
 
-#'@title getWeightedQuantile
+#'@title getWeightedQuantiles
 #' 
 #' @description Finds multiple quantiles by repeatedly calling
 #'  getWeightedQuantile
@@ -336,7 +348,16 @@ dropCovFromFormla <- function(covs, formla) {
 
 
 
-##combines two distribution functions with given weights by pstrat
+
+#'@title combineDfs
+#' 
+#' @description Combines two distribution functions with given weights by pstrat
+#' @param y.seq sequence of possible y values
+#' @param dflist list of distribution functions to combine
+#' @param pstrat weights to put on each distribution function
+#' 
+#' @return ecdf
+#' @export
 combineDfs <- function(y.seq, dflist, pstrat) {
     y.seq <- y.seq[order(y.seq)]
     df.valslist <- lapply(dflist, function(ddff) {
@@ -351,76 +372,71 @@ combineDfs <- function(y.seq, dflist, pstrat) {
     makeDist(y.seq, df.vals)
 }
 
+## THESE ARE THROWING ERRORS
 
-##get the distribution function
-## under stratified random sampling
-strat.ci.df <- function(y.seq, stratvarname, pstrat, formla, xformla, data, probs, weights, se, iters, retEachIter, pl, cores) {
+## this should return the distribution function
+## currently running ci.qte and then inverting, but probably
+## would be better to calculate it directly
+## ci.treated.Df <- function(data, y.seq, formla, xformla, probs, weights=NULL, se, iters, retEachIter, method="logit", pl, cores) {
 
-    browser()
+##     qp <- QTEparams(formla, xformla, t=NULL, tmin1=NULL, tmin2=NULL, tname=NULL, data=data, weights=weights, idname=NULL, probs=probs, iters=iters, alp=alp, method=method, plot=plot, se=se, retEachIter=retEachIter, bootstrapiter=FALSE, seedvec=NULL, pl=pl, cores=cores)
+##     setupData(qp)
+
+##     pscore.reg <- glm(data[,treat] ~ as.matrix(data[,x]),
+##                       family=binomial(link=method))
+##     pscore <- fitted(pscore.reg)
+##     d <- data[,treat]
+##     y <- data[,yname]
+
+##     y.seq <- y.seq[order(y.seq)]
+##     df.vals <- vapply(y.seq, function(x) {
+##         mean((d/pscore)*(y <= x) / (mean(d/pscore))) }, 1.0)
+##     makeDist(y.seq, df.vals)
+## }
+
+## ## this should return the distribution function
+## ## currently running ci.qte and then inverting, but probably
+## ## would be better to calculate it directly
+## ci.untreated.Df <- function(data, y.seq, formla, xformla, probs, weights=NULL, se, iters, retEachIter, method="logit", pl, cores) {
+##     ##OLD: using qte method
+##     ##cfirp <- ci.qte(formla=formla, xformla=xformla,
+##     ##            probs=probs, weights=weights, se=se, iters=iters,
+##     ##            retEachIter=RE, pl=pl, cores=cores, data=data)
+##     ##list(cfirp$F.treated.t, cfirp$F.treated.t.cf)
+##     qp <- QTEparams(formla, xformla, t=NULL, tmin1=NULL, tmin2=NULL, tname=NULL, data=data, weights=weights, idname=NULL, probs=probs, iters=iters, alp=alp, method=method, plot=plot, se=se, retEachIter=retEachIter, bootstrapiter=FALSE, seedvec=NULL, pl=pl, cores=cores)
+##     setupData(qp) 
+
+##     pscore.reg <- glm(data[,treat] ~ as.matrix(data[,x]),
+##                       family=binomial(link=method))
+##     pscore <- fitted(pscore.reg)
+##     d <- data[,treat]
+##     y <- data[,yname]
+##     y.seq <- y.seq[order(y.seq)]
+##     df.vals <- vapply(y.seq, function(x) {
+##         mean(((1-d)/(1-pscore))*(y <= x) / mean((1-d)/(1-pscore))) }, 1.0)
+##     makeDist(y.seq, df.vals)
+## }
+
+## ##get the distribution function
+## ## under stratified random sampling
+## strat.ci.df <- function(y.seq, stratvarname, pstrat, formla, xformla, data, probs, weights, se, iters, retEachIter, pl, cores) {
+
+##     browser()
     
-    cdta <- lapply(unique(data[,stratvarname]),
-                   function(x) { data[data[,stratvarname]==x,] })
-    ctreatedflist <- lapply(cdta, ci.treated.Df, y.seq=y.seq, formla=formla,
-                        xformla=xformla, probs=probs,
-                        se=se, iters=iters, retEachIter=retEachIter,
-                        pl=pl, cores=cores)
-    treated.df <- combineDfs(y.seq, ctreatedflist, pstrat)
-    cuntreatedflist <- lapply(cdta, ci.untreated.Df, y.seq=y.seq, formla=formla,
-                        xformla=xformla, probs=probs,
-                        se=se, iters=iters, retEachIter=retEachIter,
-                        pl=pl, cores=cores)
-    untreated.df <- combineDfs(y.seq, cuntreatedflist, pstrat)
-    return(c(treated.df, untreated.df))
-}
-
-## this should return the distribution function
-## currently running ci.qte and then inverting, but probably
-## would be better to calculate it directly
-ci.treated.Df <- function(data, y.seq, formla, xformla, probs, weights=NULL, se, iters, retEachIter, method="logit", pl, cores) {
-    ##OLD: using qte method
-    ##cfirp <- ci.qte(formla=formla, xformla=xformla,
-    ##            probs=probs, weights=weights, se=se, iters=iters,
-    ##            retEachIter=RE, pl=pl, cores=cores, data=data)
-    ##list(cfirp$F.treated.t, cfirp$F.treated.t.cf)
-
-    qp <- QTEparams(formla, xformla, t=NULL, tmin1=NULL, tmin2=NULL, tname=NULL, data=data, weights=weights, idname=NULL, probs=probs, iters=iters, alp=alp, method=method, plot=plot, se=se, retEachIter=retEachIter, bootstrapiter=FALSE, seedvec=NULL, pl=pl, cores=cores)
-    setupData(qp)
-
-    pscore.reg <- glm(data[,treat] ~ as.matrix(data[,x]),
-                      family=binomial(link=method))
-    pscore <- fitted(pscore.reg)
-    d <- data[,treat]
-    y <- data[,yname]
-
-    y.seq <- y.seq[order(y.seq)]
-    df.vals <- vapply(y.seq, function(x) {
-        mean((d/pscore)*(y <= x) / (mean(d/pscore))) }, 1.0)
-    makeDist(y.seq, df.vals)
-}
-
-## this should return the distribution function
-## currently running ci.qte and then inverting, but probably
-## would be better to calculate it directly
-ci.untreated.Df <- function(data, y.seq, formla, xformla, probs, weights=NULL, se, iters, retEachIter, method="logit", pl, cores) {
-    ##OLD: using qte method
-    ##cfirp <- ci.qte(formla=formla, xformla=xformla,
-    ##            probs=probs, weights=weights, se=se, iters=iters,
-    ##            retEachIter=RE, pl=pl, cores=cores, data=data)
-    ##list(cfirp$F.treated.t, cfirp$F.treated.t.cf)
-    qp <- QTEparams(formla, xformla, t=NULL, tmin1=NULL, tmin2=NULL, tname=NULL, data=data, weights=weights, idname=NULL, probs=probs, iters=iters, alp=alp, method=method, plot=plot, se=se, retEachIter=retEachIter, bootstrapiter=FALSE, seedvec=NULL, pl=pl, cores=cores)
-    setupData(qp) 
-
-    pscore.reg <- glm(data[,treat] ~ as.matrix(data[,x]),
-                      family=binomial(link=method))
-    pscore <- fitted(pscore.reg)
-    d <- data[,treat]
-    y <- data[,yname]
-    y.seq <- y.seq[order(y.seq)]
-    df.vals <- vapply(y.seq, function(x) {
-        mean(((1-d)/(1-pscore))*(y <= x) / mean((1-d)/(1-pscore))) }, 1.0)
-    makeDist(y.seq, df.vals)
-}
-
+##     cdta <- lapply(unique(data[,stratvarname]),
+##                    function(x) { data[data[,stratvarname]==x,] })
+##     ctreatedflist <- lapply(cdta, ci.treated.Df, y.seq=y.seq, formla=formla,
+##                         xformla=xformla, probs=probs,
+##                         se=se, iters=iters, retEachIter=retEachIter,
+##                         pl=pl, cores=cores)
+##     treated.df <- combineDfs(y.seq, ctreatedflist, pstrat)
+##     cuntreatedflist <- lapply(cdta, ci.untreated.Df, y.seq=y.seq, formla=formla,
+##                         xformla=xformla, probs=probs,
+##                         se=se, iters=iters, retEachIter=retEachIter,
+##                         pl=pl, cores=cores)
+##     untreated.df <- combineDfs(y.seq, cuntreatedflist, pstrat)
+##     return(c(treated.df, untreated.df))
+## }
     
     
 
