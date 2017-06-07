@@ -34,10 +34,8 @@ u <- u[order(u)]
 F <- makeDist(y,u)
 class(F)
 #> [1] "ecdf"     "stepfun"  "function"
-plot(F)
+##plot(F)
 ```
-
-![](README-example1-1.png)
 
 Example 2
 ---------

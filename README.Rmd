@@ -41,7 +41,7 @@ u <- runif(100)
 u <- u[order(u)]
 F <- makeDist(y,u)
 class(F)
-plot(F)
+##plot(F)
 ```
 
 ## Example 2
