@@ -356,11 +356,16 @@ dropCovFromFormla <- function(covs, formla) {
 #' @description Combines two distribution functions with given weights by pstrat
 #' @param y.seq sequence of possible y values
 #' @param dflist list of distribution functions to combine
-#' @param pstrat weights to put on each distribution function
+#' @param pstrat a vector of weights to put on each distribution function;
+#'  if weights are not provided then equal weight is given to each
+#'  distribution function
 #' 
 #' @return ecdf
 #' @export
-combineDfs <- function(y.seq, dflist, pstrat) {
+combineDfs <- function(y.seq, dflist, pstrat=NULL) {
+    if (is.null(pstrat)) {
+        pstrat <- rep(1/length(dflist), length(dflist))
+    }            
     y.seq <- y.seq[order(y.seq)]
     df.valslist <- lapply(dflist, function(ddff) {
         ddff(y.seq)})
