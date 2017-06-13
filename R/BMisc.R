@@ -327,7 +327,7 @@ compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","level
 
 ##drop some covariates from a formula
 ##covs should be a list of variable names
-#' @title compareBinary
+#' @title dropCovFromFormla
 #' @description \code{compareBinary} drops some covariates from a formula;
 #'   covs should be a list of variable names
 #'

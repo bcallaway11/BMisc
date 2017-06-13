@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{dropCovFromFormla}
 \alias{dropCovFromFormla}
-\title{compareBinary}
+\title{dropCovFromFormla}
 \usage{
 dropCovFromFormla(covs, formla)
 }

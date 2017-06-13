@@ -4,14 +4,16 @@
 \alias{combineDfs}
 \title{combineDfs}
 \usage{
-combineDfs(y.seq, dflist, pstrat)
+combineDfs(y.seq, dflist, pstrat = NULL)
 }
 \arguments{
 \item{y.seq}{sequence of possible y values}
 
 \item{dflist}{list of distribution functions to combine}
 
-\item{pstrat}{weights to put on each distribution function}
+\item{pstrat}{a vector of weights to put on each distribution function;
+if weights are not provided then equal weight is given to each
+distribution function}
 }
 \value{
 ecdf
