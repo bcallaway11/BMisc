@@ -148,7 +148,7 @@ makeDist <- function(x, Fx, sorted=FALSE) {
 #'
 #' @examples
 #' x <- rnorm(100)
-#' checkfun(x, 0.5) ##should be around 0
+#' x[which.min(checkfun(x, 0.5))] ##should be around 0
 #' 
 #' @return numeric value
 #' @export
@@ -347,7 +347,9 @@ compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","level
 #' @return formula
 #'
 #' @examples
-#' formla <- y ~ x + z
+#' formla <- y ~ x + w + z
+#' dropCovFromFormla(list("w","z"), formla)
+#'
 #' dropCovFromFormla("z", formla)
 #' 
 #' @export
@@ -357,7 +359,8 @@ dropCovFromFormla <- function(covs, formla) {
     newformla <- paste(vs, collapse="+")
     newformla <- paste("~", newformla)
     newformla <- as.formula(newformla)
-    return(newformla)
+    formula.tools::rhs(formla) <- formula.tools::rhs(newformla)
+    return(formla)
 }
 
 
@@ -380,7 +383,10 @@ dropCovFromFormla <- function(covs, formla) {
 #' y <- rnorm(100,1,1)
 #' Fx <- ecdf(x)
 #' Fy <- ecdf(y)
-#' combineDfs(seq(-2,3,0.1), list(Fx,Fy)) 
+#' both <- combineDfs(seq(-2,3,0.1), list(Fx,Fy))
+#' plot(Fx, col="green")
+#' plot(Fy, col="blue", add=TRUE)
+#' plot(both, add=TRUE)
 #' 
 #' @return ecdf
 #' @export

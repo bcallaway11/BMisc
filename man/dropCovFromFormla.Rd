@@ -19,7 +19,9 @@ formula
   covs should be a list of variable names
 }
 \examples{
-formla <- y ~ x + z
+formla <- y ~ x + w + z
+dropCovFromFormla(list("w","z"), formla)
+
 dropCovFromFormla("z", formla)
 
 }
