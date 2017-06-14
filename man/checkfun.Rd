@@ -17,3 +17,8 @@ numeric value
 \description{
 The check function used for optimizing to get quantiles
 }
+\examples{
+x <- rnorm(100)
+checkfun(x, 0.5) ##should be around 0
+
+}

@@ -73,6 +73,12 @@ panel2cs <- function(data, timevars, idname, tname) {
 #' @param ids vector of ids
 #' @param data data frame
 #' @param idname unique id
+#'
+#' @examples
+#' ids <- seq(1,1000,length.out=100)
+#' ids <- ids[order(runif(100))]
+#' df <- data.frame(id=ids)
+#' ids2rownum(df$id, df, "id")
 #' 
 #' @return vector of row numbers
 #' @export
@@ -139,6 +145,10 @@ makeDist <- function(x, Fx, sorted=FALSE) {
 #' 
 #' @param a vector to compute quantiles for
 #' @param tau between 0 and 1, ex. .5 implies get the median
+#'
+#' @examples
+#' x <- rnorm(100)
+#' checkfun(x, 0.5) ##should be around 0
 #' 
 #' @return numeric value
 #' @export
@@ -335,6 +345,11 @@ compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","level
 #' @param covs should be a list of variable names
 #' @param formla which formula to drop covariates from
 #' @return formula
+#'
+#' @examples
+#' formla <- y ~ x + z
+#' dropCovFromFormla("z", formla)
+#' 
 #' @export
 dropCovFromFormla <- function(covs, formla) {
     vs <- formula.tools::rhs.vars(formla) ## vector of x variable names
@@ -359,6 +374,13 @@ dropCovFromFormla <- function(covs, formla) {
 #' @param pstrat a vector of weights to put on each distribution function;
 #'  if weights are not provided then equal weight is given to each
 #'  distribution function
+#'
+#' @examples
+#' x <- rnorm(100)
+#' y <- rnorm(100,1,1)
+#' Fx <- ecdf(x)
+#' Fy <- ecdf(y)
+#' combineDfs(seq(-2,3,0.1), list(Fx,Fy)) 
 #' 
 #' @return ecdf
 #' @export

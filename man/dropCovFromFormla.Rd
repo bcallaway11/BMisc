@@ -18,3 +18,8 @@ formula
 \code{compareBinary} drops some covariates from a formula;
   covs should be a list of variable names
 }
+\examples{
+formla <- y ~ x + z
+dropCovFromFormla("z", formla)
+
+}
