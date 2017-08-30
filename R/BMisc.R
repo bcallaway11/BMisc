@@ -114,6 +114,8 @@ id2rownum <- function(id, data, idname) {
 #' @param Fx vector of the distribution function values
 #' @param sorted boolean indicating whether or not x is already sorted;
 #'  computation is somewhat faster if already sorted
+#' @param rearrange boolean indicating whether or not should monotize
+#'  distribution function
 #' @examples
 #' y <- rnorm(100)
 #' y <- y[order(y)]
@@ -123,12 +125,16 @@ id2rownum <- function(id, data, idname) {
 #' 
 #' @return ecdf
 #' @export
-makeDist <- function(x, Fx, sorted=FALSE) {
+makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE) {
     if (!sorted) {
         tmat <- cbind(x, Fx)
         tmat <- tmat[order(x),]
         x <- tmat[,1]
         Fx <- tmat[,2]
+    }
+
+    if (rearrange) {
+        Fx <- sort(Fx)
     }
     
     retF <- approxfun(x, Fx, method="constant",
