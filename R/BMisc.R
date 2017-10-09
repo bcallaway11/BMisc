@@ -366,7 +366,39 @@ compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff",
 ##drop some covariates from a formula
 ##covs should be a list of variable names
 #' @title dropCovFromFormla
-#' @description \code{compareBinary} drops some covariates from a formula;
+#' @description \code{dropCovFromFormla} drops some covariates from a formula;
+#'   covs should be a list of variable names
+#'
+#' 
+#' @param covs should be a list of variable names
+#' @param formla which formula to drop covariates from
+#' @return formula
+#'
+#' @examples
+#' formla <- y ~ x 
+#' addCovToFormla(list("w","z"), formla)
+#'
+#' formla <- ~x
+#' addCovToFormla("z", formla)
+#' 
+#' @export
+addCovToFormla <- function(covs, formla) {
+    vs <- formula.tools::rhs.vars(formla) ## vector of x variable names
+    vs <- c(vs, covs)
+    newformla <- paste(vs, collapse="+")
+    newformla <- paste("~", newformla)
+    newformla <- as.formula(newformla)
+    leftside <- formula.tools::lhs(formla) ## seems like bug in formula.tools is reason why need to do this
+    formula.tools::rhs(formla) <- formula.tools::rhs(newformla)
+    formula.tools::lhs(formla) <- leftside
+    return(formla)
+}
+
+
+##add some covariates to a formula
+##covs should be a list of variable names
+#' @title addCovToFormla
+#' @description \code{addCovToFormla} adds some covariates to a formula;
 #'   covs should be a list of variable names
 #'
 #' 
@@ -390,8 +422,6 @@ dropCovFromFormla <- function(covs, formla) {
     formula.tools::rhs(formla) <- formula.tools::rhs(newformla)
     return(formla)
 }
-
-
 
 
 
