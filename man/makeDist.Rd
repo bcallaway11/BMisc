@@ -4,7 +4,7 @@
 \alias{makeDist}
 \title{makeDist}
 \usage{
-makeDist(x, Fx, sorted = FALSE)
+makeDist(x, Fx, sorted = FALSE, rearrange = FALSE)
 }
 \arguments{
 \item{x}{vector of values}
@@ -13,6 +13,9 @@ makeDist(x, Fx, sorted = FALSE)
 
 \item{sorted}{boolean indicating whether or not x is already sorted;
 computation is somewhat faster if already sorted}
+
+\item{rearrange}{boolean indicating whether or not should monotize
+distribution function}
 }
 \value{
 ecdf

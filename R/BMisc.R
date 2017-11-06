@@ -326,9 +326,9 @@ cs2panel <- function(cs1, cs2, yname) {
 #' @export
 compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","levels","both")) {
     if (class(dta[,x]) == "factor") {
-        df <- model.matrix(as.formula(paste0("~",x,"-1")), ssdta)
+        df <- model.matrix(as.formula(paste0("~",x,"-1")), dta)
         vnames <- colnames(df)
-        df <- data.frame(cbind(df, ssdta[,on]))
+        df <- data.frame(cbind(df, dta[,on]))
         colnames(df) <- c(vnames, "treat")
         t(simplify2array(lapply(vnames, compareSingleBinary, on="treat", dta=df, w=w, report=report)))
     } else {
@@ -345,7 +345,7 @@ compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","level
 #' 
 #' @return matrix of results
 #' 
-#' @internal
+#' @keywords internal
 compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","levels","both")) {
     coefmat <- summary(lm(as.formula(paste(x, on ,sep=" ~ ")), data=dta,
                           weights=w))$coefficients
