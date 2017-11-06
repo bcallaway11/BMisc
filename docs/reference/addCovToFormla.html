@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ids2rownum — ids2rownum • BMisc</title>
+<title>addCovToFormla — addCovToFormla • BMisc</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -78,49 +78,41 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ids2rownum</h1>
+    <h1>addCovToFormla</h1>
     </div>
 
     
-    <p>ids2rownum takes a vector of ids and converts it t the right
- row number in the dataset; ids should be unique in the dataset
- that is, don't pass the function panel data with multiple same ids</p>
+    <p><code>addCovFromFormla</code> addssome covariates to a formula;
+  covs should be a list of variable names</p>
     
 
-    <pre class="usage"><span class='fu'>ids2rownum</span>(<span class='no'>ids</span>, <span class='no'>data</span>, <span class='no'>idname</span>)</pre>
+    <pre class="usage"><span class='fu'>addCovToFormla</span>(<span class='no'>covs</span>, <span class='no'>formla</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ids</th>
-      <td><p>vector of ids</p></td>
+      <th>covs</th>
+      <td><p>should be a list of variable names</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>data frame</p></td>
-    </tr>
-    <tr>
-      <th>idname</th>
-      <td><p>unique id</p></td>
+      <th>formla</th>
+      <td><p>which formula to add covariates to</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>vector of row numbers</p>
+    <p>formula</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fl'>1</span>,<span class='fl'>1000</span>,<span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>100</span>)
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='no'>ids</span>[<span class='fu'>order</span>(<span class='fu'>runif</span>(<span class='fl'>100</span>))]
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>id</span><span class='kw'>=</span><span class='no'>ids</span>)
-<span class='fu'>ids2rownum</span>(<span class='no'>df</span>$<span class='no'>id</span>, <span class='no'>df</span>, <span class='st'>"id"</span>)</div><div class='output co'>#&gt;   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
-#&gt;  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
-#&gt;  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
-#&gt;  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
-#&gt;  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
-#&gt;  [91]  91  92  93  94  95  96  97  98  99 100</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>formla</span> <span class='kw'>&lt;-</span> <span class='no'>y</span> ~ <span class='no'>x</span>
+<span class='fu'>addCovToFormla</span>(<span class='fu'>list</span>(<span class='st'>"w"</span>,<span class='st'>"z"</span>), <span class='no'>formla</span>)</div><div class='output co'>#&gt; y ~ x + w + z
+#&gt; &lt;environment: 0x7316248&gt;</div><div class='input'>
+<span class='no'>formla</span> <span class='kw'>&lt;-</span> ~<span class='no'>x</span>
+<span class='fu'>addCovToFormla</span>(<span class='st'>"z"</span>, <span class='no'>formla</span>)</div><div class='output co'>#&gt; ~x + z
+#&gt; &lt;environment: 0x7316248&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

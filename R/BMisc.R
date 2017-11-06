@@ -365,13 +365,13 @@ compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff",
 
 ##drop some covariates from a formula
 ##covs should be a list of variable names
-#' @title dropCovFromFormla
-#' @description \code{dropCovFromFormla} drops some covariates from a formula;
+#' @title addCovToFormla
+#' @description \code{addCovFromFormla} addssome covariates to a formula;
 #'   covs should be a list of variable names
 #'
 #' 
 #' @param covs should be a list of variable names
-#' @param formla which formula to drop covariates from
+#' @param formla which formula to add covariates to
 #' @return formula
 #'
 #' @examples
@@ -397,8 +397,8 @@ addCovToFormla <- function(covs, formla) {
 
 ##add some covariates to a formula
 ##covs should be a list of variable names
-#' @title addCovToFormla
-#' @description \code{addCovToFormla} adds some covariates to a formula;
+#' @title dropCovFromFormla
+#' @description \code{dropCovFromFormla} adds drops some covariates from aformula;
 #'   covs should be a list of variable names
 #'
 #' 

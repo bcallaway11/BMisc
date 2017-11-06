@@ -1,19 +1,31 @@
+template:
+  params:
+    bootswatch: cerulean
+
 reference:
-  - title: "Available Functions"
-    desc: >
-          Miscellaneous functions available in the BMisc Package
+  - title: Funtions for working with panel data
     contents: 
       - makeBalancedPanel
       - panel2cs
       - ids2rownum
+      - cs2panel
+
+  - title: Functions for working with distributions
+    contents:
       - makeDist
+      - combineDfs
       - checkfun
       - weighted.checkfun
       - getWeightedQuantiles
       - getWeightedMean
       - getWeightedDf
-      - cs2panel
+
+  - title: Functions for creating summary statistics
+    contents:
       - compareBinary
+
+  - title: Functions for working with formulas
+    contents:
       - dropCovFromFormla
-      - combineDfs
+      - addCovToFormla
 

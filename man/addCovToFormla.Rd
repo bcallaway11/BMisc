@@ -2,20 +2,20 @@
 % Please edit documentation in R/BMisc.R
 \name{addCovToFormla}
 \alias{addCovToFormla}
-\title{dropCovFromFormla}
+\title{addCovToFormla}
 \usage{
 addCovToFormla(covs, formla)
 }
 \arguments{
 \item{covs}{should be a list of variable names}
 
-\item{formla}{which formula to drop covariates from}
+\item{formla}{which formula to add covariates to}
 }
 \value{
 formula
 }
 \description{
-\code{dropCovFromFormla} drops some covariates from a formula;
+\code{addCovFromFormla} addssome covariates to a formula;
   covs should be a list of variable names
 }
 \examples{

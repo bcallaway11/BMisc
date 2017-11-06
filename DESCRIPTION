@@ -1,6 +1,6 @@
 Package: BMisc
 Title: Miscellaneous Functions for Panel Data, Quantiles, and Printing Results
-Date: 2017-06-14
+Date: 2017-11-06
 Version: 1.1.1
 Authors@R: person("Brantly", "Callaway", email = "brantly.callaway@temple.edu", role = c("aut", "cre"))
 Description: These are miscellaneous functions for working with panel data, quantiles, and printing results.  For panel data, the package includes functions for making a panel data balanced (that is, dropping missing individuals that have missing observations in any time period), converting id numbers to row numbers, and to treat repeated cross sections as panel data under the assumption of rank invariance.  For quantiles, there are functions to make ecdf functions from a set of data points (this is particularly useful when a distribution function is created in several steps) and to combine distribution functions based on some external weights; these distribution functions can easily be inverted to obtain quantiles.  Finally, there are several other miscellaneous functions for obtaining weighted means, weighted distribution functions, and weighted quantiles; to generate summary statistics and their differences for two groups; and to drop covariates from formulas.

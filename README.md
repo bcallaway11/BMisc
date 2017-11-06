@@ -27,6 +27,7 @@ Example 1
 One of the most useful functions in the `BMisc` package is `makeDist` which takes a vector of observations and turns them into a distribution function.
 
 ``` r
+library(BMisc)
 y <- rnorm(100)
 y <- y[order(y)]
 u <- runif(100)
