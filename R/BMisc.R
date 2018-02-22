@@ -145,6 +145,7 @@ makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE) {
 }
 
 
+
 #'@title checkfun
 #' 
 #' @description The check function used for optimizing to get quantiles
@@ -465,6 +466,33 @@ combineDfs <- function(y.seq, dflist, pstrat=NULL) {
     makeDist(y.seq, df.vals)
 }
 
+#' @title subsample
+#'
+#' @description returns a subsample of a panel data set; in particular drops
+#'  all observations that are not in \code{keepids}.  If it is not set,
+#'  randomly keeps \code{nkeep} observations.  
+#'
+#' @param dta a data.frame which is a balanced panel
+#' @param idname the name of the id variable
+#' @param tname the name of the time variable
+#' @param keepids which ids to keep
+#' @param nkeep how many ids to keep (only used if \code{keepids}
+#'  is not set); the default is the number of unique ids
+#'
+#' @return a data.frame that contains a subsample of \code{dta}
+#' 
+#' @export
+subsample <- function(dta, idname, tname, keepids=NULL, nkeep=NULL) {
+    ids <- unique(dta[,idname])
+
+    if (is.null(keepids)) {
+        if (is.null(nkeep)) nkeep <- length(ids)
+        keepids <- sample(ids, size=nkeep)
+    }
+
+    retdta <- dta[ dta[,idname] %in% keepids, ]
+    retdta
+}
 ## THESE ARE THROWING ERRORS
 
 ## this should return the distribution function
