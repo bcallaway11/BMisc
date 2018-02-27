@@ -26,3 +26,11 @@ returns a subsample of a panel data set; in particular drops
  all observations that are not in \code{keepids}.  If it is not set,
  randomly keeps \code{nkeep} observations.
 }
+\examples{
+data(LaborSupply, package="plm")
+nrow(LaborSupply)
+unique(LaborSupply$year)
+ss <- subsample(LaborSupply, "id", "year", nkeep=100)
+nrow(ss)
+
+}

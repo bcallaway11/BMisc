@@ -479,6 +479,13 @@ combineDfs <- function(y.seq, dflist, pstrat=NULL) {
 #' @param nkeep how many ids to keep (only used if \code{keepids}
 #'  is not set); the default is the number of unique ids
 #'
+#' @examples
+#' data(LaborSupply, package="plm")
+#' nrow(LaborSupply)
+#' unique(LaborSupply$year)
+#' ss <- subsample(LaborSupply, "id", "year", nkeep=100)
+#' nrow(ss)
+#'
 #' @return a data.frame that contains a subsample of \code{dta}
 #' 
 #' @export
