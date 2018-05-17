@@ -1,3 +1,7 @@
+# BMisc 1.3.0
+
+ * Added function \code{invertEcdf} to take distribution functions (ecdf objects) and turn them into step functions for the quantiles.
+
 # BMisc 1.2.0
 
  * Added function \code{subsample} for obtaining a subsample of a panel data set

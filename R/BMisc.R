@@ -145,6 +145,24 @@ makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE) {
 }
 
 
+#' @title invertEcdf
+#'
+#' @description take an ecdf object and invert it to get a step-quantile
+#'  function
+#'
+#' @param df an ecdf object
+#'
+#' @return stepfun object that contains the quantiles of the df
+#'
+#' @export
+invertEcdf <- function(df) {
+    q <- knots(df)
+    tau <- df(q)
+    q <- c(q[1], q)
+    stepfun(tau, q)
+}
+
+
 
 #'@title checkfun
 #' 
