@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>panel2cs — panel2cs • BMisc</title>
+<title>invertEcdf — invertEcdf • BMisc</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,13 +30,10 @@
 
 
 
-<meta property="og:title" content="panel2cs — panel2cs" />
+<meta property="og:title" content="invertEcdf — invertEcdf" />
 
-<meta property="og:description" content="panel2cs takes a 2 period dataset and turns it
- into a cross sectional dataset.  The default functionality
- is to keep all the variables from period 1
- and add all the variables listed by name in timevars
- from period 2 to those" />
+<meta property="og:description" content="take an ecdf object and invert it to get a step-quantile
+ function" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,47 +96,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>panel2cs</h1>
+    <h1>invertEcdf</h1>
     
-    <div class="hidden name"><code>panel2cs.Rd</code></div>
+    <div class="hidden name"><code>invertEcdf.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>panel2cs takes a 2 period dataset and turns it
- into a cross sectional dataset.  The default functionality
- is to keep all the variables from period 1
- and add all the variables listed by name in timevars
- from period 2 to those</p>
+    <p>take an ecdf object and invert it to get a step-quantile
+ function</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>panel2cs</span>(<span class='no'>data</span>, <span class='no'>timevars</span>, <span class='no'>idname</span>, <span class='no'>tname</span>)</pre>
+    <pre class="usage"><span class='fu'>invertEcdf</span>(<span class='no'>df</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>data.frame used in function</p></td>
-    </tr>
-    <tr>
-      <th>timevars</th>
-      <td><p>vector of names of variables to keep</p></td>
-    </tr>
-    <tr>
-      <th>idname</th>
-      <td><p>unique id</p></td>
-    </tr>
-    <tr>
-      <th>tname</th>
-      <td><p>time period name</p></td>
+      <th>df</th>
+      <td><p>an ecdf object</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame</p>
+    <p>stepfun object that contains the quantiles of the df</p>
     
 
   </div>

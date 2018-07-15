@@ -15,7 +15,7 @@ addCovToFormla(covs, formla)
 formula
 }
 \description{
-\code{addCovFromFormla} addssome covariates to a formula;
+\code{addCovFromFormla} adds some covariates to a formula;
   covs should be a list of variable names
 }
 \examples{

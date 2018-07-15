@@ -1,9 +1,9 @@
 Package: BMisc
 Title: Miscellaneous Functions for Panel Data, Quantiles, and Printing Results
-Date: 2018-02-27
-Version: 1.2.0
+Date: 2018-07-15
+Version: 1.3.0
 Authors@R: person("Brantly", "Callaway", email = "brantly.callaway@temple.edu", role = c("aut", "cre"))
-Description: These are miscellaneous functions for working with panel data, quantiles, and printing results.  For panel data, the package includes functions for making a panel data balanced (that is, dropping missing individuals that have missing observations in any time period), converting id numbers to row numbers, and to treat repeated cross sections as panel data under the assumption of rank invariance.  For quantiles, there are functions to make distribution functions from a set of data points (this is particularly useful when a distribution function is created in several steps) and to combine distribution functions based on some external weights; these distribution functions can easily be inverted to obtain quantiles.  Finally, there are several other miscellaneous functions for obtaining weighted means, weighted distribution functions, and weighted quantiles; to generate summary statistics and their differences for two groups; and to add or drop covariates from formulas.
+Description: These are miscellaneous functions for working with panel data, quantiles, and printing results.  For panel data, the package includes functions for making a panel data balanced (that is, dropping missing individuals that have missing observations in any time period), converting id numbers to row numbers, and to treat repeated cross sections as panel data under the assumption of rank invariance.  For quantiles, there are functions to make distribution functions from a set of data points (this is particularly useful when a distribution function is created in several steps), to combine distribution functions based on some external weights, and to invert distribution functions.  Finally, there are several other miscellaneous functions for obtaining weighted means, weighted distribution functions, and weighted quantiles; to generate summary statistics and their differences for two groups; and to add or drop covariates from formulas.
 Depends: R (>= 2.1.0)
 Imports: formula.tools, plm
 License: GPL-2

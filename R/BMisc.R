@@ -162,6 +162,23 @@ invertEcdf <- function(df) {
     stepfun(tau, q)
 }
 
+## ## TODO: fix this, can reference quantreg package
+## ecdf2density <- function(df) {
+##     q <- knots(df)
+##     tau <- df(q)
+##     ## akjfun comes from rq package
+##     akjfun <- function(z, p, d = 10, g = 300, ...) {
+##         mz <- sum(z * p)
+##         sz <- sqrt(sum((z - mz)^2 * p))
+##         hz <- seq(mz - d * sz, mz + d * sz, length = g)
+##         fz <- quantreg::akj(z, hz, p = p, ...)$dens
+##         approxfun(hz, fz)
+##     }
+##     p <- diff(taus)
+##     akjfun(q, p)
+## }
+    
+
 
 
 #'@title checkfun
@@ -382,10 +399,86 @@ compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff",
 ##                                                        |
 ###################### HELPER FUNCTIONS ##################|
 
-##drop some covariates from a formula
-##covs should be a list of variable names
+#' @title rhs.vars
+#' 
+#' @description Take a formula and return a vector of the variables
+#'  on the right hand side
+#'
+#' @param formla a formula
+#'
+#' @examples
+#' ff <- yvar ~ x1 + x2
+#' rhs.vars(ff)
+#'
+#' @return vector of variable names
+#' @export
+rhs.vars <- function(formla) {
+  allvars <- all.vars(formla)
+  if (length(formla)==3) {
+    allvars <- allvars[-1]
+  }
+  allvars
+}
+
+#' @title lhs.vars
+#'
+#' @description Take a formula and return a vector of the variables
+#'  on the left hand side, it will return NULL for a one sided formula
+#'
+#' @inheritParams rhs.vars
+#'
+#' @examples
+#' ff <- yvar ~ x1 + x2
+#' lhs.vars(ff)
+#' @return vector of variable names
+#' @export 
+lhs.vars <- function(formla) {
+  if (length(formla) == 2) {
+    return(NULL) ## there is no lhs variable
+  }
+  all.vars(formla)[1]
+}
+
+#' @title rhs
+#' 
+#' @description Take a formula and return the right hand side
+#'  of the formula
+#'
+#' @param formla a formula
+#'
+#' @examples
+#' ff <- yvar ~ x1 + x2
+#' rhs(ff)
+#'
+#' @return a one sided formula
+#' @export
+rhs <- function(formla) {
+  toformula(NULL,rhs.vars(formla))
+}
+
+#' @title toformula
+#' 
+#' @description take a name for a y variable and a vector of names
+#'  for x variables and turn them into a formula
+#'
+#' @param yname the name of the y variable
+#' @param xnames vector of names for x variables
+#'
+#' @examples
+#' toformula("yvar", c("x1","x2"))
+#'
+#' @return a formula
+#' @export
+toformula <- function(yname, xnames) {
+  out <- paste0(yname,"~")
+  xpart <- paste0(xnames, collapse="+")
+  out <- paste0(out,xpart)
+  out <- as.formula(out)
+  out
+}
+
 #' @title addCovToFormla
-#' @description \code{addCovFromFormla} addssome covariates to a formula;
+#' @description \code{addCovFromFormla} adds some covariates to a formula;
 #'   covs should be a list of variable names
 #'
 #' 
@@ -402,14 +495,15 @@ compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff",
 #' 
 #' @export
 addCovToFormla <- function(covs, formla) {
-    vs <- formula.tools::rhs.vars(formla) ## vector of x variable names
+    vs <- rhs.vars(formla) ## vector of x variable names
     vs <- c(vs, covs)
-    newformla <- paste(vs, collapse="+")
-    newformla <- paste("~", newformla)
-    newformla <- as.formula(newformla)
-    leftside <- formula.tools::lhs(formla) ## seems like bug in formula.tools is reason why need to do this
-    formula.tools::rhs(formla) <- formula.tools::rhs(newformla)
-    formula.tools::lhs(formla) <- leftside
+    formla <- toformula(lhs.vars(formla), vs)
+    # newformla <- paste(vs, collapse="+")
+    # newformla <- paste("~", newformla)
+    # newformla <- as.formula(newformla)
+    # leftside <- formula.tools::lhs(formla) ## seems like bug in formula.tools is reason why need to do this
+    # formula.tools::rhs(formla) <- formula.tools::rhs(newformla)
+    # formula.tools::lhs(formla) <- leftside
     return(formla)
 }
 
@@ -433,13 +527,16 @@ addCovToFormla <- function(covs, formla) {
 #' 
 #' @export
 dropCovFromFormla <- function(covs, formla) {
-    vs <- formula.tools::rhs.vars(formla) ## vector of x variable names
+    vs <- rhs.vars(formla)
     vs <- vs[!(vs %in% covs)]
-    newformla <- paste(vs, collapse="+")
-    newformla <- paste("~", newformla)
-    newformla <- as.formula(newformla)
-    formula.tools::rhs(formla) <- formula.tools::rhs(newformla)
-    return(formla)
+    toformula(lhs.vars(formla), vs)
+    ## vs <- formula.tools::rhs.vars(formla) ## vector of x variable names
+    ## vs <- vs[!(vs %in% covs)]
+    ## newformla <- paste(vs, collapse="+")
+    ## newformla <- paste("~", newformla)
+    ## newformla <- as.formula(newformla)
+    ## formula.tools::rhs(formla) <- formula.tools::rhs(newformla)
+    ## return(formla)
 }
 
 

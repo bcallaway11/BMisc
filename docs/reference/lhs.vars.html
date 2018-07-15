@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>panel2cs — panel2cs • BMisc</title>
+<title>lhs.vars — lhs.vars • BMisc</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,13 +30,10 @@
 
 
 
-<meta property="og:title" content="panel2cs — panel2cs" />
+<meta property="og:title" content="lhs.vars — lhs.vars" />
 
-<meta property="og:description" content="panel2cs takes a 2 period dataset and turns it
- into a cross sectional dataset.  The default functionality
- is to keep all the variables from period 1
- and add all the variables listed by name in timevars
- from period 2 to those" />
+<meta property="og:description" content="Take a formula and return a vector of the variables
+ on the left hand side, it will return NULL for a one sided formula" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,49 +96,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>panel2cs</h1>
+    <h1>lhs.vars</h1>
     
-    <div class="hidden name"><code>panel2cs.Rd</code></div>
+    <div class="hidden name"><code>lhs.vars.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>panel2cs takes a 2 period dataset and turns it
- into a cross sectional dataset.  The default functionality
- is to keep all the variables from period 1
- and add all the variables listed by name in timevars
- from period 2 to those</p>
+    <p>Take a formula and return a vector of the variables
+ on the left hand side, it will return NULL for a one sided formula</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>panel2cs</span>(<span class='no'>data</span>, <span class='no'>timevars</span>, <span class='no'>idname</span>, <span class='no'>tname</span>)</pre>
+    <pre class="usage"><span class='fu'>lhs.vars</span>(<span class='no'>formla</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>data.frame used in function</p></td>
-    </tr>
-    <tr>
-      <th>timevars</th>
-      <td><p>vector of names of variables to keep</p></td>
-    </tr>
-    <tr>
-      <th>idname</th>
-      <td><p>unique id</p></td>
-    </tr>
-    <tr>
-      <th>tname</th>
-      <td><p>time period name</p></td>
+      <th>formla</th>
+      <td><p>a formula</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame</p>
+    <p>vector of variable names</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>ff</span> <span class='kw'>&lt;-</span> <span class='no'>yvar</span> ~ <span class='no'>x1</span> + <span class='no'>x2</span>
+<span class='fu'>lhs.vars</span>(<span class='no'>ff</span>)</div><div class='output co'>#&gt; [1] "yvar"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -149,7 +134,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
