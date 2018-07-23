@@ -1,3 +1,7 @@
+# BMisc 1.3.1
+
+  * Update rhs.vars to fix bug related to formulas like y~x+I(x^2)
+
 # BMisc 1.3.0
 
  * Added function \code{invertEcdf} to take distribution functions (ecdf objects) and turn them into step functions for the quantiles.

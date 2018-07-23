@@ -20,4 +20,7 @@ Take a formula and return a vector of the variables
 ff <- yvar ~ x1 + x2
 rhs.vars(ff)
 
+ff <- y ~ x1 + I(x1^2)
+rhs.vars(ff)
+
 }

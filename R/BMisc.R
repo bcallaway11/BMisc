@@ -410,14 +410,17 @@ compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff",
 #' ff <- yvar ~ x1 + x2
 #' rhs.vars(ff)
 #'
+#' ff <- y ~ x1 + I(x1^2)
+#' rhs.vars(ff)
+#' 
 #' @return vector of variable names
 #' @export
 rhs.vars <- function(formla) {
-  allvars <- all.vars(formla)
-  if (length(formla)==3) {
-    allvars <- allvars[-1]
-  }
-  allvars
+  ## allvars <- all.vars(formla)
+  ## if (length(formla)==3) {
+  ##   allvars <- allvars[-1]
+  ## }
+  labels(terms(formla))
 }
 
 #' @title lhs.vars
