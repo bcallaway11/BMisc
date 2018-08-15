@@ -476,8 +476,8 @@ rhs <- function(formla) {
 #' @return a formula
 #' @export
 toformula <- function(yname, xnames) {
-    if (!is.character(xnames)) {
-        return(paste0(yname,"~ 1"))
+    if (length(xnames)==0) {
+        return(as.formula(paste0(yname," ~ 1")))
     }
     out <- paste0(yname,"~")
     xpart <- paste0(xnames, collapse="+")
