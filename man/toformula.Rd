@@ -21,4 +21,7 @@ take a name for a y variable and a vector of names
 \examples{
 toformula("yvar", c("x1","x2"))
 
+## should return yvar ~ 1
+toformula("yvar", rhs.vars(~1))
+
 }
