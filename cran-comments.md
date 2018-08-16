@@ -21,4 +21,4 @@ Checked TempleMetrics: 0 errors | 0 warnings | 0 notes
   Warning: replacing previous import ‘BMisc::rhs.vars’ by ‘formula.tools::rhs.vars’ when loading ‘ccfa’
   Warning: replacing previous import ‘BMisc::rhs’ by ‘formula.tools::rhs’ when loading ‘ccfa’
 
-  None of these functions are called in either package, but I'll fix these in the next version of the 'ccfa' and 'did' packages.
+  None of these functions are called in either package.  I am first updating 'BMisc' now, then I'll update 'did', and I'll fix these issues in 'ccfa' upon its next release.

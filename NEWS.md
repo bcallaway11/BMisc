@@ -1,3 +1,8 @@
+# (current) BMisc 1.3.2
+
+  * removed dependency on plm and formula.tools
+
+
 # BMisc 1.3.1
 
   * Update rhs.vars to fix bug related to formulas like y~x+I(x^2)
