@@ -9,11 +9,13 @@ reference:
       - panel2cs
       - ids2rownum
       - cs2panel
+      - subsample
 
   - title: Functions for working with distributions
     contents:
       - makeDist
       - combineDfs
+      - invertEcdf
       - checkfun
       - weighted.checkfun
       - getWeightedQuantiles
@@ -28,4 +30,8 @@ reference:
     contents:
       - dropCovFromFormla
       - addCovToFormla
+      - lhs.vars
+      - rhs
+      - rhs.vars
+      - toformula
 

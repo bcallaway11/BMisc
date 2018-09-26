@@ -4,8 +4,8 @@
 \alias{compareSingleBinary}
 \title{compareSingleBinary}
 \usage{
-compareSingleBinary(x, on, dta, w = rep(1, nrow(dta)), report = c("diff",
-  "levels", "both"))
+compareSingleBinary(x, on, dta, w = rep(1, nrow(dta)),
+  report = c("diff", "levels", "both"))
 }
 \arguments{
 \item{x}{variables to run regression on}
