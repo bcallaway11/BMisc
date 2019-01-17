@@ -66,7 +66,7 @@ panel2cs <- function(data, timevars, idname, tname) {
 
 #'@title ids2rownum
 #' 
-#' @description ids2rownum takes a vector of ids and converts it t the right
+#' @description ids2rownum takes a vector of ids and converts it to the right
 #'  row number in the dataset; ids should be unique in the dataset
 #'  that is, don't pass the function panel data with multiple same ids
 #' 
@@ -102,6 +102,29 @@ id2rownum <- function(id, data, idname) {
     which(data[,idname] == id)
 }
 
+#' @title blockBootSample
+#'
+#' @description make draws of all observations with the same id in a panel
+#'  data context.  This is useful for bootstrapping with panel data.
+#'
+#' @param data data.frame from which you want to bootstrap
+#' @param idname column in data which contains an individual identifier
+#'
+#' @return data.frame bootstrapped from the original dataset; this data.frame
+#'  will contain new ids
+#' @export
+blockBootSample <- function(data, idname) {
+    n <- nrow(data)
+    ids <- sample(unique(data[,idname]), replace=TRUE)
+    newid <- 1
+    b1 <- lapply(ids, function(id) {
+        bd <- data[ data[,idname]==id,]
+        bd[,idname] <- newid
+        newid <- newid+1
+        bd
+    })
+    do.call(rbind, b1)
+}
 
 
 

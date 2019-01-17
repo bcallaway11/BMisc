@@ -1,7 +1,8 @@
 # (current) BMisc 1.3.2
 
   * removed dependency on plm and formula.tools
-
+  
+  * add function blockBootSample for block bootstrapping with panel data
 
 # BMisc 1.3.1
 
