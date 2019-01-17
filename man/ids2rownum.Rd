@@ -17,7 +17,7 @@ ids2rownum(ids, data, idname)
 vector of row numbers
 }
 \description{
-ids2rownum takes a vector of ids and converts it t the right
+ids2rownum takes a vector of ids and converts it to the right
  row number in the dataset; ids should be unique in the dataset
  that is, don't pass the function panel data with multiple same ids
 }
