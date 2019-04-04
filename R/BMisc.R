@@ -117,8 +117,8 @@ blockBootSample <- function(data, idname) {
     n <- nrow(data)
     ids <- sample(unique(data[,idname]), replace=TRUE)
     newid <- 1
-    b1 <- lapply(ids, function(id) {
-        bd <- data[ data[,idname]==id,]
+    b1 <- lapply(1:length(ids), function(i) {
+        bd <- data[ data[,idname]==ids[i],]
         bd[,idname] <- newid
         newid <- newid+1
         bd
