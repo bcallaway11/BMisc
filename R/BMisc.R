@@ -116,11 +116,10 @@ id2rownum <- function(id, data, idname) {
 blockBootSample <- function(data, idname) {
     n <- nrow(data)
     ids <- sample(unique(data[,idname]), replace=TRUE)
-    newid <- 1
+    newid <- seq(1:length(ids))
     b1 <- lapply(1:length(ids), function(i) {
         bd <- data[ data[,idname]==ids[i],]
-        bd[,idname] <- newid
-        newid <- newid+1
+        bd[,idname] <- newid[i]
         bd
     })
     do.call(rbind, b1)
