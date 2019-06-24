@@ -159,7 +159,7 @@ makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE, force01=FALSE) {
     }
 
     if (force01) {
-        Fx <- sapply(Fx, function(Fxval) max(min(Fxval,1,),0))
+        Fx <- sapply(Fx, function(Fxval) max(min(Fxval,1),0))
     }
 
     if (rearrange) {
