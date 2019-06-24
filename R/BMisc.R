@@ -138,6 +138,9 @@ blockBootSample <- function(data, idname) {
 #'  computation is somewhat faster if already sorted
 #' @param rearrange boolean indicating whether or not should monotize
 #'  distribution function
+#' @param force01 boolean indicating whether or not to force the values of
+#'  the distribution function (i.e. Fx) to be between 0 and 1
+#' 
 #' @examples
 #' y <- rnorm(100)
 #' y <- y[order(y)]
@@ -147,12 +150,16 @@ blockBootSample <- function(data, idname) {
 #' 
 #' @return ecdf
 #' @export
-makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE) {
+makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE, force01=FALSE) {
     if (!sorted) {
         tmat <- cbind(x, Fx)
         tmat <- tmat[order(x),]
         x <- tmat[,1]
         Fx <- tmat[,2]
+    }
+
+    if (force01) {
+        Fx <- sapply(Fx, function(Fxval) max(min(Fxval,1,),0))
     }
 
     if (rearrange) {
