@@ -10,6 +10,7 @@ reference:
       - ids2rownum
       - cs2panel
       - subsample
+      - blockBootSample
 
   - title: Functions for working with distributions
     contents:

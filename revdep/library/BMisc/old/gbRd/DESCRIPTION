@@ -1,0 +1,17 @@
+Package: gbRd
+Type: Package
+Title: Utilities for processing Rd objects and files
+Version: 0.4-11
+Date: 2012-01-04
+Author: Georgi N. Boshnakov
+Maintainer: Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>
+Description: Provides utilities for processing Rd objects and files.
+        Extract argument descriptions and other parts of the help pages
+        of functions.
+Depends: tools
+License: GPL (>= 2)
+LazyLoad: yes
+Packaged: 2012-10-01 09:06:44 UTC; mcbssgb2
+Repository: CRAN
+Date/Publication: 2012-10-01 12:27:21
+Built: R 3.6.0; ; 2019-06-25 19:38:26 UTC; unix

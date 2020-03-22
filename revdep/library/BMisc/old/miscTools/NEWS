@@ -1,0 +1,84 @@
+THIS IS THE CHANGELOG OF THE "miscTools" PACKAGE
+
+Please note that only the most significant changes are reported here.
+A full ChangeLog is available in the log messages of the SVN repository
+on R-Forge.
+
+
+            CHANGES IN VERSION 0.6-22  (2016-11-25)
+
+* function isSemidefinite() is a 'generic' function now, currently with
+methods for objects of class 'matrix' and 'list'
+
+* isSemidefinite.matrix() now immediately returns 'FALSE' as soon as a condition
+for positive semidefiniteness (or for negative semidefiniteness if argument
+'positive' is 'FALSE') is violated, because in this case checking further
+conditions is irrelevant
+
+* isSemidefinite.matrix(): the default method for checking semidefiniteness of
+matrices with 13 or more rows/coulmns is "eigen" instead of "det" now, because
+method "det" can be very slow for larger matrices
+
+
+            CHANGES IN VERSION 0.6-20  (2016-11-20)
+
+* improved function semidefiniteness() and its documentation
+
+* added function isSemidefinite(), which is currently just an additional
+(identical) user interface to semidefiniteness(), but which may replace
+semidefiniteness() in the (not so near) future
+
+
+            CHANGES IN VERSION 0.6-16  (2013-03-13)
+
+* fixed bugs in insertCol() and insertRwo() that occurred when inserting a 
+column to a single-row matrix or inserting a row to a single-column matrix
+(bug reported and solution provided by Max Gordon -- Thanks a lot!)
+
+
+            CHANGES IN VERSION 0.6-14  (2012-12-26)
+
+* corrected bug in compPlot(): the 45-degree-line was not always drawn if the
+axes had logarithmic scales
+
+* compPlot() now uses informative labels of the axes by labelling the axes
+with the expressions that are used for specifying the objects in the call 
+(before, the axes were always labelled by "x" and "y", respectively)
+
+
+            CHANGES IN VERSION 0.6-12  (2011-11-12)
+
+* added generic function margEff() 
+
+
+            CHANGES IN VERSION 0.6-10  (2010-10-15)
+
+* stdEr.default() now checks for x$std only if x is an object of S3 class
+
+
+            CHANGES IN VERSION 0.6-8  (2010-09-02)
+
+* moved generic function stdEr() including a default method and a method
+for objects of class "lm" from the "maxLik" package to this package
+
+
+            CHANGES IN VERSION 0.6-6
+
+* added generic functions nObs() and nParam() including the "default" methods
+and methods for objects of class "lm"; these generic functions and their methods
+were moved from the "maxLik" package to this package
+
+* added function ddnorm(), which calculates the derivative(s) of the density
+function of the normal (Gaussian) distribution with respect to the quantile
+
+* added function sumKeepAttr() that returns the sum of an array while keeping
+its attributes
+
+
+            CHANGES IN VERSION 0.6-2
+
+* added function "logDataSet", which was formerly part of the "micEcon" package,
+  where it had the name ".micEconLogData"
+
+* function "colMedians" can return the medians of each non-row
+  of an *array* now

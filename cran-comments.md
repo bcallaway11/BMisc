@@ -1,7 +1,8 @@
 ## Test environments
 
-* local Linux Mint 18, R 3.4.4
+* local Linux Mint 18, R 3.6.0
 * win-builder (devel and release)
+* rhub
 
 ## R CMD check results
 

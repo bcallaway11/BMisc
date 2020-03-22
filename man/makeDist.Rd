@@ -4,7 +4,7 @@
 \alias{makeDist}
 \title{makeDist}
 \usage{
-makeDist(x, Fx, sorted = FALSE, rearrange = FALSE)
+makeDist(x, Fx, sorted = FALSE, rearrange = FALSE, force01 = FALSE)
 }
 \arguments{
 \item{x}{vector of values}
@@ -16,6 +16,9 @@ computation is somewhat faster if already sorted}
 
 \item{rearrange}{boolean indicating whether or not should monotize
 distribution function}
+
+\item{force01}{boolean indicating whether or not to force the values of
+the distribution function (i.e. Fx) to be between 0 and 1}
 }
 \value{
 ecdf

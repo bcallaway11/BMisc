@@ -1,4 +1,8 @@
-# (current) BMisc 1.3.2
+# BMisc 1.4.1
+
+  * added getElementList function
+
+# BMisc 1.4.0
 
   * removed dependency on plm and formula.tools
   

@@ -1,0 +1,14 @@
+.initOps                Initialize operators
+can.operator            can.operator
+fun2name                Convert between a function and its name and
+                        vice versa.
+inverse                 Invert an R operator
+is.operator             Utilities for operators
+notin                   NOT IN
+operator.type           Return the type for an operator.
+operators               Return the _names_ of defined operators.
+rel.type                Get the relational type of a relational
+                        operator.
+removeOperator          Unregister a an operator.
+setOperator             Registers an operator for use with
+                        operator.tools package.

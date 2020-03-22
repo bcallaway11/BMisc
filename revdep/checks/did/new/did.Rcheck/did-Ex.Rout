@@ -1,0 +1,311 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "did"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('did')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("expf")
+> ### * expf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: expf
+> ### Title: expf
+> ### Aliases: expf
+> 
+> ### ** Examples
+> 
+> data(mpdta)
+> dta <- subset(mpdta, year==2007)
+> X <- model.matrix(~lpop, data=dta)
+> X <- expf(X, X[1,])
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ggdid")
+> ### * ggdid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ggdid
+> ### Title: ggdid
+> ### Aliases: ggdid
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D data(mpdta)
+> ##D out <- mp.spatt(lemp ~ treat, xformla=~lpop, data=mpdta,
+> ##D                 panel=TRUE, first.treat.name="first.treat",
+> ##D                 idname="countyreal", tname="year",
+> ##D                 bstrap=FALSE, se=TRUE, cband=FALSE)
+> ##D ggdid(out)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("indicator")
+> ### * indicator
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: indicator
+> ### Title: indicator
+> ### Aliases: indicator
+> 
+> ### ** Examples
+> 
+> data(mpdta)
+> dta <- subset(mpdta, year==2007)
+> X <- model.matrix(~lpop, data=dta)
+> X <- indicator(X, X[1,])
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mp.spatt")
+> ### * mp.spatt
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mp.spatt
+> ### Title: mp.spatt
+> ### Aliases: mp.spatt
+> 
+> ### ** Examples
+> 
+> data(mpdta)
+> 
+> ## with covariates
+> out1 <- mp.spatt(lemp ~ treat, xformla=~lpop, data=mpdta,
++                 panel=TRUE, first.treat.name="first.treat",
++                 idname="countyreal", tname="year",
++                 bstrap=FALSE, se=TRUE, cband=FALSE)
+current period: 2004 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2005 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2006 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2007 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2006 
+current group: 2006 
+set pretreatment period to be 2005 
+current period: 2007 
+current group: 2006 
+set pretreatment period to be 2005 
+current period: 2007 
+current group: 2007 
+set pretreatment period to be 2006 
+> ## summarize the group-time average treatment effects
+> summary(out1)
+
+Reference: Callaway, Brantly and Sant'Anna, Pedro.  "Difference-in-Differences with Multiple Time Periods." Working Paper <https://ssrn.com/abstract=3148250>, 2019. 
+
+
+
+| group| time|        att|        se|
+|-----:|----:|----------:|---------:|
+|  2004| 2004| -0.0145484| 0.0219886|
+|  2004| 2005| -0.0764499| 0.0284761|
+|  2004| 2006| -0.1404646| 0.0350339|
+|  2004| 2007| -0.1069326| 0.0330405|
+|  2006| 2004| -0.0008686| 0.0221298|
+|  2006| 2005| -0.0063972| 0.0185132|
+|  2006| 2006|  0.0012080| 0.0192254|
+|  2006| 2007| -0.0413082| 0.0196941|
+|  2007| 2004|  0.0265561| 0.0141314|
+|  2007| 2005| -0.0046609| 0.0155829|
+|  2007| 2006| -0.0283403| 0.0181435|
+|  2007| 2007| -0.0288948| 0.0162974|
+
+
+P-value for pre-test of DID assumption:  0.23803
+
+> ## summarize the aggregated treatment effect parameters
+> summary(out1$aggte)
+
+Reference: Callaway, Brantly and Sant'Anna, Pedro.  "Difference-in-Differences with Multiple Time Periods." Working Paper <https://ssrn.com/abstract=3148250>, 2019. 
+Overall Summary Measures 
+------------------------ 
+Simple ATT    :  -0.04177708 
+  SE          :  0.01118622 
+Selective ATT :  -0.03287537 
+  SE          :  0.01118622 
+Dynamic ATT   :  -0.08037689 
+  SE          :  0.02076471 
+Calendar ATT  :  -0.0441701 
+  SE          :  0.01892826 
+
+Dynamic Treatment Effects 
+-------------------------
+
+|  e|        att|        se|
+|--:|----------:|---------:|
+|  1| -0.0210883| 0.0114816|
+|  2| -0.0530221| 0.0163636|
+|  3| -0.1404646| 0.0370100|
+|  4| -0.1069326| 0.0342974|
+> 
+> ## without any covariates
+> out2 <- mp.spatt(lemp ~ treat, xformla=NULL, data=mpdta,
++                 panel=TRUE, first.treat.name="first.treat",
++                 idname="countyreal", tname="year",
++                 bstrap=FALSE, se=TRUE, cband=FALSE)
+current period: 2004 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2005 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2006 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2007 
+current group: 2004 
+set pretreatment period to be 2003 
+current period: 2006 
+current group: 2006 
+set pretreatment period to be 2005 
+current period: 2007 
+current group: 2006 
+set pretreatment period to be 2005 
+current period: 2007 
+current group: 2007 
+set pretreatment period to be 2006 
+> summary(out2)
+
+Reference: Callaway, Brantly and Sant'Anna, Pedro.  "Difference-in-Differences with Multiple Time Periods." Working Paper <https://ssrn.com/abstract=3148250>, 2019. 
+
+
+
+| group| time|        att|        se|
+|-----:|----:|----------:|---------:|
+|  2004| 2004| -0.0105032| 0.0232510|
+|  2004| 2005| -0.0704232| 0.0309848|
+|  2004| 2006| -0.1372587| 0.0364357|
+|  2004| 2007| -0.1008114| 0.0343592|
+|  2006| 2004|  0.0065201| 0.0233268|
+|  2006| 2005| -0.0027508| 0.0195586|
+|  2006| 2006| -0.0045946| 0.0177552|
+|  2006| 2007| -0.0412245| 0.0202292|
+|  2007| 2004|  0.0305067| 0.0150336|
+|  2007| 2005| -0.0027259| 0.0163958|
+|  2007| 2006| -0.0310871| 0.0178775|
+|  2007| 2007| -0.0260544| 0.0166554|
+
+
+P-value for pre-test of DID assumption:  0.16812
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mp.spatt.test")
+> ### * mp.spatt.test
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mp.spatt.test
+> ### Title: mp.spatt.test
+> ### Aliases: mp.spatt.test
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D data(mpdta)
+> ##D mptest <- mp.spatt.test(lemp ~ treat, xformlalist=list(~lpop), data=mpdta,
+> ##D                 panel=TRUE, first.treat.name="first.treat",
+> ##D                 idname="countyreal", tname="year", clustervarlist=list(NULL))
+> ##D summary(mptest[[1]])
+> ## End(Not run)
+> 
+> data(mpdta)
+> mptest <- mp.spatt.test(lemp ~ treat, xformlalist=list(NULL), data=mpdta,
++                 panel=TRUE, first.treat.name="first.treat",
++                 idname="countyreal", tname="year", clustervarlist=list(NULL))
+
+ Step 1 of 1 :.....................
+
+ >>> Inner Step 1 of 1 :.....................
+> summary(mptest[[1]])
+
+Reference: Callaway, Brantly and Sant'Anna, Pedro.  "Difference-in-Differences with Multiple Time Periods." Working Paper <https://ssrn.com/abstract=3148250>, 2019. 
+Cramer von Mises: 
+  Test Statistic:  7.22123 
+  Critical Value:  13.12852 
+  P-value       :  0.32 
+ 
+Clustering on   :  , 
+X formula       :  ~ 1 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("onefun")
+> ### * onefun
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: onefun
+> ### Title: onefun
+> ### Aliases: onefun
+> 
+> ### ** Examples
+> 
+> data(mpdta)
+> dta <- subset(mpdta, year==2007)
+> X <- model.matrix(~lpop, data=dta)
+> X <- onefun(X, X[1,])
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.092 0.048 1.668 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

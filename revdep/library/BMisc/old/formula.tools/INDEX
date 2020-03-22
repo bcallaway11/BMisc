@@ -1,0 +1,18 @@
+.invert.single          Invert multiple elements of a multiple element
+                        object
+as.character.formula    Converts a formula to character
+env                     Get the environment
+formula.parts           Manipulate the component parts of formulas,
+                        expressions, calls, name/symbols and list and
+                        vectors of such objects.
+get.vars                Get variable (names) from various R objects
+invert                  invert
+is.one.sided            Determine if an object is one- or two-sided.
+                        Test whether a object (typically formula, call
+                        or expression) is one- (e.g.  '~x') or
+                        two-sided (e.g. 'x~y').
+op.type                 Get the operator type used in an call, formula,
+                        expression, etc.
+split_terms             Split object into terms
+terms.call              terms
+toggle.sign             toggle the sign of an expression

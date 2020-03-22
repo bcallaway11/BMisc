@@ -1,77 +1,47 @@
-# Setup
+# Platform
 
-## Platform
-
-|setting  |value                        |
+|field    |value                        |
 |:--------|:----------------------------|
-|version  |R version 3.4.4 (2018-03-15) |
+|version  |R version 3.6.0 (2019-04-26) |
+|os       |Ubuntu 16.04.6 LTS           |
 |system   |x86_64, linux-gnu            |
 |ui       |X11                          |
 |language |en_US                        |
 |collate  |en_US.UTF-8                  |
+|ctype    |en_US.UTF-8                  |
 |tz       |America/New_York             |
-|date     |2018-07-15                   |
+|date     |2019-06-25                   |
 
-## Packages
+# Dependencies
 
-|package       |*  |version |date       |source                       |
-|:-------------|:--|:-------|:----------|:----------------------------|
-|BMisc         |*  |1.3.0   |2018-07-15 |local (bcallaway11/BMisc@NA) |
-|formula.tools |   |1.7.1   |2018-03-01 |cran (@1.7.1)                |
-|plm           |   |1.6-6   |2017-11-07 |cran (@1.6-6)                |
+|package        |old    |new   |Δ  |
+|:--------------|:------|:-----|:--|
+|BMisc          |1.3.1  |1.4.0 |*  |
+|bdsmatrix      |1.3-3  |NA    |*  |
+|bibtex         |0.4.2  |NA    |*  |
+|Formula        |1.2-3  |NA    |*  |
+|formula.tools  |1.7.1  |NA    |*  |
+|gbRd           |0.4-11 |NA    |*  |
+|glue           |1.3.1  |NA    |*  |
+|lmtest         |0.9-37 |NA    |*  |
+|magrittr       |1.5    |NA    |*  |
+|maxLik         |1.3-6  |NA    |*  |
+|miscTools      |0.6-22 |NA    |*  |
+|operator.tools |1.6.3  |NA    |*  |
+|plm            |2.0-2  |NA    |*  |
+|Rdpack         |0.11-0 |NA    |*  |
+|sandwich       |2.5-1  |NA    |*  |
+|stringi        |1.4.3  |NA    |*  |
+|stringr        |1.4.0  |NA    |*  |
+|zoo            |1.8-6  |NA    |*  |
 
-# Check results
+# Revdeps
 
-5 packages
+## Failed to check (3)
 
-|package       |version | errors| warnings| notes|
-|:-------------|:-------|------:|--------:|-----:|
-|ccfa          |1.0.0   |      0|        1|     0|
-|csabounds     |1.0.0   |      0|        0|     0|
-|did           |1.1.0   |      0|        1|     0|
-|qte           |1.2.2   |      0|        0|     0|
-|TempleMetrics |1.1.0   |      0|        0|     0|
-
-## ccfa (1.0.0)
-Maintainer: Weige Huang <weige.huang@temple.edu>
-
-0 errors | 1 warning  | 0 notes
-
-```
-checking whether package ‘ccfa’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import ‘BMisc::lhs.vars’ by ‘formula.tools::lhs.vars’ when loading ‘ccfa’
-  Warning: replacing previous import ‘BMisc::rhs.vars’ by ‘formula.tools::rhs.vars’ when loading ‘ccfa’
-  Warning: replacing previous import ‘BMisc::rhs’ by ‘formula.tools::rhs’ when loading ‘ccfa’
-See ‘/home/brant/Dropbox/BMisc/revdep/checks/ccfa.Rcheck/00install.out’ for details.
-```
-
-## csabounds (1.0.0)
-Maintainer: Brantly Callaway <brantly.callaway@temple.edu>
-
-0 errors | 0 warnings | 0 notes
-
-## did (1.1.0)
-Maintainer: Brantly Callaway <brantly.callaway@temple.edu>
-
-0 errors | 1 warning  | 0 notes
-
-```
-checking whether package ‘did’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import ‘BMisc::lhs.vars’ by ‘formula.tools::lhs.vars’ when loading ‘did’
-  Warning: replacing previous import ‘BMisc::rhs.vars’ by ‘formula.tools::rhs.vars’ when loading ‘did’
-  Warning: replacing previous import ‘BMisc::rhs’ by ‘formula.tools::rhs’ when loading ‘did’
-See ‘/home/brant/Dropbox/BMisc/revdep/checks/did.Rcheck/00install.out’ for details.
-```
-
-## qte (1.2.2)
-Maintainer: Brantly Callaway <brantly.callaway@temple.edu>
-
-0 errors | 0 warnings | 0 notes
-
-## TempleMetrics (1.1.0)
-Maintainer: Brantly Callaway <brantly.callaway@temple.edu>
-
-0 errors | 0 warnings | 0 notes
+|package   |version |error |warning |note |
+|:---------|:-------|:-----|:-------|:----|
+|ccfa      |?       |      |        |     |
+|csabounds |?       |      |        |     |
+|qte       |?       |      |        |     |
 

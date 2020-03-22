@@ -1,0 +1,21 @@
+BMisc                   BMisc: A set of miscellaneous helper functions
+addCovToFormla          addCovToFormla
+checkfun                checkfun
+combineDfs              combineDfs
+compareBinary           compareBinary
+cs2panel                cs2panel
+dropCovFromFormla       dropCovFromFormla
+getWeightedDf           getWeightedDf
+getWeightedMean         getWeightedMean
+getWeightedQuantiles    getWeightedQuantiles
+ids2rownum              ids2rownum
+invertEcdf              invertEcdf
+lhs.vars                lhs.vars
+makeBalancedPanel       makeBalancedPanel
+makeDist                makeDist
+panel2cs                panel2cs
+rhs                     rhs
+rhs.vars                rhs.vars
+subsample               subsample
+toformula               toformula
+weighted.checkfun       weighted.checkfun

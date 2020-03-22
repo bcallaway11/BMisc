@@ -1,0 +1,240 @@
+THIS IS THE CHANGELOG OF THE "maxLik" PACKAGE
+
+Please note that only the most significant changes are reported here.
+A full ChangeLog is available in the log messages of the SVN repository
+on R-Forge.
+
+      CHANGES IN VERSION 1.3-6 (2015-11-08)
+
+* 'maxim' objects now support 'maxValue' and 'gradient' methods.  
+
+      CHANGES IN VERSION 1.3-4 (2015-11-08)
+
+* If Hessian is not negative definite in maxNRCompute, the program now
+  attempts to correct this repeatedly, but not infinite number of
+  times.  If Marquardt selected, it uses Marquardt lambda and it's
+  update method.
+
+* Fixed an issue where summary.maxLik did not use 'eigentol' option for 
+  displaying standard errors
+
+   
+      CHANGES IN VERSION 1.3-2 (2015-10-28)
+
+* Corrected a bug that did not permit maxLik to pass additional arguments 
+  to the likelihood function
+
+      CHANGES IN VERSION 1.3-0 (2015-10-24)
+     
+* maxNR & friends now support argument 'qac' (quadratic approximation
+  correction) option that allows to choose the behavior if the next
+  guess performs worse than the previous one.  This includes the
+  original step halving while keeping direction, and now also
+  Marquardt's (1963) shift toward the steepest gradient.
+
+* all max** functions now take control options in the form as
+  'control=list(...)', analogously as 'optim'.  The former method of
+  directly supplying options is preserved for compatibility reasons.
+
+* sumt, and stdEr method for 'maxLik' are now in namespace
+
+* the preferred way to specify the amount of debugging information is
+  now 'printLevel', not 'print.level'.
+
+
+      CHANGES IN VERSION 1.2-4 (2014-12-31)
+
+* Equality constraints (SUMT) checks conformity of the matrices
+
+* coef.maxim() is now exported
+
+* added argument "digits" to print.summary.maxLik()
+
+* added argument "digits" to condiNumber.default()
+
+* further arguments to condiNumber.maxLik() are now passed to
+condiNumber.default() rather than to hessian()
+
+
+      CHANGES IN VERSION 1.2-0 (2013-10-22)
+
+* Inequality constraints now support multiple constraints 
+  (B may be a vector).
+
+* Fixed a bug in documentation, inequality constraint requires
+  A %*% theta + B > 0, not >= 0 as stated earlier.
+
+* function sumKeepAttr() is imported from the miscTools package now (before
+maxLik() could not be used by another package when this package imported (and 
+not depended on) the maxLik package) (bug reported and solution provided by
+Martin Becker)
+
+
+      CHANGES IN VERSION 1.1-8 (2013-09-17)
+
+* fixed bug that could occur in the Newton-Raphson algorithm if the 
+log-likelihood function returns a vector with observation-specific values
+or if there are NAs in the function values, gradients, or Hessian
+
+
+      CHANGES IN VERSION 1.1-4 (2013-09-16)
+
+* the package code is byte-compiled
+
+* if the log-likelihood function contains NA, the gradient is not calculated; 
+if components of the gradient contain NA, the Hessian is not calculated
+
+* slightly improved documentation
+
+* improved warning messages and error messages when doing constrained
+optimisation
+
+* added citation information
+
+* added start-up message 
+
+
+	CHANGES IN VERSION 1.1-2 (2012-03-04)
+
+* BHHH only considers free parameters when analysing the size of gradient
+
+* numericGradient and numericHessian check for the length of
+  vector function
+
+
+        CHANGES IN VERSION 1.1-0 (2012-01-...)
+
+* Conjugate-gradient (CG) optimization  method included.
+
+* it is guaranteed now that the variance covariance matrix returned 
+by the vcov() method is always symmetric.
+
+* summary.maxLik is guaranteed to use maxLik specific methods, even if
+  corresponding methods for derived classes have higher priority.
+
+
+	CHANGES IN VERSION 1.0-2 (2011-10-16)
+
+This is mainly bugfix release.
+
+* maxBFGSR works with fixed parameters.
+
+* maxBFGS and other optim-based routines work with both fixed
+  parameters and inequality constraints.
+
+* constrOptim2 removed from API.  Names of it's formal arguments are
+  changed.
+
+
+            CHANGES IN VERSION 1.0-0 (2010-10-15)
+
+* moved the generic function stdEr() including a default method and a method
+for objects of class "lm" to the "miscTools" package (hence, this package now
+depends on the version 0.6-8 of the "miscTools" package that includes stdEr()
+
+* if argument print.level is 0 (the default) and some parameters are
+automatically fixed during the estimation, because the returned log-likelihood
+value has attributes "constPar" and "newVal", the adjusted "starting values"
+are no longer printed.
+
+
+            CHANGES IN VERSION 0.8-0
+
+* fixed bug that occured in maxBFGS(), mxNM(), and maxSANN if the model had only
+one parameter and the function specified by argument "grad" returned a vector
+with the analytical gradients at each observation
+
+* maxNR() now performs correctly with argument "iterlim" set to 0
+
+* maxNR, maxBHHH(), maxBFGS(), maxNM(), and maxSANN() now use attributes
+"gradient" and "hessian" of the object returned by the log-likelihood function;
+if supplied, these are used instead of arguments "grad" and "hess"
+
+* added function maxBFGSR() that implements the BFGS algorithm (in R); this
+function was originally developed by Yves Croissant and placed in the "mlogit"
+package
+
+* maxNR() now has an argument "bhhhHessian" (defaults to FALSE): if this
+argument is TRUE, the Hessian is approximated by the BHHH method (using
+information equality), i.e. the BHHH optimization algorithm is used
+
+* maxLik() now has an argument 'finalHessian'; if it is TRUE, the final
+Hessian is returned; if it is the character string "BHHH", the BHHH
+approximation of the Hessian matrix (using information equality) with attribute
+"type" set to "BHHH" is returned
+
+* maxNR(), maxBHHH(), maxBFGS(), maxNM(), and maxSANN() now additionally return
+a component "gradientObs" that is the matrix of gradients evaluated at each
+observation if argument "grad" returns a matrix or argument "grad" is not
+specified and argument "fn" returns a vector
+
+* the definitions of the generic functions nObs() and nParam() have been moved
+to the "miscTools" package
+
+* added methods bread() and estfun() for objects of class "maxLik" (see
+documentation of the generic functions bread() and estfun() defined in package
+"sandwich")
+
+* replaced argument "activePar" of numericGradient(), numericHessian(), and
+numericNHessian() by argument "fixed" to be consistent with maxLik(), maxNR(),
+and the other maxXXX() functions
+
+* maxNR(), maxBHHH(), maxBFGSYC(), maxBFGS(), maxNM(), maxSANN(), and
+summary.maxLik() now return component "fixed" instead of component "activePar"
+
+
+            CHANGES IN VERSION 0.7-2
+
+* corrected negative definiteness correction of Hessian in maxNR() which led
+to infinite loops
+
+* changed stopping condition in sumt(): instead of checking whether estimates
+are stimilar, we check for penalty being low now
+
+
+            CHANGES IN VERSION 0.7-0
+
+* Holding parameters fixed in maxNR() (and hence, also in maxBHHH()) should
+  now be done by the new (optional) argument "fixed", because it is convenient
+  to use than the "old" argument "activePar" in many situations. However, the
+  "old" argument "activePar" is kept for backward-compatibility.
+
+* added (optional) argument "fixed" to functions maxBFGS(), maxNM(), and maxSANN(),
+  which can be used for holding parameters fixed at their starting values
+
+* added function constrOptim2(), which is a modified copy of constrOptim()
+  from the "stats" package, but which includes a bug fix
+
+* added optional argument "cand" to function maxSANN(), which can be used to
+  specify a function for generating a new candidate point (passed to argument
+  "gr" of optim())
+
+* added argument "random.seed" to maxSANN() to ensure replicability
+
+* several mainly smaller improvements in ML estimations with linear equality
+  and inequality constraints (via sumt() and constrOptim2(), respectively)
+
+* several internal changes that make the code easier to maintain
+
+
+            CHANGES IN VERSION 0.6-0
+
+* maxLik() can perform maximum likelihood estimations under linear equality
+  and inequality constraints on the parameters now (see documentation of the
+  new argument "constraints"). Please note that estimations under constraints
+  are experimental and have not been thoroughly tested yet.
+
+* a new method "stdEr" to extract standard errors of the estimates has been
+  introduced
+
+* added a "coef" method for objects of class "summary.maxLik" that extracts
+  the matrix of the estimates, standard errors, t-values, and P-values
+
+* some minor bugs have been fixed
+
+* we did some general polishing of the returned object and under the hood
+
+
+            CHANGES IN VERSION 0.5-12 AND BEFORE
+
+* please take a look at the log messages of the SVN repository on R-Forge

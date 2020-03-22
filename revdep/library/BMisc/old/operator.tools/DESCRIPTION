@@ -1,0 +1,28 @@
+Package: operator.tools
+Type: Package
+Title: Utilities for Working with R's Operators
+Version: 1.6.3
+Date: 2017-02-28
+Authors@R: c(
+    person("Christopher", "Brown", , "chris.brown@decisionpatterns.com", c("aut", "cre") ),
+    person("Decision Patterns", role = "cph")
+    )
+Imports: utils (>= 3.3.2)
+Suggests: operators (>= 0.1.8), magrittr (>= 1.5), testthat (>= 1.0.2)
+Description: Provides a collection of utilities that allow programming with 
+    R's operators. Routines allow classifying operators, 
+    translating to and from an operator and its underlying function, and inverting 
+    some operators (e.g. comparison operators), etc. All methods can be extended
+    to custom infix operators. 
+License: GPL-2 | file LICENSE
+URL: https://github.com/decisionpatterns/operator.tools
+BugReports: https://github.com/decisionpatterns/operator.tools/issues
+RoxygenNote: 6.0.1.9000
+Repository: CRAN
+NeedsCompilation: no
+Packaged: 2017-02-28 14:38:49 UTC; cbrown
+Author: Christopher Brown [aut, cre],
+  Decision Patterns [cph]
+Maintainer: Christopher Brown <chris.brown@decisionpatterns.com>
+Date/Publication: 2017-02-28 23:13:22
+Built: R 3.6.0; ; 2019-06-25 19:38:27 UTC; unix

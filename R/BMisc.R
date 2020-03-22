@@ -150,7 +150,7 @@ blockBootSample <- function(data, idname) {
 #' 
 #' @return ecdf
 #' @export
-makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE, force01=FALSE) {
+makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE, force01=FALSE, method="constant") {
     if (!sorted) {
         tmat <- cbind(x, Fx)
         tmat <- tmat[order(x),]
@@ -166,7 +166,7 @@ makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE, force01=FALSE) {
         Fx <- sort(Fx)
     }
     
-    retF <- approxfun(x, Fx, method="constant",
+    retF <- approxfun(x, Fx, method=method,
                       yleft=0, yright=1, f=0, ties="ordered")
     class(retF) <- c("ecdf", "stepfun", class(retF))
     assign("nobs", length(x), envir = environment(retF))
@@ -719,7 +719,18 @@ subsample <- function(dta, idname, tname, keepids=NULL, nkeep=NULL) {
 ##     return(c(treated.df, untreated.df))
 ## }
     
-    
+
+#' @title getListElement
+#' @description a function to take a list and get a particular part
+#'  out of each element in the list
+#' @param listolists a list
+#' @param whichone which item to get out of each list (can be numeric or name)
+#'
+#' @return list of all the elements 'whichone' from each list
+#' @export
+getListElement <- function(listolists, whichone=1) {
+    lapply(listolists, function(l) l[[whichone]])
+}
 
 ##
 ##########################################################|

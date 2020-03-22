@@ -1,0 +1,218 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "TempleMetrics"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('TempleMetrics')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Fycondx.DR")
+> ### * Fycondx.DR
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Fycondx.DR
+> ### Title: Fycondx.DR
+> ### Aliases: Fycondx.DR
+> 
+> ### ** Examples
+> 
+> data(igm)
+> yvals <- seq(quantile(igm$lcfincome,.05,type=1),
++  quantile(igm$lcfincome,.95, type=1), length.out=100)
+> dres <- distreg(lcfincome ~ lfincome + HEDUC, igm, yvals)
+> xdf <- data.frame(lfincome=10, HEDUC=c("LessHS","HS"))
+> d <- Fycondx(dres, yvals, xdf)
+> d
+[[1]]
+Empirical CDF 
+Call: NULL
+ x[1:100] = 9.6856, 9.7073, 9.7291,  ..., 11.814, 11.836
+
+[[2]]
+Empirical CDF 
+Call: NULL
+ x[1:100] = 9.6856, 9.7073, 9.7291,  ..., 11.814, 11.836
+
+> y0 <- yvals[50]
+> d[[1]](y0)
+[1] 0.7270084
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("distreg")
+> ### * distreg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: distreg
+> ### Title: distreg
+> ### Aliases: distreg
+> 
+> ### ** Examples
+> 
+> data(igm)
+> y0 <- median(igm$lcfincome)
+> distreg(lcfincome ~ lfincome + HEDUC, igm, y0)
+$yvals
+[1] 11.04563
+
+$glmlist
+$glmlist[[1]]
+
+Call:  glm(formula = formla, family = binomial(link = link), data = dta)
+
+Coefficients:
+(Intercept)     lfincome      HEDUCHS  HEDUCLessHS  
+    15.3320      -1.3976       0.1629       0.2256  
+
+Degrees of Freedom: 499 Total (i.e. Null);  496 Residual
+Null Deviance:	    693.1 
+Residual Deviance: 640.9 	AIC: 648.9
+
+
+attr(,"class")
+[1] "DR"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lldistreg")
+> ### * lldistreg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lldistreg
+> ### Title: lldistreg
+> ### Aliases: lldistreg
+> 
+> ### ** Examples
+> 
+> data(igm)
+> lldistreg(lcfincome ~ lfincome, ~HEDUC, igm, 10, 10)
+[[1]]
+$y
+[1] 10
+
+$t
+[1] 10
+
+$thet
+            [,1]
+[1,]  0.08870324
+[2,]  0.20207450
+[3,]  1.96814531
+[4,] -1.87944207
+
+attr(,"class")
+[1] "llDR"
+
+attr(,"class")
+[1] "llDRlist"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lldr.inner")
+> ### * lldr.inner
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lldr.inner
+> ### Title: lldr.inner
+> ### Aliases: lldr.inner
+> 
+> ### ** Examples
+> 
+> data(igm)
+> lcinc <- 10
+> Y <- igm$lcfincome
+> XMain <- igm$lfincome
+> XOther <- data.frame(COL=1*(igm$HEDUC=="COL"))
+> lldr.inner(lcinc, 10, Y, XMain, XOther)
+$y
+[1] 10
+
+$t
+[1] 10
+
+$thet
+           [,1]
+[1,] 0.01586159
+[2,] 0.06243970
+[3,] 0.00000000
+
+attr(,"class")
+[1] "llDR"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("llscm")
+> ### * llscm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: llscm
+> ### Title: llscm
+> ### Aliases: llscm
+> 
+> ### ** Examples
+> 
+> data(igm)
+> igm$hs=ifelse(igm$HEDUC=="HS",1,0)
+> igm$col=ifelse(igm$HEDUC=="COL",1,0)
+> formla=lcfincome~lfincome
+> xformla=~hs+col
+> t=mean(igm$lfincome)
+> h=1.2
+> data=igm
+> llscm(formla,xformla,data,t,h)
+          [,1]
+    10.6638915
+hs   0.3173648
+col  0.3561751
+hs   0.6548726
+col  0.3877274
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.52 0.012 0.553 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
