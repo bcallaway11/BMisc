@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{toformula}
 \alias{toformula}
-\title{toformula}
+\title{Variable Names to Formula}
 \usage{
 toformula(yname, xnames)
 }

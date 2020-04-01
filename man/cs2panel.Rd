@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{cs2panel}
 \alias{cs2panel}
-\title{cs2panel}
+\title{Cross Section to Panel}
 \usage{
 cs2panel(cs1, cs2, yname)
 }
@@ -17,6 +17,7 @@ cs2panel(cs1, cs2, yname)
 the change in outcomes over time
 }
 \description{
-Turn repeated cross sections data into panel data by imposing rank invariance; does not
+Turn repeated cross sections data into panel data by
+ imposing rank invariance; does not require 
  that the inputs have the same length
 }

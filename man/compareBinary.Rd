@@ -2,10 +2,15 @@
 % Please edit documentation in R/BMisc.R
 \name{compareBinary}
 \alias{compareBinary}
-\title{compareBinary}
+\title{Compary Variables across Groups}
 \usage{
-compareBinary(x, on, dta, w = rep(1, nrow(dta)), report = c("diff",
-  "levels", "both"))
+compareBinary(
+  x,
+  on,
+  dta,
+  w = rep(1, nrow(dta)),
+  report = c("diff", "levels", "both")
+)
 }
 \arguments{
 \item{x}{variables to run regression on}
@@ -23,6 +28,6 @@ the two variables by group}
 matrix of results
 }
 \description{
-\code{compareBinary} ##takes in a variable e.g. union
+\code{compareBinary} takes in a variable e.g. union
 and runs bivariate regression of x on treatment (for summary statistics)
 }

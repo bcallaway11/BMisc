@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{rhs.vars}
 \alias{rhs.vars}
-\title{rhs.vars}
+\title{Right-hand Side Variables}
 \usage{
 rhs.vars(formla)
 }

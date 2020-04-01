@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{weighted.checkfun}
 \alias{weighted.checkfun}
-\title{weighted.checkfun}
+\title{Weighted Check Function}
 \usage{
 weighted.checkfun(q, cvec, tau, weights)
 }

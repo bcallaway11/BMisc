@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{checkfun}
 \alias{checkfun}
-\title{checkfun}
+\title{Check Function}
 \usage{
 checkfun(a, tau)
 }

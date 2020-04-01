@@ -2,10 +2,15 @@
 % Please edit documentation in R/BMisc.R
 \name{compareSingleBinary}
 \alias{compareSingleBinary}
-\title{compareSingleBinary}
+\title{Compare a single variable across two groups}
 \usage{
-compareSingleBinary(x, on, dta, w = rep(1, nrow(dta)),
-  report = c("diff", "levels", "both"))
+compareSingleBinary(
+  x,
+  on,
+  dta,
+  w = rep(1, nrow(dta)),
+  report = c("diff", "levels", "both")
+)
 }
 \arguments{
 \item{x}{variables to run regression on}
@@ -23,7 +28,7 @@ the two variables by group}
 matrix of results
 }
 \description{
-\code{compareBinary} ##takes in a variable e.g. union
+\code{compareBinary} takes in a variable e.g. union
 and runs bivariate regression of x on treatment (for summary statistics)
 }
 \keyword{internal}

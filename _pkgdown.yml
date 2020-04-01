@@ -36,3 +36,10 @@ reference:
       - rhs.vars
       - toformula
 
+  - title: Other miscellaneous functions
+    contents:
+      - getListElement
+
+  - title: Package documentation
+    contents:
+      - BMisc

@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{panel2cs}
 \alias{panel2cs}
-\title{panel2cs}
+\title{Panel Data to Repeated Cross Sections}
 \usage{
 panel2cs(data, timevars, idname, tname)
 }
@@ -20,8 +20,10 @@ data.frame
 }
 \description{
 panel2cs takes a 2 period dataset and turns it
- into a cross sectional dataset.  The default functionality
+ into a cross sectional dataset.  The data includes the
+ change in time varying variables between the
+ time periods.  The default functionality
  is to keep all the variables from period 1
  and add all the variables listed by name in timevars
- from period 2 to those
+ from period 2 to those.
 }

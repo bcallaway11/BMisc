@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{invertEcdf}
 \alias{invertEcdf}
-\title{invertEcdf}
+\title{Invert Ecdf}
 \usage{
 invertEcdf(df)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getWeightedDf}
 \alias{getWeightedDf}
-\title{getWeightedDf}
+\title{Weighted Distribution Function}
 \usage{
 getWeightedDf(y, y.seq = NULL, weights = NULL, norm = TRUE)
 }
@@ -21,5 +21,6 @@ to normalize}
 ecdf
 }
 \description{
-Get the mean applying some weights
+Get a distribution function from a vector of values
+ after applying some weights
 }

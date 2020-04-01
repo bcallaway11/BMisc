@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getWeightedQuantile}
 \alias{getWeightedQuantile}
-\title{getWeightedQuantile}
+\title{Quantile of a Weighted Check Function}
 \usage{
 getWeightedQuantile(tau, cvec, weights = NULL, norm = TRUE)
 }

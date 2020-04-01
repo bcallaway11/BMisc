@@ -2,9 +2,16 @@
 % Please edit documentation in R/BMisc.R
 \name{makeDist}
 \alias{makeDist}
-\title{makeDist}
+\title{Make a Distribution Function}
 \usage{
-makeDist(x, Fx, sorted = FALSE, rearrange = FALSE, force01 = FALSE)
+makeDist(
+  x,
+  Fx,
+  sorted = FALSE,
+  rearrange = FALSE,
+  force01 = FALSE,
+  method = "constant"
+)
 }
 \arguments{
 \item{x}{vector of values}
@@ -19,6 +26,11 @@ distribution function}
 
 \item{force01}{boolean indicating whether or not to force the values of
 the distribution function (i.e. Fx) to be between 0 and 1}
+
+\item{method}{which method to pass to \code{approxfun} to approximate the
+distribution function.  Default is "constant"; other possible choice is
+"linear".  "constant" returns a step function, just like an empirical
+cdf; "linear" linearly interpolates between neighboring points.}
 }
 \value{
 ecdf

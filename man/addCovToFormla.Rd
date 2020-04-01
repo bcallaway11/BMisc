@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{addCovToFormla}
 \alias{addCovToFormla}
-\title{addCovToFormla}
+\title{Add a Covariate to a Formula}
 \usage{
 addCovToFormla(covs, formla)
 }

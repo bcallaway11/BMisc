@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{makeBalancedPanel}
 \alias{makeBalancedPanel}
-\title{makeBalancedPanel}
+\title{Balance a Panel Data Set}
 \usage{
 makeBalancedPanel(data, idname, tname)
 }

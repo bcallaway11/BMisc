@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{combineDfs}
 \alias{combineDfs}
-\title{combineDfs}
+\title{Combine Two Distribution Functions}
 \usage{
 combineDfs(y.seq, dflist, pstrat = NULL)
 }

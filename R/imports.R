@@ -1,4 +1,6 @@
-#' BMisc: A set of miscellaneous helper functions
+#' @title BMisc
+#'
+#' @description A set of miscellaneous helper functions
 #'
 #' @docType package
 #' @name BMisc

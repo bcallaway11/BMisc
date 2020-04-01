@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{subsample}
 \alias{subsample}
-\title{subsample}
+\title{Subsample of Observations from Panel Data}
 \usage{
 subsample(dta, idname, tname, keepids = NULL, nkeep = NULL)
 }

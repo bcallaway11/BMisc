@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{blockBootSample}
 \alias{blockBootSample}
-\title{blockBootSample}
+\title{Block Bootstrap}
 \usage{
 blockBootSample(data, idname)
 }
@@ -18,4 +18,11 @@ data.frame bootstrapped from the original dataset; this data.frame
 \description{
 make draws of all observations with the same id in a panel
  data context.  This is useful for bootstrapping with panel data.
+}
+\examples{
+data(LaborSupply, package="plm")
+bbs <- blockBootSample(LaborSupply, "id")
+nrow(bbs)
+head(bbs$id)
+
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{rhs}
 \alias{rhs}
-\title{rhs}
+\title{Right-hand Side of Formula}
 \usage{
 rhs(formla)
 }

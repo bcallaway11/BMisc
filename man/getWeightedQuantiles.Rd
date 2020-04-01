@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getWeightedQuantiles}
 \alias{getWeightedQuantiles}
-\title{getWeightedQuantiles}
+\title{Get Weighted Quantiles}
 \usage{
 getWeightedQuantiles(tau, cvec, weights = NULL, norm = TRUE)
 }

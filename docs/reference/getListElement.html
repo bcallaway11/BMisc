@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Combine Two Distribution Functions — combineDfs • BMisc</title>
+<title>Return Particular Element from Each Element in a List — getListElement • BMisc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Combine Two Distribution Functions — combineDfs" />
-<meta property="og:description" content="Combines two distribution functions with given weights by pstrat" />
+<meta property="og:title" content="Return Particular Element from Each Element in a List — getListElement" />
+<meta property="og:description" content="a function to take a list and get a particular part
+ out of each element in the list" />
 
 
 
@@ -106,47 +107,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Combine Two Distribution Functions</h1>
+    <h1>Return Particular Element from Each Element in a List</h1>
     
-    <div class="hidden name"><code>combineDfs.Rd</code></div>
+    <div class="hidden name"><code>getListElement.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Combines two distribution functions with given weights by pstrat</p>
+    <p>a function to take a list and get a particular part
+ out of each element in the list</p>
     </div>
 
-    <pre class="usage"><span class='fu'>combineDfs</span>(<span class='no'>y.seq</span>, <span class='no'>dflist</span>, <span class='kw'>pstrat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>getListElement</span>(<span class='no'>listolists</span>, <span class='kw'>whichone</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>y.seq</th>
-      <td><p>sequence of possible y values</p></td>
+      <th>listolists</th>
+      <td><p>a list</p></td>
     </tr>
     <tr>
-      <th>dflist</th>
-      <td><p>list of distribution functions to combine</p></td>
-    </tr>
-    <tr>
-      <th>pstrat</th>
-      <td><p>a vector of weights to put on each distribution function;
-if weights are not provided then equal weight is given to each
-distribution function</p></td>
+      <th>whichone</th>
+      <td><p>which item to get out of each list (can be numeric or name)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ecdf</p>
+    <p>list of all the elements 'whichone' from each list</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)
-<span class='no'>Fx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/ecdf.html'>ecdf</a></span>(<span class='no'>x</span>)
-<span class='no'>Fy</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/ecdf.html'>ecdf</a></span>(<span class='no'>y</span>)
-<span class='no'>both</span> <span class='kw'>&lt;-</span> <span class='fu'>combineDfs</span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>0.1</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>Fx</span>,<span class='no'>Fy</span>))
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>Fx</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"green"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>Fy</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>both</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='combineDfs-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>len</span> <span class='kw'>&lt;-</span> <span class='fl'>100</span> <span class='co'># number elements in list</span>
+<span class='no'>lis</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fl'>1</span>:<span class='no'>len</span>, <span class='kw'>function</span>(<span class='no'>l</span>) <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span><span class='kw'>=</span>(-<span class='no'>l</span>), <span class='kw'>y</span><span class='kw'>=</span><span class='no'>l</span>^<span class='fl'>2</span>) ) <span class='co'># create list</span>
+<span class='fu'>getListElement</span>(<span class='no'>lis</span>, <span class='st'>"x"</span>)[<span class='fl'>1</span>] <span class='co'># should be equal to -1</span></div><div class='output co'>#&gt; [[1]]
+#&gt; [1] -1
+#&gt; </div><div class='input'><span class='fu'>getListElement</span>(<span class='no'>lis</span>, <span class='fl'>1</span>)[<span class='fl'>1</span>] <span class='co'># should be equal to -1</span></div><div class='output co'>#&gt; [[1]]
+#&gt; [1] -1
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

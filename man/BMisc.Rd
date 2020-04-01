@@ -3,8 +3,7 @@
 \docType{package}
 \name{BMisc}
 \alias{BMisc}
-\alias{BMisc-package}
-\title{BMisc: A set of miscellaneous helper functions}
+\title{BMisc}
 \description{
-BMisc: A set of miscellaneous helper functions
+A set of miscellaneous helper functions
 }

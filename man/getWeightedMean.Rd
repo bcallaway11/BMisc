@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getWeightedMean}
 \alias{getWeightedMean}
-\title{getWeightedMean}
+\title{Weighted Mean}
 \usage{
 getWeightedMean(y, weights = NULL, norm = TRUE)
 }

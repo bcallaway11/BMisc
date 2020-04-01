@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{id2rownum}
 \alias{id2rownum}
-\title{ids2rownum}
+\title{Take particular id and convert to row number}
 \usage{
 id2rownum(id, data, idname)
 }
