@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{compareBinary}
 \alias{compareBinary}
-\title{Compary Variables across Groups}
+\title{Compare Variables across Groups}
 \usage{
 compareBinary(
   x,

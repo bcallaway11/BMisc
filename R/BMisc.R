@@ -388,7 +388,7 @@ cs2panel <- function(cs1, cs2, yname) {
 
 
 
-#' @title Compary Variables across Groups
+#' @title Compare Variables across Groups
 #'
 #' @description \code{compareBinary} takes in a variable e.g. union
 #' and runs bivariate regression of x on treatment (for summary statistics)
