@@ -117,7 +117,7 @@
  of the formula</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rhs</span>(<span class='no'>formla</span>)</pre>
+    <pre class="usage"><span class='fu'>rhs</span><span class='op'>(</span><span class='va'>formla</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,9 +133,10 @@
     <p>a one sided formula</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ff</span> <span class='kw'>&lt;-</span> <span class='no'>yvar</span> ~ <span class='no'>x1</span> + <span class='no'>x2</span>
-<span class='fu'>rhs</span>(<span class='no'>ff</span>)</div><div class='output co'>#&gt; ~x1 + x2
-#&gt; &lt;environment: 0x56370e49a3e8&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>ff</span> <span class='op'>&lt;-</span> <span class='va'>yvar</span> <span class='op'>~</span> <span class='va'>x1</span> <span class='op'>+</span> <span class='va'>x2</span>
+<span class='fu'>rhs</span><span class='op'>(</span><span class='va'>ff</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ~x1 + x2
+#&gt; &lt;environment: 0x55b1fbd95898&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -152,7 +153,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

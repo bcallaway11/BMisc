@@ -44,6 +44,8 @@ makeBalancedPanel <- function(data, idname, tname) {
 #' @export
 panel2cs <- function(data, timevars, idname, tname) {
 
+  .Deprecated("panel2cs2")
+  
   if (length(unique(data[,tname])) != 2) {
     stop("panel2cs only for 2 periods of panel data")
   }
@@ -64,6 +66,57 @@ panel2cs <- function(data, timevars, idname, tname) {
   retdat$dy <- retdat$yt1 - retdat$y
   return(retdat)
 }
+
+
+#' @title Panel Data to Repeated Cross Sections
+#' 
+#' @description panel2cs2 takes a 2 period dataset and turns it
+#'  into a cross sectional dataset; i.e., long to wide.
+#'  This function considers a particular case where there is some outcome
+#'  whose value can change over time.  It returns the dataset from the first
+#'  period with the outcome in the second period and the change in outcomes
+#'  over time appended to it
+#' 
+#' @param data data.frame used in function
+#' @param yname name of outcome variable that can change over time
+#' @param idname unique id
+#' @param tname time period name
+#' 
+#' @return data from first period with y0 (outcome in first period),
+#'  y1 (outcome in second period), and dy (change in outcomes
+#'  over time) appended to it
+#' @export
+panel2cs2 <- function(data, yname, idname, tname) {
+
+  # check that only 2 periods of data
+  if (length(unique(data[,tname])) != 2) {
+    stop("panel2cs only for 2 periods of panel data")
+  }
+
+  # balance the data, just in case 
+  data <- makeBalancedPanel(data, idname, tname)
+  data <- data[order(data[,idname], data[,tname]),]
+
+  # dataset that contains original and change, will merge into return
+  # dataset
+  inner.data <- tidyr::pivot_wider(data, id_cols=idname, names_from=tname, values_from=yname, names_prefix="y")
+  if (ncol(inner.data) != 3) {
+    stop("something unexpected has happened...")
+  }
+  colnames(inner.data) <- c(idname, "y0", "y1")
+  inner.data$dy <- inner.data$y1 - inner.data$y0
+  
+  # construct data for first period only to be returned
+  first.period <- min(data[,tname])
+  ret.data <- data[ data[,tname] == first.period, ]
+
+  # merge two datasets
+  ret.data <- merge(ret.data, inner.data, by=idname)
+
+  ret.data
+}
+
+
 
 #' @title Convert Vector of ids into Vector of Row Numbers
 #' 

@@ -117,14 +117,14 @@
  into an ecdf.  Vectors should be the same length and both increasing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>makeDist</span>(
-  <span class='no'>x</span>,
-  <span class='no'>Fx</span>,
-  <span class='kw'>sorted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>rearrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>force01</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"constant"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>makeDist</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>Fx</span>,
+  sorted <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  rearrange <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  force01 <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  method <span class='op'>=</span> <span class='st'>"constant"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,11 +166,13 @@ cdf; "linear" linearly interpolates between neighboring points.</p></td>
     <p>ecdf</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>y</span>[<span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span>(<span class='no'>y</span>)]
-<span class='no'>u</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>)
-<span class='no'>u</span> <span class='kw'>&lt;-</span> <span class='no'>u</span>[<span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span>(<span class='no'>u</span>)]
-<span class='no'>F</span> <span class='kw'>&lt;-</span> <span class='fu'>makeDist</span>(<span class='no'>y</span>,<span class='no'>u</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>y</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>u</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>u</span> <span class='op'>&lt;-</span> <span class='va'>u</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span><span class='op'>(</span><span class='va'>u</span><span class='op'>)</span><span class='op'>]</span>
+<span class='cn'>F</span> <span class='op'>&lt;-</span> <span class='fu'>makeDist</span><span class='op'>(</span><span class='va'>y</span>,<span class='va'>u</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -186,7 +188,7 @@ cdf; "linear" linearly interpolates between neighboring points.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
