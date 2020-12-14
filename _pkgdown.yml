@@ -7,6 +7,7 @@ reference:
     contents: 
       - makeBalancedPanel
       - panel2cs
+      - panel2cs2
       - ids2rownum
       - cs2panel
       - subsample
