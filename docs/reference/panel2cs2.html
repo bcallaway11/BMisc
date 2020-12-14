@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Weighted Distribution Function — getWeightedDf • BMisc</title>
+<title>Panel Data to Repeated Cross Sections — panel2cs2 • BMisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,13 @@
 
 
 
-<meta property="og:title" content="Weighted Distribution Function — getWeightedDf" />
-<meta property="og:description" content="Get a distribution function from a vector of values
- after applying some weights" />
+<meta property="og:title" content="Panel Data to Repeated Cross Sections — panel2cs2" />
+<meta property="og:description" content="panel2cs2 takes a 2 period dataset and turns it
+ into a cross sectional dataset; i.e., long to wide.
+ This function considers a particular case where there is some outcome
+ whose value can change over time.  It returns the dataset from the first
+ period with the outcome in the second period and the change in outcomes
+ over time appended to it" />
 
 
 
@@ -107,44 +111,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Weighted Distribution Function</h1>
+    <h1>Panel Data to Repeated Cross Sections</h1>
     
-    <div class="hidden name"><code>getWeightedDf.Rd</code></div>
+    <div class="hidden name"><code>panel2cs2.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get a distribution function from a vector of values
- after applying some weights</p>
+    <p>panel2cs2 takes a 2 period dataset and turns it
+ into a cross sectional dataset; i.e., long to wide.
+ This function considers a particular case where there is some outcome
+ whose value can change over time.  It returns the dataset from the first
+ period with the outcome in the second period and the change in outcomes
+ over time appended to it</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getWeightedDf</span><span class='op'>(</span><span class='va'>y</span>, y.seq <span class='op'>=</span> <span class='cn'>NULL</span>, weights <span class='op'>=</span> <span class='cn'>NULL</span>, norm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>panel2cs2</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>yname</span>, <span class='va'>idname</span>, <span class='va'>tname</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>y</th>
-      <td><p>a vector to compute the mean for</p></td>
+      <th>data</th>
+      <td><p>data.frame used in function</p></td>
     </tr>
     <tr>
-      <th>y.seq</th>
-      <td><p>an optional vector of values to compute the distribution function
-for; the default is to use all unique values of y</p></td>
+      <th>yname</th>
+      <td><p>name of outcome variable that can change over time</p></td>
     </tr>
     <tr>
-      <th>weights</th>
-      <td><p>the vector of weights, can be NULL, then will just return mean</p></td>
+      <th>idname</th>
+      <td><p>unique id</p></td>
     </tr>
     <tr>
-      <th>norm</th>
-      <td><p>normalize the weights so that they have mean of 1, default is
-to normalize</p></td>
+      <th>tname</th>
+      <td><p>time period name</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ecdf</p>
+    <p>data from first period with y0 (outcome in first period),
+ y1 (outcome in second period), and dy (change in outcomes
+ over time) appended to it</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
