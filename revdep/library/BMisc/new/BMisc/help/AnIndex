@@ -1,4 +1,3 @@
-BMisc-package	BMisc
 addCovToFormla	addCovToFormla
 blockBootSample	blockBootSample
 BMisc	BMisc
@@ -8,6 +7,7 @@ compareBinary	compareBinary
 compareSingleBinary	compareSingleBinary
 cs2panel	cs2panel
 dropCovFromFormla	dropCovFromFormla
+getListElement	getListElement
 getWeightedDf	getWeightedDf
 getWeightedMean	getWeightedMean
 getWeightedQuantile	getWeightedQuantile
@@ -19,6 +19,7 @@ lhs.vars	lhs.vars
 makeBalancedPanel	makeBalancedPanel
 makeDist	makeDist
 panel2cs	panel2cs
+panel2cs2	panel2cs2
 rhs	rhs
 rhs.vars	rhs.vars
 subsample	subsample

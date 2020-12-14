@@ -1,5 +1,5 @@
-BMisc-package	BMisc
 addCovToFormla	addCovToFormla
+blockBootSample	blockBootSample
 BMisc	BMisc
 checkfun	checkfun
 combineDfs	combineDfs
@@ -7,6 +7,7 @@ compareBinary	compareBinary
 compareSingleBinary	compareSingleBinary
 cs2panel	cs2panel
 dropCovFromFormla	dropCovFromFormla
+getListElement	getListElement
 getWeightedDf	getWeightedDf
 getWeightedMean	getWeightedMean
 getWeightedQuantile	getWeightedQuantile

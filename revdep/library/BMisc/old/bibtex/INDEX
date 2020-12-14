@@ -1,3 +1,0 @@
-do_read_bib             convenience wrapper around .External call
-read.bib                bibtex parser
-write.bib               Generate a Bibtex File from Package Citations

@@ -1,21 +1,25 @@
-BMisc                   BMisc: A set of miscellaneous helper functions
-addCovToFormla          addCovToFormla
-checkfun                checkfun
-combineDfs              combineDfs
-compareBinary           compareBinary
-cs2panel                cs2panel
-dropCovFromFormla       dropCovFromFormla
-getWeightedDf           getWeightedDf
-getWeightedMean         getWeightedMean
-getWeightedQuantiles    getWeightedQuantiles
-ids2rownum              ids2rownum
-invertEcdf              invertEcdf
-lhs.vars                lhs.vars
-makeBalancedPanel       makeBalancedPanel
-makeDist                makeDist
-panel2cs                panel2cs
-rhs                     rhs
-rhs.vars                rhs.vars
-subsample               subsample
-toformula               toformula
-weighted.checkfun       weighted.checkfun
+BMisc                   BMisc
+addCovToFormla          Add a Covariate to a Formula
+blockBootSample         Block Bootstrap
+checkfun                Check Function
+combineDfs              Combine Two Distribution Functions
+compareBinary           Compare Variables across Groups
+cs2panel                Cross Section to Panel
+dropCovFromFormla       Drop a Covariate from a Formula
+getListElement          Return Particular Element from Each Element in
+                        a List
+getWeightedDf           Weighted Distribution Function
+getWeightedMean         Weighted Mean
+getWeightedQuantiles    Get Weighted Quantiles
+ids2rownum              Convert Vector of ids into Vector of Row
+                        Numbers
+invertEcdf              Invert Ecdf
+lhs.vars                Left-hand Side Variables
+makeBalancedPanel       Balance a Panel Data Set
+makeDist                Make a Distribution Function
+panel2cs                Panel Data to Repeated Cross Sections
+rhs                     Right-hand Side of Formula
+rhs.vars                Right-hand Side Variables
+subsample               Subsample of Observations from Panel Data
+toformula               Variable Names to Formula
+weighted.checkfun       Weighted Check Function
