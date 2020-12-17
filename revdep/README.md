@@ -10,7 +10,7 @@
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |America/New_York             |
-|date     |2020-12-14                   |
+|date     |2020-12-17                   |
 
 # Dependencies
 
@@ -38,7 +38,7 @@
 |tidyr      |NA    |1.1.2  |*  |
 |tidyselect |NA    |1.1.0  |*  |
 |utf8       |NA    |1.1.4  |*  |
-|vctrs      |NA    |0.3.5  |*  |
+|vctrs      |NA    |0.3.6  |*  |
 
 # Revdeps
 

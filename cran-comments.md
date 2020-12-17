@@ -26,3 +26,4 @@ We checked 4 reverse dependencies (3 from CRAN + 1 from Bioconductor), comparing
 
  * We saw 0 new problems
  * We failed to check 0 packages
+ * There were new warnings generated in the `did` package (I am also the maintainer of this package) that were due to the function `panel2cs` in `BMisc` being deprecated.  To address this, I have (i) un-deprecated `panel2cs` in `BMisc`, (ii) will replace the call to `panel2cs` with the call to the new version of this function (`panel2cs2`) in the `did` package for its next version, and (iii) will then deprecate `panel2cs` again in the `BMisc` package for its next version.
