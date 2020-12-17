@@ -14,7 +14,7 @@ RoxygenNote: 7.1.1
 RemoteType: local
 RemoteUrl: /home/brant/Dropbox/BMisc
 NeedsCompilation: no
-Packaged: 2020-12-13 03:17:25 UTC; brant
+Packaged: 2020-12-17 17:56:11 UTC; brant
 Author: Brantly Callaway [aut, cre]
 Maintainer: Brantly Callaway <brantly.callaway@uga.edu>
-Built: R 4.0.3; ; 2020-12-13 03:17:25 UTC; unix
+Built: R 4.0.3; ; 2020-12-17 17:56:12 UTC; unix

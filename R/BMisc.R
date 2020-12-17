@@ -44,7 +44,7 @@ makeBalancedPanel <- function(data, idname, tname) {
 #' @export
 panel2cs <- function(data, timevars, idname, tname) {
 
-  .Deprecated("panel2cs2")
+  #.Deprecated("panel2cs2")
   
   if (length(unique(data[,tname])) != 2) {
     stop("panel2cs only for 2 periods of panel data")
