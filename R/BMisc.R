@@ -792,5 +792,13 @@ getListElement <- function(listolists, whichone=1) {
 }
 
 
+#' @title source_all
+#'
+#' @description Source all the files in a folder
+#'
+#' @param fldr path to a folder
+source_all <- function(fldr) {
+  sapply(paste0(fldr,list.files(fldr)), source)
+}
 
 

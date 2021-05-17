@@ -1,6 +1,8 @@
 # BMisc 1.4.2
 
   * changed package maintainer contact information
+  
+  * added source_all function
 
 # BMisc 1.4.1
 
