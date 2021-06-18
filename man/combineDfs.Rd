@@ -4,7 +4,7 @@
 \alias{combineDfs}
 \title{Combine Two Distribution Functions}
 \usage{
-combineDfs(y.seq, dflist, pstrat = NULL)
+combineDfs(y.seq, dflist, pstrat = NULL, ...)
 }
 \arguments{
 \item{y.seq}{sequence of possible y values}
@@ -14,6 +14,8 @@ combineDfs(y.seq, dflist, pstrat = NULL)
 \item{pstrat}{a vector of weights to put on each distribution function;
 if weights are not provided then equal weight is given to each
 distribution function}
+
+\item{...}{additional arguments that can be past to BMisc::makeDist}
 }
 \value{
 ecdf

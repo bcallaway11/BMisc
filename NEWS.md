@@ -1,3 +1,7 @@
+# BMisc 1.4.3
+
+  * allow for additional arguments in combineDfs function
+
 # BMisc 1.4.2
 
   * changed package maintainer contact information

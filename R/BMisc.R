@@ -641,6 +641,7 @@ dropCovFromFormla <- function(covs, formla) {
 #' @param pstrat a vector of weights to put on each distribution function;
 #'  if weights are not provided then equal weight is given to each
 #'  distribution function
+#' @param ... additional arguments that can be past to BMisc::makeDist
 #'
 #' @examples
 #' x <- rnorm(100)
@@ -654,7 +655,7 @@ dropCovFromFormla <- function(covs, formla) {
 #' 
 #' @return ecdf
 #' @export
-combineDfs <- function(y.seq, dflist, pstrat=NULL) {
+combineDfs <- function(y.seq, dflist, pstrat=NULL, ...) {
   if (is.null(pstrat)) {
     pstrat <- rep(1/length(dflist), length(dflist))
   }            
@@ -668,7 +669,7 @@ combineDfs <- function(y.seq, dflist, pstrat=NULL) {
 
   df.vals <- rowSums(df.valsmat)
   
-  makeDist(y.seq, df.vals)
+  makeDist(y.seq, df.vals, ...)
 }
 
 #' @title Subsample of Observations from Panel Data
