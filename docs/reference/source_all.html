@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return Particular Element from Each Element in a List — getListElement • BMisc</title>
+<title>source_all — source_all • BMisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Return Particular Element from Each Element in a List — getListElement" />
-<meta property="og:description" content="a function to take a list and get a particular part
- out of each element in the list" />
+<meta property="og:title" content="source_all — source_all" />
+<meta property="og:description" content="Source all the files in a folder" />
 
 
 
@@ -107,48 +106,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return Particular Element from Each Element in a List</h1>
+    <h1>source_all</h1>
     
-    <div class="hidden name"><code>getListElement.Rd</code></div>
+    <div class="hidden name"><code>source_all.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>a function to take a list and get a particular part
- out of each element in the list</p>
+    <p>Source all the files in a folder</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getListElement</span><span class='op'>(</span><span class='va'>listolists</span>, whichone <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>source_all</span><span class='op'>(</span><span class='va'>fldr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>listolists</th>
-      <td><p>a list</p></td>
-    </tr>
-    <tr>
-      <th>whichone</th>
-      <td><p>which item to get out of each list (can be numeric or name)</p></td>
+      <th>fldr</th>
+      <td><p>path to a folder</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of all the elements 'whichone' from each list</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fl'>100</span> <span class='co'># number elements in list</span></span>
-<span class='r-in'><span class='va'>lis</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='op'>-</span><span class='va'>l</span><span class='op'>)</span>, y<span class='op'>=</span><span class='va'>l</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>)</span> <span class='co'># create list</span></span>
-<span class='r-in'><span class='fu'>getListElement</span><span class='op'>(</span><span class='va'>lis</span>, <span class='st'>"x"</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='co'># should be equal to -1</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-in'><span class='fu'>getListElement</span><span class='op'>(</span><span class='va'>lis</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='co'># should be equal to -1</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-in'></span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

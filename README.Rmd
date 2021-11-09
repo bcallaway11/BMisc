@@ -14,6 +14,18 @@ knitr::opts_chunk$set(
 
 # BMisc
 
+```{r echo=FALSE, results='asis', message=FALSE}
+cat(
+  badger::badge_cran_download("BMisc", "grand-total", "blue"),
+  badger::badge_cran_download("BMisc", "last-month", "blue"),
+  badger::badge_cran_release("BMisc", "blue"),
+  badger::badge_devel("bcallaway11/BMisc", "blue"),
+  badger::badge_cran_checks("BMisc"),
+  badger::badge_codecov("bcallaway11/BMisc"),
+  badger::badge_last_commit("bcallaway11/BMisc")
+)
+```
+
 BMisc includes miscellaneous functions for working with panel data, quantiles, and printing results.
 
 ## Installation

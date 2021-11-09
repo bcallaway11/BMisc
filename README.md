@@ -1,12 +1,21 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-BMisc
-=====
 
-BMisc includes miscellaneous functions for working with panel data, quantiles, and printing results.
+# BMisc
 
-Installation
-------------
+[![](http://cranlogs.r-pkg.org/badges/grand-total/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
+[![](http://cranlogs.r-pkg.org/badges/last-month/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
+[![](https://www.r-pkg.org/badges/version/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
+[![](https://img.shields.io/badge/devel%20version-1.4.3-blue.svg)](https://github.com/bcallaway11/BMisc)
+[![CRAN
+checks](https://cranchecks.info/badges/summary/BMisc)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
+[![](https://codecov.io/gh/bcallaway11/BMisc/branch/master/graph/badge.svg)](https://codecov.io/gh/bcallaway11/BMisc)
+[![](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)
+
+BMisc includes miscellaneous functions for working with panel data,
+quantiles, and printing results.
+
+## Installation
 
 You can install BMisc from github with:
 
@@ -21,10 +30,11 @@ or from CRAN with:
 install.packages("BMisc")
 ```
 
-Example 1
----------
+## Example 1
 
-One of the most useful functions in the `BMisc` package is `makeDist` which takes a vector of observations and turns them into a distribution function.
+One of the most useful functions in the `BMisc` package is `makeDist`
+which takes a vector of observations and turns them into a distribution
+function.
 
 ``` r
 library(BMisc)
@@ -38,10 +48,11 @@ class(F)
 ##plot(F)
 ```
 
-Example 2
----------
+## Example 2
 
-Another useful function is the `makeBalancedPanel` function which drops observations from a panel dataset which are not available in all time periods.
+Another useful function is the `makeBalancedPanel` function which drops
+observations from a panel dataset which are not available in all time
+periods.
 
 ``` r
 id <- rep(seq(1,100,1),2) ## individual ids for setting up a two period panel
