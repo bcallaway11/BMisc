@@ -8,5 +8,4 @@ Imports: tidyr
 License: GPL-2
 Suggests: plm
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.2
