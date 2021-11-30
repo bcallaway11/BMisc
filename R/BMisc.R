@@ -17,6 +17,13 @@
 #' @return data.frame that is a balanced panel
 #' @export
 makeBalancedPanel <- function(data, idname, tname) {
+  if ("tbl" %in% class(data)) {
+    data <- as.data.frame(data)
+  }
+  if (!all(class(data)=="data.frame")) {
+    stop("data must be a data.frame")
+  }
+  
   nt <- length(unique(data[,tname]))
   agg <- aggregate(data[,idname], by=list(data[,idname]), length)
   rightids <- agg[,1][agg[,2]==nt]
