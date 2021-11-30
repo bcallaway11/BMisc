@@ -1,4 +1,6 @@
 # BMisc 1.4.3
+  
+  * added TorF function, a vectorized version of isTRUE
 
   * allow for additional arguments in combineDfs function
 

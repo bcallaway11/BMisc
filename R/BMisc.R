@@ -792,7 +792,6 @@ getListElement <- function(listolists, whichone=1) {
   lapply(listolists, function(l) l[[whichone]])
 }
 
-
 #' @title source_all
 #'
 #' @description Source all the files in a folder
@@ -804,4 +803,21 @@ source_all <- function(fldr) {
   sapply(paste0(fldr,list.files(fldr)), source)
 }
 
-
+#' @title TorF
+#' @description A function to replace NA's with FALSE in vector of logicals
+#' @param cond a vector of conditions to check
+#' @param use_isTRUE whether or not to use a vectorized version
+#'  of isTRUE.  This is generally slower but covers more cases.
+#' @return logical vector
+#'
+#' @export
+TorF <- function(cond, use_isTRUE=FALSE) {
+  if (!is.logical(cond)) stop("cond should be a logical vector")
+  
+  if (use_isTRUE) {
+    cond <- sapply(cond, isTRUE)
+  } else {  
+    cond[is.na(cond)] <- FALSE
+  }
+  cond
+}

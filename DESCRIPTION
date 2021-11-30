@@ -6,6 +6,9 @@ Description: These are miscellaneous functions for working with panel data, quan
 Depends: R (>= 2.1.0)
 Imports: tidyr
 License: GPL-2
-Suggests: plm
+Suggests: 
+    testthat (>= 3.0.0),
+    plm
 Encoding: UTF-8
 RoxygenNote: 7.1.2
+Config/testthat/edition: 3
