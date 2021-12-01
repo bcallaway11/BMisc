@@ -102,8 +102,10 @@ panel2cs2 <- function(data, yname, idname, tname, balance_panel=TRUE) {
     stop("panel2cs only for 2 periods of panel data")
   }
 
-  # balance the data, just in case 
-  data <- makeBalancedPanel(data, idname, tname)
+  # balance the data, just in case
+  if (balance_panel) {
+    data <- makeBalancedPanel(data, idname, tname)
+  }
   data <- data[order(data[,idname], data[,tname]),]
 
   # dataset that contains original and change, will merge into return
