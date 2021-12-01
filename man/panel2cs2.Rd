@@ -4,7 +4,7 @@
 \alias{panel2cs2}
 \title{Panel Data to Repeated Cross Sections}
 \usage{
-panel2cs2(data, yname, idname, tname)
+panel2cs2(data, yname, idname, tname, balance_panel = TRUE)
 }
 \arguments{
 \item{data}{data.frame used in function}
@@ -14,6 +14,9 @@ panel2cs2(data, yname, idname, tname)
 \item{idname}{unique id}
 
 \item{tname}{time period name}
+
+\item{balance_panel}{whether to ensure that panel is balanced.  Default is TRUE, but code runs somewhat
+faster if this is set to be FALSE.}
 }
 \value{
 data from first period with y0 (outcome in first period),

@@ -88,12 +88,14 @@ panel2cs <- function(data, timevars, idname, tname) {
 #' @param yname name of outcome variable that can change over time
 #' @param idname unique id
 #' @param tname time period name
+#' @param balance_panel whether to ensure that panel is balanced.  Default is TRUE, but code runs somewhat
+#'  faster if this is set to be FALSE.
 #' 
 #' @return data from first period with y0 (outcome in first period),
 #'  y1 (outcome in second period), and dy (change in outcomes
 #'  over time) appended to it
 #' @export
-panel2cs2 <- function(data, yname, idname, tname) {
+panel2cs2 <- function(data, yname, idname, tname, balance_panel=TRUE) {
 
   # check that only 2 periods of data
   if (length(unique(data[,tname])) != 2) {
