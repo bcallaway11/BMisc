@@ -4,6 +4,8 @@
 #'
 #' @docType package
 #' @name BMisc
+#' @useDynLib BMisc
+#' @importFrom Rcpp sourceCpp
 #' @import graphics
 #' @import stats
 NULL

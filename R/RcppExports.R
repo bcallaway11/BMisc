@@ -26,3 +26,21 @@ element_wise_mult <- function(U, inf_func) {
     .Call('_BMisc_element_wise_mult', PACKAGE = 'BMisc', U, inf_func)
 }
 
+#' multiplier_bootstrap
+#'
+#' A function that takes in an influence function (an
+#' nxk matrix) and the number of bootstrap iterations and
+#' returns a Bxk matrix of bootstrap results. This function
+#' uses Rademechar weights.
+#' 
+#' @param inf_func nxk matrix of (e.g., these could be a matrix
+#'  containing the influence function for different parameter
+#'  estimates)
+#' @param biters the number of bootstrap iterations
+#'
+#' @return a Bxk matrix
+#' @export
+multiplier_bootstrap <- function(inf_func, biters) {
+    .Call('_BMisc_multiplier_bootstrap', PACKAGE = 'BMisc', inf_func, biters)
+}
+

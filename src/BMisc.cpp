@@ -52,3 +52,44 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
   return(outMat);
 
 }
+
+//' multiplier_bootstrap
+//'
+//' A function that takes in an influence function (an
+//' nxk matrix) and the number of bootstrap iterations and
+//' returns a Bxk matrix of bootstrap results. This function
+//' uses Rademechar weights.
+//' 
+//' @param inf_func nxk matrix of (e.g., these could be a matrix
+//'  containing the influence function for different parameter
+//'  estimates)
+//' @param biters the number of bootstrap iterations
+//'
+//' @return a Bxk matrix
+//' @export
+// [[Rcpp::export]]
+arma::mat multiplier_bootstrap(arma::mat inf_func, int biters) {
+
+  int n = inf_func.n_rows;
+  int K = inf_func.n_cols;
+
+  arma::mat innerMat(n,K);
+  arma::vec Ub(n);
+  //double innerSum;
+  arma::mat outMat(biters,K);
+
+
+  for (int b=0; b<biters; b++) {
+    // draw Rademechar weights
+    Ub = arma::ones<arma::vec>(n) - 2*arma::round(arma::randu<arma::vec>(n));
+    //Rcout << "Ub : " << Ub << "\n";
+    innerMat = inf_func.each_col() % Ub;
+    //Rcout << "innerMat : " << innerMat << "\n";
+    //Rcout << "sum: " << arma::sum(innerMat, 0)/n;
+    outMat.row(b) = arma::sum(innerMat, 0)/n;
+    //outMat(b,_) = meanCpp(innerMat.each_col());
+  }
+  
+  return(outMat);
+
+}
