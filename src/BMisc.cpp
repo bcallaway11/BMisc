@@ -4,7 +4,7 @@ using namespace Rcpp;
 // [[Rcpp::depends(RcppArmadillo)]]
 
 
-//' element_wide_mult
+//' element_wise_mult
 //'
 //' This is a function that takes in two matrices of dimension
 //' nxB and nxk and returns a Bxk matrix that comes from

@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{element_wise_mult}
 \alias{element_wise_mult}
-\title{element_wide_mult}
+\title{element_wise_mult}
 \usage{
 element_wise_mult(U, inf_func)
 }
