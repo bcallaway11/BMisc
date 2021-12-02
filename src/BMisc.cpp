@@ -24,6 +24,7 @@ using namespace Rcpp;
 //'  estimates)
 //'
 //' @return a Bxk matrix
+//' @export
 // [[Rcpp::export]]
 arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 

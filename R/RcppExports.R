@@ -21,6 +21,7 @@
 #'  estimates)
 #'
 #' @return a Bxk matrix
+#' @export
 element_wise_mult <- function(U, inf_func) {
     .Call('_BMisc_element_wise_mult', PACKAGE = 'BMisc', U, inf_func)
 }
