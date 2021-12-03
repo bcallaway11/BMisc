@@ -91,8 +91,8 @@ panel2cs <- function(data, timevars, idname, tname) {
 #' @param balance_panel whether to ensure that panel is balanced.  Default is TRUE, but code runs somewhat
 #'  faster if this is set to be FALSE.
 #' 
-#' @return data from first period with y0 (outcome in first period),
-#'  y1 (outcome in second period), and dy (change in outcomes
+#' @return data from first period with .y0 (outcome in first period),
+#'  .y1 (outcome in second period), and .dy (change in outcomes
 #'  over time) appended to it
 #' @export
 panel2cs2 <- function(data, yname, idname, tname, balance_panel=TRUE) {
@@ -114,8 +114,8 @@ panel2cs2 <- function(data, yname, idname, tname, balance_panel=TRUE) {
   if (ncol(inner.data) != 3) {
     stop("something unexpected has happened...")
   }
-  colnames(inner.data) <- c(idname, "y0", "y1")
-  inner.data$dy <- inner.data$y1 - inner.data$y0
+  colnames(inner.data) <- c(idname, ".y0", ".y1")
+  inner.data$.dy <- inner.data$.y1 - inner.data$.y0
   
   # construct data for first period only to be returned
   first.period <- min(data[,tname])
