@@ -125,7 +125,7 @@
  over time appended to it</p>
     </div>
 
-    <pre class="usage"><span class='fu'>panel2cs2</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>yname</span>, <span class='va'>idname</span>, <span class='va'>tname</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>panel2cs2</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>yname</span>, <span class='va'>idname</span>, <span class='va'>tname</span>, balance_panel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,12 +146,17 @@
       <th>tname</th>
       <td><p>time period name</p></td>
     </tr>
+    <tr>
+      <th>balance_panel</th>
+      <td><p>whether to ensure that panel is balanced.  Default is TRUE, but code runs somewhat
+faster if this is set to be FALSE.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data from first period with y0 (outcome in first period),
- y1 (outcome in second period), and dy (change in outcomes
+    <p>data from first period with .y0 (outcome in first period),
+ .y1 (outcome in second period), and .dy (change in outcomes
  over time) appended to it</p>
 
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Right-hand Side of Formula — rhs • BMisc</title>
+<title>multiplier_bootstrap — multiplier_bootstrap • BMisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,11 @@
 
 
 
-<meta property="og:title" content="Right-hand Side of Formula — rhs" />
-<meta property="og:description" content="Take a formula and return the right hand side
- of the formula" />
+<meta property="og:title" content="multiplier_bootstrap — multiplier_bootstrap" />
+<meta property="og:description" content="A function that takes in an influence function (an
+nxk matrix) and the number of bootstrap iterations and
+returns a Bxk matrix of bootstrap results. This function
+uses Rademechar weights." />
 
 
 
@@ -107,38 +109,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Right-hand Side of Formula</h1>
+    <h1>multiplier_bootstrap</h1>
     
-    <div class="hidden name"><code>rhs.Rd</code></div>
+    <div class="hidden name"><code>multiplier_bootstrap.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Take a formula and return the right hand side
- of the formula</p>
+    <p>A function that takes in an influence function (an
+nxk matrix) and the number of bootstrap iterations and
+returns a Bxk matrix of bootstrap results. This function
+uses Rademechar weights.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rhs</span><span class='op'>(</span><span class='va'>formla</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>multiplier_bootstrap</span><span class='op'>(</span><span class='va'>inf_func</span>, <span class='va'>biters</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formla</th>
-      <td><p>a formula</p></td>
+      <th>inf_func</th>
+      <td><p>nxk matrix of (e.g., these could be a matrix
+containing the influence function for different parameter
+estimates)</p></td>
+    </tr>
+    <tr>
+      <th>biters</th>
+      <td><p>the number of bootstrap iterations</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a one sided formula</p>
+    <p>a Bxk matrix</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='va'>ff</span> <span class='op'>&lt;-</span> <span class='va'>yvar</span> <span class='op'>~</span> <span class='va'>x1</span> <span class='op'>+</span> <span class='va'>x2</span></span>
-<span class='r-in'><span class='fu'>rhs</span><span class='op'>(</span><span class='va'>ff</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> ~x1 + x2</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x561c72d2fa00&gt;</span>
-<span class='r-in'></span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -12,6 +12,7 @@ reference:
       - cs2panel
       - subsample
       - blockBootSample
+      - multiplier_bootstrap
 
   - title: Functions for working with distributions
     contents:
@@ -41,6 +42,7 @@ reference:
     contents:
       - getListElement
       - source_all
+      - TorF
 
   - title: Package documentation
     contents:

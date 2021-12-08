@@ -1,6 +1,6 @@
 # BMisc 1.4.3
 
-  * added Rcpp element_wise_mult function, mainly useful for fast multiplier bootstrap computations
+  * added Rcpp multiplier_bootstrap function
 
   * added TorF function, a vectorized version of isTRUE
 

@@ -6,12 +6,12 @@ Description: These are miscellaneous functions for working with panel data, quan
 Depends: R (>= 2.1.0)
 Imports: 
     Rcpp,
-    tidyr,
-    RcppArmadillo
+    tidyr
 License: GPL-2
 Suggests: 
     testthat (>= 3.0.0),
-    plm
+    plm,
+    tibble
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 Config/testthat/edition: 3

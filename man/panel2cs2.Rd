@@ -19,8 +19,8 @@ panel2cs2(data, yname, idname, tname, balance_panel = TRUE)
 faster if this is set to be FALSE.}
 }
 \value{
-data from first period with y0 (outcome in first period),
- y1 (outcome in second period), and dy (change in outcomes
+data from first period with .y0 (outcome in first period),
+ .y1 (outcome in second period), and .dy (change in outcomes
  over time) appended to it
 }
 \description{

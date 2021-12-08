@@ -4,9 +4,9 @@ using namespace Rcpp;
 // [[Rcpp::depends(RcppArmadillo)]]
 
 
-//' element_wise_mult
+//' @title element_wise_mult
 //'
-//' This is a function that takes in two matrices of dimension
+//' @description This is a function that takes in two matrices of dimension
 //' nxB and nxk and returns a Bxk matrix that comes from
 //' element-wise multiplication of every column 
 //' in the first matrix times the entire second matrix and the
@@ -24,8 +24,6 @@ using namespace Rcpp;
 //'  estimates)
 //'
 //' @return a Bxk matrix
-//' @export
-// [[Rcpp::export]]
 arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 
   int n = U.n_rows;
@@ -53,9 +51,9 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 
 }
 
-//' multiplier_bootstrap
+//' @title multiplier_bootstrap
 //'
-//' A function that takes in an influence function (an
+//' @description A function that takes in an influence function (an
 //' nxk matrix) and the number of bootstrap iterations and
 //' returns a Bxk matrix of bootstrap results. This function
 //' uses Rademechar weights.

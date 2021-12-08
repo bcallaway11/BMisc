@@ -1,5 +1,3 @@
-library(tidyverse)
-
 test_that("TorF", {
   expect_equal(TorF(c(1,2,3) == c(0,NA,3)), c(FALSE, FALSE, TRUE))
   expect_equal(TorF(c(1,2,3) == c(0,NA,3), use_isTRUE=TRUE),
@@ -19,7 +17,7 @@ test_that("makeBalancedPanel", {
   expect_equal(length(unique(data$id)), 99)
 
   # check it works with tibble
-  data <- as_tibble(data)
+  data <- tibble::as_tibble(data)
   data <- data[-1,]
   data <- makeBalancedPanel(data, idname="id", tname="period")
 

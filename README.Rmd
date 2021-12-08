@@ -21,7 +21,6 @@ cat(
   badger::badge_cran_release("BMisc", "blue"),
   badger::badge_devel("bcallaway11/BMisc", "blue"),
   badger::badge_cran_checks("BMisc"),
-  badger::badge_codecov("bcallaway11/BMisc"),
   badger::badge_last_commit("bcallaway11/BMisc")
 )
 ```

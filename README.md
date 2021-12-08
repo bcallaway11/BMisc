@@ -9,7 +9,6 @@
 [![](https://img.shields.io/badge/devel%20version-1.4.3-blue.svg)](https://github.com/bcallaway11/BMisc)
 [![CRAN
 checks](https://cranchecks.info/badges/summary/BMisc)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
-[![](https://codecov.io/gh/bcallaway11/BMisc/branch/master/graph/badge.svg)](https://codecov.io/gh/bcallaway11/BMisc)
 [![](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)
 
 BMisc includes miscellaneous functions for working with panel data,
