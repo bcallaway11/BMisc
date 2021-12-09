@@ -19,6 +19,7 @@ lhs.vars	lhs.vars
 makeBalancedPanel	makeBalancedPanel
 makeDist	makeDist
 panel2cs	panel2cs
+panel2cs2	panel2cs2
 rhs	rhs
 rhs.vars	rhs.vars
 subsample	subsample

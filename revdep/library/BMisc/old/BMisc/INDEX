@@ -18,6 +18,7 @@ lhs.vars                Left-hand Side Variables
 makeBalancedPanel       Balance a Panel Data Set
 makeDist                Make a Distribution Function
 panel2cs                Panel Data to Repeated Cross Sections
+panel2cs2               Panel Data to Repeated Cross Sections
 rhs                     Right-hand Side of Formula
 rhs.vars                Right-hand Side Variables
 subsample               Subsample of Observations from Panel Data

@@ -1,6 +1,16 @@
+# BMisc 1.4.3
+
+  * added Rcpp multiplier_bootstrap function
+
+  * added TorF function, a vectorized version of isTRUE
+
+  * allow for additional arguments in combineDfs function
+
 # BMisc 1.4.2
 
   * changed package maintainer contact information
+  
+  * added source_all function
 
 # BMisc 1.4.1
 

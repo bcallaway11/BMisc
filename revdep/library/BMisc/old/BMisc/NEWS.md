@@ -1,3 +1,7 @@
+# BMisc 1.4.2
+
+  * changed package maintainer contact information
+
 # BMisc 1.4.1
 
   * added getElementList function

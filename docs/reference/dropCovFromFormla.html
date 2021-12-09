@@ -140,11 +140,11 @@ formula; covs should be a list of variable names</p>
     <pre class="examples"><span class='r-in'><span class='va'>formla</span> <span class='op'>&lt;-</span> <span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>w</span> <span class='op'>+</span> <span class='va'>z</span></span>
 <span class='r-in'><span class='fu'>dropCovFromFormla</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"w"</span>,<span class='st'>"z"</span><span class='op'>)</span>, <span class='va'>formla</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> y ~ x</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x561c71dd4da0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55588fa2c700&gt;</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='fu'>dropCovFromFormla</span><span class='op'>(</span><span class='st'>"z"</span>, <span class='va'>formla</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> y ~ x + w</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x561c71e8f620&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55588fac1178&gt;</span>
 <span class='r-in'></span>
 </pre>
   </div>
