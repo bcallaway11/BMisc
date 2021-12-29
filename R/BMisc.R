@@ -1,39 +1,35 @@
 #' @title Balance a Panel Data Set
-#' 
+#'
 #' @description This function drops observations from data.frame
 #'  that are not part of balanced panel data set.
-#' 
+#'
 #' @param data data.frame used in function
 #' @param idname unique id
 #' @param tname time period name
 #' @examples
-#' id <- rep(seq(1,100,1),2) ## individual ids for setting up a two period panel
+#' id <- rep(seq(1,100), each = 2) ## individual ids for setting up a two period panel
 #' t <- rep(seq(1,2),100) ## time periods
 #' y <- rnorm(200) ## outcomes
 #' dta <- data.frame(id=id, t=t, y=y) ## make into data frame
 #' dta <- dta[-7,] ## drop the 7th row from the dataset (which creates an unbalanced panel)
 #' dta <- makeBalancedPanel(dta, idname="id", tname="t")
-#' 
+#'
 #' @return data.frame that is a balanced panel
 #' @export
 makeBalancedPanel <- function(data, idname, tname) {
-  if ("tbl" %in% class(data)) {
-    data <- as.data.frame(data)
-  }
-  if (!all(class(data)=="data.frame")) {
+  if (!inherits(data,"data.frame")) {
     stop("data must be a data.frame")
   }
-  
-  nt <- length(unique(data[,tname]))
-  agg <- aggregate(data[,idname], by=list(data[,idname]), length)
-  rightids <- agg[,1][agg[,2]==nt]
-  bp <- data[data[,idname] %in% rightids,]
-  return(bp)
+
+  data.table::setDT(data)
+
+  nt <- length(unique(data[[tname]]))
+  return(data[, if (.N == nt) .SD, by = idname])
 }
 
 
 #' @title Panel Data to Repeated Cross Sections
-#' 
+#'
 #' @description panel2cs takes a 2 period dataset and turns it
 #'  into a cross sectional dataset.  The data includes the
 #'  change in time varying variables between the
@@ -41,28 +37,28 @@ makeBalancedPanel <- function(data, idname, tname) {
 #'  is to keep all the variables from period 1
 #'  and add all the variables listed by name in timevars
 #'  from period 2 to those.
-#' 
+#'
 #' @param data data.frame used in function
 #' @param timevars vector of names of variables to keep
 #' @param idname unique id
 #' @param tname time period name
-#' 
+#'
 #' @return data.frame
 #' @export
 panel2cs <- function(data, timevars, idname, tname) {
 
   #.Deprecated("panel2cs2")
-  
+
   if (length(unique(data[,tname])) != 2) {
     stop("panel2cs only for 2 periods of panel data")
   }
 
-  # balance the data, just in case 
+  # balance the data, just in case
   data <- makeBalancedPanel(data, idname, tname)
 
   # put everything in the right order,
   # so we can match it easily later on
-  data <- data[order(data[,idname], data[,tname]),] 
+  data <- data[order(data[,idname], data[,tname]),]
 
   tdta <- aggregate(data[,timevars], by=list(data[,idname]), FUN=function(x) { x[2] })
 
@@ -76,21 +72,21 @@ panel2cs <- function(data, timevars, idname, tname) {
 
 
 #' @title Panel Data to Repeated Cross Sections
-#' 
+#'
 #' @description panel2cs2 takes a 2 period dataset and turns it
 #'  into a cross sectional dataset; i.e., long to wide.
 #'  This function considers a particular case where there is some outcome
 #'  whose value can change over time.  It returns the dataset from the first
 #'  period with the outcome in the second period and the change in outcomes
 #'  over time appended to it
-#' 
+#'
 #' @param data data.frame used in function
 #' @param yname name of outcome variable that can change over time
 #' @param idname unique id
 #' @param tname time period name
 #' @param balance_panel whether to ensure that panel is balanced.  Default is TRUE, but code runs somewhat
 #'  faster if this is set to be FALSE.
-#' 
+#'
 #' @return data from first period with .y0 (outcome in first period),
 #'  .y1 (outcome in second period), and .dy (change in outcomes
 #'  over time) appended to it
@@ -98,7 +94,7 @@ panel2cs <- function(data, timevars, idname, tname) {
 panel2cs2 <- function(data, yname, idname, tname, balance_panel=TRUE) {
 
   # check that only 2 periods of data
-  if (length(unique(data[,tname])) != 2) {
+  if (length(unique(data[[tname]])) != 2) {
     stop("panel2cs only for 2 periods of panel data")
   }
 
@@ -106,35 +102,32 @@ panel2cs2 <- function(data, yname, idname, tname, balance_panel=TRUE) {
   if (balance_panel) {
     data <- makeBalancedPanel(data, idname, tname)
   }
-  data <- data[order(data[,idname], data[,tname]),]
 
-  # dataset that contains original and change, will merge into return
-  # dataset
-  inner.data <- tidyr::pivot_wider(data, id_cols=idname, names_from=tname, values_from=yname, names_prefix="y")
-  if (ncol(inner.data) != 3) {
-    stop("something unexpected has happened...")
-  }
-  colnames(inner.data) <- c(idname, ".y0", ".y1")
-  inner.data$.dy <- inner.data$.y1 - inner.data$.y0
-  
-  # construct data for first period only to be returned
-  first.period <- min(data[,tname])
-  ret.data <- data[ data[,tname] == first.period, ]
+  # data.table sorting (fast and memory efficient)
+  data.table::setDT(data)
+  data.table::setorderv(data, cols = c(idname, tname))
 
-  # merge two datasets
-  ret.data <- merge(ret.data, inner.data, by=idname)
+  # Trick to speed up by specializing for task at hand
+  # relies on being sorted by tname above
+  data$.y1 = data.table::shift(data[[yname]], -1)
+  data$.y0 = data[[yname]]
+  data$.dy = data$.y1 - data$.y0
 
-  ret.data
+  # Subset to first row
+  first.period <- min(data[[tname]])
+  data = data[data[[tname]] == first.period,]
+
+  data
 }
 
 
 
 #' @title Convert Vector of ids into Vector of Row Numbers
-#' 
+#'
 #' @description ids2rownum takes a vector of ids and converts it to the right
 #'  row number in the dataset; ids should be unique in the dataset
 #'  that is, don't pass the function panel data with multiple same ids
-#' 
+#'
 #' @param ids vector of ids
 #' @param data data frame
 #' @param idname unique id
@@ -144,7 +137,7 @@ panel2cs2 <- function(data, yname, idname, tname, balance_panel=TRUE) {
 #' ids <- ids[order(runif(100))]
 #' df <- data.frame(id=ids)
 #' ids2rownum(df$id, df, "id")
-#' 
+#'
 #' @return vector of row numbers
 #' @export
 ids2rownum <- function(ids, data, idname) {
@@ -153,15 +146,15 @@ ids2rownum <- function(ids, data, idname) {
 
 
 #'@title Take particular id and convert to row number
-#' 
+#'
 #' @description id2rownum takes an id and converts it t the right
 #'  row number in the dataset; ids should be unique in the dataset
 #'  that is, don't pass the function panel data with multiple same ids
-#' 
+#'
 #' @param ids vector of ids
 #' @param data data frame
 #' @param idname unique id
-#' 
+#'
 #' @keywords internal
 id2rownum <- function(id, data, idname) {
   which(data[,idname] == id)
@@ -183,7 +176,7 @@ id2rownum <- function(id, data, idname) {
 #' bbs <- blockBootSample(LaborSupply, "id")
 #' nrow(bbs)
 #' head(bbs$id)
-#' 
+#'
 #' @export
 blockBootSample <- function(data, idname) {
   n <- nrow(data)
@@ -200,10 +193,10 @@ blockBootSample <- function(data, idname) {
 
 
 #' @title Make a Distribution Function
-#' 
+#'
 #' @description turn vectors of a values and their distribution function values
 #'  into an ecdf.  Vectors should be the same length and both increasing.
-#' 
+#'
 #' @param x vector of values
 #' @param Fx vector of the distribution function values
 #' @param sorted boolean indicating whether or not x is already sorted;
@@ -216,14 +209,14 @@ blockBootSample <- function(data, idname) {
 #'  distribution function.  Default is "constant"; other possible choice is
 #'  "linear".  "constant" returns a step function, just like an empirical
 #'  cdf; "linear" linearly interpolates between neighboring points.
-#' 
+#'
 #' @examples
 #' y <- rnorm(100)
 #' y <- y[order(y)]
 #' u <- runif(100)
 #' u <- u[order(u)]
 #' F <- makeDist(y,u)
-#' 
+#'
 #' @return ecdf
 #' @export
 makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE, force01=FALSE, method="constant") {
@@ -241,7 +234,7 @@ makeDist <- function(x, Fx, sorted=FALSE, rearrange=FALSE, force01=FALSE, method
   if (rearrange) {
     Fx <- sort(Fx)
   }
-  
+
   retF <- approxfun(x, Fx, method=method,
                     yleft=0, yright=1, f=0, ties="ordered")
   class(retF) <- c("ecdf", "stepfun", class(retF))
@@ -287,16 +280,16 @@ invertEcdf <- function(df) {
 
 
 #' @title Check Function
-#' 
+#'
 #' @description The check function used for optimizing to get quantiles
-#' 
+#'
 #' @param a vector to compute quantiles for
 #' @param tau between 0 and 1, ex. .5 implies get the median
 #'
 #' @examples
 #' x <- rnorm(100)
 #' x[which.min(checkfun(x, 0.5))] ##should be around 0
-#' 
+#'
 #' @return numeric value
 #' @export
 checkfun <- function(a, tau) {
@@ -304,15 +297,15 @@ checkfun <- function(a, tau) {
 }
 
 #'@title Weighted Check Function
-#' 
+#'
 #' @description Weights the check function
-#' 
+#'
 #' @param q the value to check
 #' @param cvec vector of data to compute quantiles for
 #' @param tau between 0 and 1, ex. .5 implies get the median
 #' @param weights the weights, weighted.checkfun normalizes the weights
 #'  to sum to 1.
-#' 
+#'
 #' @return numeric
 #' @export
 weighted.checkfun = function(q, cvec, tau, weights) {
@@ -323,16 +316,16 @@ weighted.checkfun = function(q, cvec, tau, weights) {
 
 
 #' @title Quantile of a Weighted Check Function
-#' 
+#'
 #' @description Finds the quantile by optimizing the weighted check function
-#' 
+#'
 #' @param tau between 0 and 1, ex. .5 implies get the median
 #' @param cvec a vector to compute quantiles for
 #' @param weights the weights, weighted.checkfun normalizes the weights
 #'  to sum to 1.
 #' @param norm normalize the weights so that they have mean of 1, default is
 #'  to normalize
-#' 
+#'
 #' @keywords internal
 getWeightedQuantile <- function(tau, cvec, weights=NULL, norm=TRUE) {
   if (is.null(weights)) {
@@ -342,17 +335,17 @@ getWeightedQuantile <- function(tau, cvec, weights=NULL, norm=TRUE) {
   if (norm) {
     weights <- weights / mw
   }
-  return(optimize(weighted.checkfun, 
+  return(optimize(weighted.checkfun,
                   lower=min(cvec),
                   upper=max(cvec),
                   cvec=cvec, tau=tau, weights=weights)$minimum)
 }
 
 #' @title Get Weighted Quantiles
-#' 
+#'
 #' @description Finds multiple quantiles by repeatedly calling
 #'  getWeightedQuantile
-#' 
+#'
 #' @param tau a vector of values between 0 and 1
 #' @param cvec a vector to compute quantiles for
 #' @param weights the weights, weighted.checkfun normalizes the weights
@@ -368,14 +361,14 @@ getWeightedQuantiles <- function(tau, cvec, weights=NULL, norm=TRUE) {
 }
 
 #' @title Weighted Mean
-#' 
+#'
 #' @description Get the mean applying some weights
-#' 
+#'
 #' @param y a vector to compute the mean for
 #' @param weights the vector of weights, can be NULL, then will just return mean
 #' @param norm normalize the weights so that they have mean of 1, default is
 #'  to normalize
-#' 
+#'
 #' @return the weighted mean
 #' @export
 getWeightedMean <- function(y, weights=NULL, norm=TRUE) {
@@ -390,17 +383,17 @@ getWeightedMean <- function(y, weights=NULL, norm=TRUE) {
 }
 
 #' @title Weighted Distribution Function
-#' 
+#'
 #' @description Get a distribution function from a vector of values
 #'  after applying some weights
-#' 
+#'
 #' @param y a vector to compute the mean for
 #' @param y.seq an optional vector of values to compute the distribution function
 #'  for; the default is to use all unique values of y
 #' @param weights the vector of weights, can be NULL, then will just return mean
 #' @param norm normalize the weights so that they have mean of 1, default is
 #'  to normalize
-#' 
+#'
 #' @return ecdf
 #' @export
 getWeightedDf <- function(y, y.seq=NULL, weights=NULL, norm=TRUE) {
@@ -422,13 +415,13 @@ getWeightedDf <- function(y, y.seq=NULL, weights=NULL, norm=TRUE) {
 #' @title Cross Section to Panel
 #'
 #' @description Turn repeated cross sections data into panel data by
-#'  imposing rank invariance; does not require 
+#'  imposing rank invariance; does not require
 #'  that the inputs have the same length
 #'
 #' @param cs1 data frame, the first cross section
 #' @param cs2 data frame, the second cross section
 #' @param yname the name of the variable to calculate difference for (should be the same in each dataset)
-#' 
+#'
 #' @return the change in outcomes over time
 #' @export
 cs2panel <- function(cs1, cs2, yname) {
@@ -456,7 +449,7 @@ cs2panel <- function(cs1, cs2, yname) {
 #'
 #' @description \code{compareBinary} takes in a variable e.g. union
 #' and runs bivariate regression of x on treatment (for summary statistics)
-#' 
+#'
 #' @param x variables to run regression on
 #' @param on binary variable
 #' @param dta the data to use
@@ -464,7 +457,7 @@ cs2panel <- function(cs1, cs2, yname) {
 #' @param report which type of report to make; diff is the difference between
 #'  the two variables by group
 #'
-#' 
+#'
 #' @return matrix of results
 #' @export
 compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","levels","both")) {
@@ -485,9 +478,9 @@ compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","level
 #' and runs bivariate regression of x on treatment (for summary statistics)
 #'
 #' @inheritParams compareBinary
-#' 
+#'
 #' @return matrix of results
-#' 
+#'
 #' @keywords internal
 compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","levels","both")) {
   coefmat <- summary(lm(as.formula(paste(x, on ,sep=" ~ ")), data=dta,
@@ -507,7 +500,7 @@ compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff",
 
 
 #' @title Right-hand Side Variables
-#' 
+#'
 #' @description Take a formula and return a vector of the variables
 #'  on the right hand side
 #'
@@ -519,7 +512,7 @@ compareSingleBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff",
 #'
 #' ff <- y ~ x1 + I(x1^2)
 #' rhs.vars(ff)
-#' 
+#'
 #' @return vector of variable names
 #' @export
 rhs.vars <- function(formla) {
@@ -541,7 +534,7 @@ rhs.vars <- function(formla) {
 #' ff <- yvar ~ x1 + x2
 #' lhs.vars(ff)
 #' @return vector of variable names
-#' @export 
+#' @export
 lhs.vars <- function(formla) {
   if (length(formla) == 2) {
     return(NULL) ## there is no lhs variable
@@ -550,7 +543,7 @@ lhs.vars <- function(formla) {
 }
 
 #' @title Right-hand Side of Formula
-#' 
+#'
 #' @description Take a formula and return the right hand side
 #'  of the formula
 #'
@@ -567,7 +560,7 @@ rhs <- function(formla) {
 }
 
 #' @title Variable Names to Formula
-#' 
+#'
 #' @description take a name for a y variable and a vector of names
 #'  for x variables and turn them into a formula
 #'
@@ -597,18 +590,18 @@ toformula <- function(yname, xnames) {
 #' @description \code{addCovFromFormla} adds some covariates to a formula;
 #'   covs should be a list of variable names
 #'
-#' 
+#'
 #' @param covs should be a list of variable names
 #' @param formla which formula to add covariates to
 #' @return formula
 #'
 #' @examples
-#' formla <- y ~ x 
+#' formla <- y ~ x
 #' addCovToFormla(list("w","z"), formla)
 #'
 #' formla <- ~x
 #' addCovToFormla("z", formla)
-#' 
+#'
 #' @export
 addCovToFormla <- function(covs, formla) {
   vs <- rhs.vars(formla) ## vector of x variable names
@@ -622,7 +615,7 @@ addCovToFormla <- function(covs, formla) {
 #' @description \code{dropCovFromFormla} adds drops some covariates from a
 #' formula; covs should be a list of variable names
 #'
-#' 
+#'
 #' @param covs should be a list of variable names
 #' @param formla which formula to drop covariates from
 #' @return formula
@@ -632,7 +625,7 @@ addCovToFormla <- function(covs, formla) {
 #' dropCovFromFormla(list("w","z"), formla)
 #'
 #' dropCovFromFormla("z", formla)
-#' 
+#'
 #' @export
 dropCovFromFormla <- function(covs, formla) {
   vs <- rhs.vars(formla)
@@ -645,7 +638,7 @@ dropCovFromFormla <- function(covs, formla) {
 
 
 #' @title Combine Two Distribution Functions
-#' 
+#'
 #' @description Combines two distribution functions with given weights by pstrat
 #' @param y.seq sequence of possible y values
 #' @param dflist list of distribution functions to combine
@@ -663,13 +656,13 @@ dropCovFromFormla <- function(covs, formla) {
 #' plot(Fx, col="green")
 #' plot(Fy, col="blue", add=TRUE)
 #' plot(both, add=TRUE)
-#' 
+#'
 #' @return ecdf
 #' @export
 combineDfs <- function(y.seq, dflist, pstrat=NULL, ...) {
   if (is.null(pstrat)) {
     pstrat <- rep(1/length(dflist), length(dflist))
-  }            
+  }
   y.seq <- y.seq[order(y.seq)]
   df.valslist <- lapply(dflist, function(ddff) {
     ddff(y.seq)})
@@ -679,7 +672,7 @@ combineDfs <- function(y.seq, dflist, pstrat=NULL, ...) {
   }
 
   df.vals <- rowSums(df.valsmat)
-  
+
   makeDist(y.seq, df.vals, ...)
 }
 
@@ -687,7 +680,7 @@ combineDfs <- function(y.seq, dflist, pstrat=NULL, ...) {
 #'
 #' @description returns a subsample of a panel data set; in particular drops
 #'  all observations that are not in \code{keepids}.  If it is not set,
-#'  randomly keeps \code{nkeep} observations.  
+#'  randomly keeps \code{nkeep} observations.
 #'
 #' @param dta a data.frame which is a balanced panel
 #' @param idname the name of the id variable
@@ -704,7 +697,7 @@ combineDfs <- function(y.seq, dflist, pstrat=NULL, ...) {
 #' nrow(ss)
 #'
 #' @return a data.frame that contains a subsample of \code{dta}
-#' 
+#'
 #' @export
 subsample <- function(dta, idname, tname, keepids=NULL, nkeep=NULL) {
   ids <- unique(dta[,idname])
@@ -749,7 +742,7 @@ subsample <- function(dta, idname, tname, keepids=NULL, nkeep=NULL) {
 ##     ##            retEachIter=RE, pl=pl, cores=cores, data=data)
 ##     ##list(cfirp$F.treated.t, cfirp$F.treated.t.cf)
 ##     qp <- QTEparams(formla, xformla, t=NULL, tmin1=NULL, tmin2=NULL, tname=NULL, data=data, weights=weights, idname=NULL, probs=probs, iters=iters, alp=alp, method=method, plot=plot, se=se, retEachIter=retEachIter, bootstrapiter=FALSE, seedvec=NULL, pl=pl, cores=cores)
-##     setupData(qp) 
+##     setupData(qp)
 
 ##     pscore.reg <- glm(data[,treat] ~ as.matrix(data[,x]),
 ##                       family=binomial(link=method))
@@ -824,10 +817,10 @@ source_all <- function(fldr) {
 #' @export
 TorF <- function(cond, use_isTRUE=FALSE) {
   if (!is.logical(cond)) stop("cond should be a logical vector")
-  
+
   if (use_isTRUE) {
     cond <- sapply(cond, isTRUE)
-  } else {  
+  } else {
     cond[is.na(cond)] <- FALSE
   }
   cond
