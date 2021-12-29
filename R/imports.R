@@ -8,4 +8,5 @@
 #' @importFrom Rcpp sourceCpp
 #' @import graphics
 #' @import stats
+#' @importFrom RcppParallel RcppParallelLibs
 NULL

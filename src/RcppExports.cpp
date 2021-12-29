@@ -23,9 +23,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// multiplier_bootstrap_parallel
+NumericMatrix multiplier_bootstrap_parallel(NumericMatrix inf_func, int biters);
+RcppExport SEXP _BMisc_multiplier_bootstrap_parallel(SEXP inf_funcSEXP, SEXP bitersSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type inf_func(inf_funcSEXP);
+    Rcpp::traits::input_parameter< int >::type biters(bitersSEXP);
+    rcpp_result_gen = Rcpp::wrap(multiplier_bootstrap_parallel(inf_func, biters));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_BMisc_multiplier_bootstrap", (DL_FUNC) &_BMisc_multiplier_bootstrap, 2},
+    {"_BMisc_multiplier_bootstrap_parallel", (DL_FUNC) &_BMisc_multiplier_bootstrap_parallel, 2},
     {NULL, NULL, 0}
 };
 

@@ -5,7 +5,7 @@
 #'
 #' @description This is a function that takes in two matrices of dimension
 #' nxB and nxk and returns a Bxk matrix that comes from
-#' element-wise multiplication of every column 
+#' element-wise multiplication of every column
 #' in the first matrix times the entire second matrix and the
 #' averaging over the n-dimension.  It is equivalent (but faster
 #' than) the following R code:
@@ -29,7 +29,7 @@ NULL
 #' nxk matrix) and the number of bootstrap iterations and
 #' returns a Bxk matrix of bootstrap results. This function
 #' uses Rademechar weights.
-#' 
+#'
 #' @param inf_func nxk matrix of (e.g., these could be a matrix
 #'  containing the influence function for different parameter
 #'  estimates)
@@ -39,5 +39,23 @@ NULL
 #' @export
 multiplier_bootstrap <- function(inf_func, biters) {
     .Call('_BMisc_multiplier_bootstrap', PACKAGE = 'BMisc', inf_func, biters)
+}
+
+#' @title multiplier_bootstrap_parallel
+#'
+#' @description A function that takes in an influence function (an
+#' nxk matrix) and the number of bootstrap iterations and
+#' returns a Bxk matrix of bootstrap results. This function
+#' uses Rademechar weights.
+#'
+#' @param inf_func nxk matrix of (e.g., these could be a matrix
+#'  containing the influence function for different parameter
+#'  estimates)
+#' @param biters the number of bootstrap iterations
+#'
+#' @return a Bxk matrix
+#' @export
+multiplier_bootstrap_parallel <- function(inf_func, biters) {
+    .Call('_BMisc_multiplier_bootstrap_parallel', PACKAGE = 'BMisc', inf_func, biters)
 }
 

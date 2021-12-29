@@ -19,7 +19,7 @@ formula
   covs should be a list of variable names
 }
 \examples{
-formla <- y ~ x 
+formla <- y ~ x
 addCovToFormla(list("w","z"), formla)
 
 formla <- ~x

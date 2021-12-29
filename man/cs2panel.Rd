@@ -18,6 +18,6 @@ the change in outcomes over time
 }
 \description{
 Turn repeated cross sections data into panel data by
- imposing rank invariance; does not require 
+ imposing rank invariance; does not require
  that the inputs have the same length
 }
