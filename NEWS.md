@@ -1,3 +1,7 @@
+# BMisc 1.4.4
+  
+  * faster version of `panel2cs2` (thanks Kyle Butts)
+
 # BMisc 1.4.3
 
   * added Rcpp multiplier_bootstrap function
