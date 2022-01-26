@@ -6,8 +6,7 @@ Description: These are miscellaneous functions for working with panel data, quan
 Depends: R (>= 2.1.0)
 Imports: 
     data.table,
-    Rcpp,
-    tidyr
+    Rcpp
 License: GPL-2
 Suggests: 
     testthat (>= 3.0.0),
