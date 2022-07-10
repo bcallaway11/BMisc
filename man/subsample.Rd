@@ -27,7 +27,11 @@ returns a subsample of a panel data set; in particular drops
  randomly keeps \code{nkeep} observations.
 }
 \examples{
-data(LaborSupply, package="plm")
+\dontshow{ if(!requireNamespace("plm")) {
+  if(interactive() || is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA))) {
+    stop("package 'plm' is required for this example")
+  } else q() }}
+data("LaborSupply", package="plm")
 nrow(LaborSupply)
 unique(LaborSupply$year)
 ss <- subsample(LaborSupply, "id", "year", nkeep=100)
