@@ -1,3 +1,7 @@
+# BMisc 1.4.5
+  
+  * only execute examples for `subsample` and `blockBootSample` if `plm` package is available (thanks Achim Zeileis)
+
 # BMisc 1.4.4
   
   * faster version of `panel2cs2` (thanks Kyle Butts)

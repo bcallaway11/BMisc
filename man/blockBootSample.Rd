@@ -20,7 +20,11 @@ make draws of all observations with the same id in a panel
  data context.  This is useful for bootstrapping with panel data.
 }
 \examples{
-data(LaborSupply, package="plm")
+\dontshow{ if(!requireNamespace("plm")) {
+  if(interactive() || is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA))) {
+    stop("package 'plm' is required for this example")
+  } else q() }}
+data("LaborSupply", package="plm")
 bbs <- blockBootSample(LaborSupply, "id")
 nrow(bbs)
 head(bbs$id)

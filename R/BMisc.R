@@ -172,7 +172,11 @@ id2rownum <- function(id, data, idname) {
 #'  will contain new ids
 #'
 #' @examples
-#' data(LaborSupply, package="plm")
+#' \dontshow{ if(!requireNamespace("plm")) {
+#'   if(interactive() || is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA))) {
+#'     stop("package 'plm' is required for this example")
+#'   } else q() }}
+#' data("LaborSupply", package="plm")
 #' bbs <- blockBootSample(LaborSupply, "id")
 #' nrow(bbs)
 #' head(bbs$id)
@@ -461,7 +465,7 @@ cs2panel <- function(cs1, cs2, yname) {
 #' @return matrix of results
 #' @export
 compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","levels","both")) {
-  if (class(dta[,x]) == "factor") {
+  if (inherits(dta[,x], "factor")) {
     df <- model.matrix(as.formula(paste0("~",x,"-1")), dta)
     vnames <- colnames(df)
     df <- data.frame(cbind(df, dta[,on]))
@@ -690,7 +694,11 @@ combineDfs <- function(y.seq, dflist, pstrat=NULL, ...) {
 #'  is not set); the default is the number of unique ids
 #'
 #' @examples
-#' data(LaborSupply, package="plm")
+#' \dontshow{ if(!requireNamespace("plm")) {
+#'   if(interactive() || is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA))) {
+#'     stop("package 'plm' is required for this example")
+#'   } else q() }}
+#' data("LaborSupply", package="plm")
 #' nrow(LaborSupply)
 #' unique(LaborSupply$year)
 #' ss <- subsample(LaborSupply, "id", "year", nkeep=100)
