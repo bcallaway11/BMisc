@@ -465,7 +465,7 @@ cs2panel <- function(cs1, cs2, yname) {
 #' @return matrix of results
 #' @export
 compareBinary <- function(x, on, dta, w=rep(1,nrow(dta)), report=c("diff","levels","both")) {
-  if (class(dta[,x]) == "factor") {
+  if (inherits(dta[,x], "factor")) {
     df <- model.matrix(as.formula(paste0("~",x,"-1")), dta)
     vnames <- colnames(df)
     df <- data.frame(cbind(df, dta[,on]))
