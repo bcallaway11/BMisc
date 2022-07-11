@@ -1,8 +1,8 @@
 ## Test environments
 
-* local Ubuntu 20.04, R 4.0.3
+* local Ubuntu 20.04, R 4.2.1
 * win-builder (devel and release)
-* R-hub (Windows Server, Ubuntu Linux, Fedora Linux)
+* R-hub macOS 10.13.6 High Sierra, R-release, CRAN's setup
 
 ## R CMD check results
 
@@ -10,8 +10,8 @@
   
 ## Downstream dependencies
 
-We checked 4 reverse dependencies (1 from CRAN + 3 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+There are four downstream dependencies: csabounds, did, DRDID, and qte.  These are all currently removed from CRAN due to BMisc being removed from CRAN. 
 
- * We saw 0 new problems
- * We failed to check 0 packages
+## Comments/Questions
 
+The check problem was coming from the plm package (on which BMisc depends, but only through some examples) not being available on some platforms.  We have fixed this by making it only run these examples on platforms where plm is available.  I do have one question though: for the packages that depend on BMisc, will these need to be re-uploaded to CRAN or will this update to BMisc bring all of those back?
