@@ -19,6 +19,6 @@ LinkingTo:
     Rcpp,
     RcppArmadillo
 URL:
-    https://bcallaway11.github.io/BMisc,
+    https://bcallaway11.github.io/BMisc/,
     https://github.com/bcallaway11/BMisc
 BugReports: https://github.com/bcallaway11/BMisc/issues
