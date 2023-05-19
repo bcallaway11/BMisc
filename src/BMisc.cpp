@@ -51,6 +51,56 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 
 }
 
+
+//' Sample Rademacher distribution really fast
+//' 
+//' @description This uses a fancy trick to draw Rademacher weights very 
+//'   quickly. To do so, the function draws from 1:(2^31 - 1), and then 
+//'   uses each bit of the integer to determine 31 values of 0/1. This
+//'   allows for 31 Rademacher random variables to be drawn per random draw.
+//'   Taking those bits * 2 - 1 gives the Rademacher random variables.
+//'
+//' @param n Integer, number of random variables to draw
+//' 
+//' @return integer vector of length n with values -1 or 1
+//' 
+//' @export
+arma::vec sample_rademacher(int n) {
+  if (n < 0) {
+    stop("n must be a positive integer");
+  }
+  if (n > 2147483647) {
+    stop("n must be less than 2147483647");
+  }
+
+  arma::vec result(n);
+
+  // Calculate the number of integers needed based on N
+  int num_integers = ceil(n / 31.0);
+
+  // 2^31 - 1 = 2147483647
+  IntegerVector random_integer = Rcpp::sample(2147483647, num_integers, true);
+  
+  int k = 0;
+  int J = 30;
+  for (int i = 0; i < num_integers; i++) {
+    int curr = random_integer[i];
+
+    // Make sure not to overfill the result vector
+    if (i == num_integers - 1) {
+      J = (n % 31) - 1;
+    } 
+    
+    for (int j = J; j >= 0; j--) {
+      
+      result[k] = ((curr >> j) & 1) * 2 - 1;
+      k = k + 1;
+    }
+  }
+
+  return result;
+}
+
 //' @title multiplier_bootstrap
 //'
 //' @description A function that takes in an influence function (an
@@ -79,7 +129,7 @@ arma::mat multiplier_bootstrap(arma::mat inf_func, int biters) {
 
   for (int b=0; b<biters; b++) {
     // draw Rademechar weights
-    Ub = arma::ones<arma::vec>(n) - 2*arma::round(arma::randu<arma::vec>(n));
+    Ub = sample_rademacher(n);
     //Rcout << "Ub : " << Ub << "\n";
     innerMat = inf_func.each_col() % Ub;
     //Rcout << "innerMat : " << innerMat << "\n";
