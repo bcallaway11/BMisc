@@ -61,6 +61,24 @@
     <loc>/reference/getWeightedQuantiles.html</loc>
   </url>
   <url>
+    <loc>/reference/get_Yi1.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_Yi1_inner.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_YiGmin1.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_YiGmin1_inner.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_group.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_group_inner.html</loc>
+  </url>
+  <url>
     <loc>/reference/id2rownum.html</loc>
   </url>
   <url>

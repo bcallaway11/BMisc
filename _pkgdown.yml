@@ -13,6 +13,9 @@ reference:
       - subsample
       - blockBootSample
       - multiplier_bootstrap
+      - get_group
+      - get_YiGmin1
+      - get_Yi1
 
   - title: Functions for working with distributions
     contents:

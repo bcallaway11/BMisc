@@ -833,3 +833,102 @@ TorF <- function(cond, use_isTRUE=FALSE) {
   }
   cond
 }
+
+
+#' @title get_group_inner
+#' @description Calculates the group for a particular unit
+#' @param this_df a data.frame, for this function it should be specific to 
+#'  a particular unit
+#' @inheritParams get_group
+#' @keywords internal
+#' @export
+get_group_inner <- function(this_df, tname, treatname) {
+  if ( all(df[,treatname] == 0) ) return(0)
+  
+  as.numeric( df[ df[,treatname] == 1, ][1,tname] )
+}
+
+#' @title get_group
+#' @description A function to calculate a unit's group in a panel data setting
+#'  with a binary treatment and staggered treatment adoption and where 
+#'  there is a column in the data indicating whether or not a unit is treated
+#' @param df the data.frame used in the function
+#' @param idname name of column that holds the unit id
+#' @param tname name of column that holds the time period
+#' @param treatname name of column with the treatment indicator
+#' @export
+get_group <- function(df, idname, tname, treatname) {
+  group_vec <- df %>% 
+    group_by(state) %>% 
+    group_map(~ rep(get_group_inner(.x, tname, treatname), nrow(.x))) %>%
+    unlist()
+  group_vec
+}
+
+#' @title get_YiGmin1_inner
+#' @description Calculates a units outcome (or also can be used for a covariate) 
+#'  in the period right before it becomes treated.  The unit's group must 
+#'  be specified at this point.  This function operates on a data.frame 
+#'  that is already local to a particular unit.  
+#' @param this_df a data.frame, for this function it should be specific to 
+#'  a particular unit
+#' @inheritParams get_YiGmin1
+#' @keywords internal
+#' @export
+get_YiGmin1_inner <- function(this_df, yname, tname, gname) {
+  this_df <- as.data.frame(this_df)
+  maxT <- max(this_df[,tname])
+  this_group <- unique(this_df[,gname])
+  YiGmin1 <- ifelse(this_group==0,
+                    this_df[this_df[,tname]==maxT,yname],
+                    this_df[this_df[,tname]==(this_group-1),yname])
+  YiGmin1
+}
+
+#' @title get_YiGmin1
+#' @description A function to calculate outcomes for units in the period 
+#'  right before they become treated (this function can also be used to recover 
+#'  covariates, etc. in the period right before a unit becomes treated).
+#'  For units that do not 
+#'  participate in the treatment (and therefore have group==0), they are
+#'  assigned their outcome in the last period.
+#' @param yname name of column containing the outcome (or other variable) 
+#'  for which to calculate its outcome in the immediate pre-treatment period
+#' @param gname name of column containing the unit's group
+#' @inheritParams get_group
+#' @export
+get_YiGmin1 <- function(df, idname, yname, tname, gname) {
+  YiGmin1_vec <- df %>% 
+    group_by(.data[[idname]]) %>% 
+    group_map(~ rep(get_YiGmin1_inner(.x, yname, tname, gname), nrow(.x))) %>%
+    unlist()
+  YiGmin1_vec
+}
+
+#' @title get_Yi1_inner 
+#' @description Calculates a units outcome in the first time period.
+#'  This function operates on a data.frame that is already local to a particular
+#'  unit.
+#' @inheritParams get_YiGmin1_inner
+#' @keywords internal
+#' @export
+get_Yi1_inner <- function(this_df, yname, tname, gname) {
+  this_df <- as.data.frame(this_df)
+  minT <- min(this_df[,tname])
+  Yi1 <- this_df[this_df[,tname]==minT,yname]
+  Yi1
+}
+
+#' @title get_Yi1
+#' @description A function to calculate outcomes for units in the first time 
+#'  period that is available in a panel data setting (this function can also 
+#'  be used to recover covariates, etc. in the first period).
+#' @inheritParams get_YiGmin1
+#' @export
+get_Yi1 <- function(df, idname, yname, tname, gname) {
+  YiGmin1_vec <- df %>% 
+    group_by(.data[[idname]]) %>% 
+    group_map(~ rep(get_Yi1_inner(.x, yname, tname, gname), nrow(.x))) %>%
+    unlist()
+  YiGmin1_vec
+}

@@ -1,3 +1,7 @@
+# BMisc 1.4.6
+
+  * Adds functions `get_group`, `get_YiGmin1`, and `get_Yi1` as utility functions for manipulating data.  This is especially useful for settings with staggered treatment adoption.
+
 # BMisc 1.4.5
   
   * only execute examples for `subsample` and `blockBootSample` if `plm` package is available (thanks Achim Zeileis)
