@@ -843,9 +843,9 @@ TorF <- function(cond, use_isTRUE=FALSE) {
 #' @keywords internal
 #' @export
 get_group_inner <- function(this_df, tname, treatname) {
-  if ( all(df[,treatname] == 0) ) return(0)
+  if ( all(this_df[,treatname] == 0) ) return(0)
   
-  as.numeric( df[ df[,treatname] == 1, ][1,tname] )
+  as.numeric( this_df[ this_df[,treatname] == 1, ][1,tname] )
 }
 
 #' @title get_group
