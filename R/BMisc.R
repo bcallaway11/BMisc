@@ -6,17 +6,23 @@
 #' @param data data.frame used in function
 #' @param idname unique id
 #' @param tname time period name
+#' @param return_data.table if TRUE, makeBalancedPanel will 
+#'  return a data.table rather than a data.frame.  Default 
+#'  is FALSE.
 #' @examples
-#' id <- rep(seq(1,100), each = 2) ## individual ids for setting up a two period panel
-#' t <- rep(seq(1,2),100) ## time periods
-#' y <- rnorm(200) ## outcomes
-#' dta <- data.frame(id=id, t=t, y=y) ## make into data frame
-#' dta <- dta[-7,] ## drop the 7th row from the dataset (which creates an unbalanced panel)
+#' id <- rep(seq(1,100), each = 2) # individual ids for setting up a two period panel
+#' t <- rep(seq(1,2),100) # time periods
+#' y <- rnorm(200) # outcomes
+#' dta <- data.frame(id=id, t=t, y=y) # make into data frame
+#' dta <- dta[-7,] # drop the 7th row from the dataset (which creates an unbalanced panel)
 #' dta <- makeBalancedPanel(dta, idname="id", tname="t")
 #'
 #' @return data.frame that is a balanced panel
 #' @export
-makeBalancedPanel <- function(data, idname, tname) {
+makeBalancedPanel <- function(data, 
+                              idname, 
+                              tname,
+                              return_data.table=FALSE) {
   if (!inherits(data,"data.frame")) {
     stop("data must be a data.frame")
   }
@@ -24,7 +30,11 @@ makeBalancedPanel <- function(data, idname, tname) {
   data.table::setDT(data)
 
   nt <- length(unique(data[[tname]]))
-  return(data[, if (.N == nt) .SD, by = idname])
+  if (!return_data.table) {
+    return(as.data.frame(data[, if (.N==nt) .SD, by=idname]))
+  } else if (return_data.table) {
+    return(data[, if (.N == nt) .SD, by=idname])  
+  } 
 }
 
 

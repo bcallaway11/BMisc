@@ -1,6 +1,8 @@
 # BMisc 1.4.6
 
   * Adds functions `get_group`, `get_YiGmin1`, and `get_Yi1` as utility functions for manipulating data.  This is especially useful for settings with staggered treatment adoption.
+  
+  * Restore default of `makeBalancedPanel` to return a data.frame rather than a data.table.  New function argument `return_data.table` allows for returning a data.table if this is the desired functionality from the user.
 
 # BMisc 1.4.5
   
