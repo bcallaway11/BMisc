@@ -942,3 +942,29 @@ get_Yi1 <- function(df, idname, yname, tname, gname) {
     unlist()
   YiGmin1_vec
 }
+
+#' @title get_Yibar_inner 
+#' @description Calculates a units average outcome across all periods.
+#'  This function operates on a data.frame that is already local to a particular
+#'  unit.
+#' @inheritParams get_YiGmin1_inner
+#' @keywords internal
+#' @export
+get_Yibar_inner <- function(this_df, yname) {
+  this_df <- as.data.frame(this_df)
+  mean(this_df[,yname])
+}
+
+#' @title get_Yibar
+#' @description A function to calculate the average outcome across all time 
+#' periods separately for each unit in a panel data setting (this function can also 
+#'  be used to recover covariates, etc.).
+#' @inheritParams get_YiGmin1
+#' @export
+get_Yibar <- function(df, idname, yname) {
+  Yibar_vec <- df %>% 
+    group_by(.data[[idname]]) %>% 
+    group_map(~ rep(get_Yibar_inner(.x, yname), nrow(.x))) %>%
+    unlist()
+  Yibar_vec
+}
