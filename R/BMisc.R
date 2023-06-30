@@ -970,7 +970,7 @@ get_Yit_inner <- function(this_df, tp, yname, tname) {
 get_Yit <- function(df, tp, idname, yname, tname) {
     Yit_vec <- df %>%
         group_by(.data[[idname]]) %>%
-        group_map(~ rep(get_Yit_inner(.x, tp, yname, tname, gname), nrow(.x))) %>%
+        group_map(~ rep(get_Yit_inner(.x, tp, yname, tname), nrow(.x))) %>%
         unlist()
     Yit_vec
 }
