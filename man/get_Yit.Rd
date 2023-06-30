@@ -4,10 +4,12 @@
 \alias{get_Yit}
 \title{get_Yit}
 \usage{
-get_Yit(df, idname, yname, tname, gname)
+get_Yit(df, tp, idname, yname, tname)
 }
 \arguments{
 \item{df}{the data.frame used in the function}
+
+\item{tp}{The time period for which to get the outcome}
 
 \item{idname}{name of column that holds the unit id}
 
@@ -15,8 +17,6 @@ get_Yit(df, idname, yname, tname, gname)
 for which to calculate its outcome in the immediate pre-treatment period}
 
 \item{tname}{name of column that holds the time period}
-
-\item{gname}{name of column containing the unit's group}
 }
 \value{
 a vector of outcomes in period t, the vector

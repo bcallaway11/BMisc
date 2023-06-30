@@ -4,7 +4,7 @@
 \alias{get_Yit_inner}
 \title{get_Yit_inner}
 \usage{
-get_Yit_inner(this_df, tp, yname, tname, gname)
+get_Yit_inner(this_df, tp, yname, tname)
 }
 \arguments{
 \item{this_df}{a data.frame, for this function it should be specific to
@@ -16,8 +16,6 @@ a particular unit}
 for which to calculate its outcome in the immediate pre-treatment period}
 
 \item{tname}{name of column that holds the time period}
-
-\item{gname}{name of column containing the unit's group}
 }
 \description{
 Calculates a units outcome in some particular period `tp`.
