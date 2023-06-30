@@ -936,11 +936,43 @@ get_Yi1_inner <- function(this_df, yname, tname, gname) {
 #' @inheritParams get_YiGmin1
 #' @export
 get_Yi1 <- function(df, idname, yname, tname, gname) {
-  YiGmin1_vec <- df %>%
+  Yi1_vec <- df %>%
     group_by(.data[[idname]]) %>%
     group_map(~ rep(get_Yi1_inner(.x, yname, tname, gname), nrow(.x))) %>%
     unlist()
-  YiGmin1_vec
+  Yi1_vec
+}
+
+#' @title get_Yit_inner
+#' @description Calculates a units outcome in some particular period `tp`.
+#'  This function operates on a data.frame that is already local to a particular
+#'  unit.
+#' @inheritParams get_YiGmin1_inner
+#' @param tp The time period for which to get the outcome
+#' @keywords internal
+#' @export
+get_Yit_inner <- function(this_df, tp, yname, tname, gname) {
+    this_df <- as.data.frame(this_df)
+    Yit <- this_df[this_df[,tname]==tp,yname]
+    Yit
+}
+
+#' @title get_Yit
+#' @description A function to calculate outcomes for units in a particular
+#'  time period `tp` in a panel data setting (this function can also
+#'  be used to recover covariates, etc. in the first period).
+#' @inheritParams get_YiGmin1
+#' @inheritParams get_Yit_inner
+#' @return a vector of outcomes in period t, the vector
+#'  will have the length nT (i.e., this is returned for
+#'  each element in the panel, not for a particular period)
+#' @export
+get_Yit <- function(df, idname, yname, tname, gname) {
+    Yit_vec <- df %>%
+        group_by(.data[[idname]]) %>%
+        group_map(~ rep(get_Yit_inner(.x, yname, tname, gname), nrow(.x))) %>%
+        unlist()
+    Yit_vec
 }
 
 #' @title get_Yibar_inner
