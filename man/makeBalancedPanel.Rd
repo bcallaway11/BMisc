@@ -13,8 +13,8 @@ makeBalancedPanel(data, idname, tname, return_data.table = FALSE)
 
 \item{tname}{time period name}
 
-\item{return_data.table}{if TRUE, makeBalancedPanel will 
-return a data.table rather than a data.frame.  Default 
+\item{return_data.table}{if TRUE, makeBalancedPanel will
+return a data.table rather than a data.frame.  Default
 is FALSE.}
 }
 \value{

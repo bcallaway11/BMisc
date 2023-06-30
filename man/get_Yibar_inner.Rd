@@ -7,10 +7,10 @@
 get_Yibar_inner(this_df, yname)
 }
 \arguments{
-\item{this_df}{a data.frame, for this function it should be specific to 
+\item{this_df}{a data.frame, for this function it should be specific to
 a particular unit}
 
-\item{yname}{name of column containing the outcome (or other variable) 
+\item{yname}{name of column containing the outcome (or other variable)
 for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{

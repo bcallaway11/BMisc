@@ -7,10 +7,10 @@
 get_YiGmin1_inner(this_df, yname, tname, gname)
 }
 \arguments{
-\item{this_df}{a data.frame, for this function it should be specific to 
+\item{this_df}{a data.frame, for this function it should be specific to
 a particular unit}
 
-\item{yname}{name of column containing the outcome (or other variable) 
+\item{yname}{name of column containing the outcome (or other variable)
 for which to calculate its outcome in the immediate pre-treatment period}
 
 \item{tname}{name of column that holds the time period}
@@ -18,9 +18,9 @@ for which to calculate its outcome in the immediate pre-treatment period}
 \item{gname}{name of column containing the unit's group}
 }
 \description{
-Calculates a units outcome (or also can be used for a covariate) 
- in the period right before it becomes treated.  The unit's group must 
- be specified at this point.  This function operates on a data.frame 
+Calculates a units outcome (or also can be used for a covariate)
+ in the period right before it becomes treated.  The unit's group must
+ be specified at this point.  This function operates on a data.frame
  that is already local to a particular unit.
 }
 \keyword{internal}

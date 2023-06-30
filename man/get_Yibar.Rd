@@ -11,11 +11,11 @@ get_Yibar(df, idname, yname)
 
 \item{idname}{name of column that holds the unit id}
 
-\item{yname}{name of column containing the outcome (or other variable) 
+\item{yname}{name of column containing the outcome (or other variable)
 for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{
-A function to calculate the average outcome across all time 
-periods separately for each unit in a panel data setting (this function can also 
+A function to calculate the average outcome across all time
+periods separately for each unit in a panel data setting (this function can also
  be used to recover covariates, etc.).
 }

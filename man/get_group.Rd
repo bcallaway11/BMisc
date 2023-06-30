@@ -17,6 +17,6 @@ get_group(df, idname, tname, treatname)
 }
 \description{
 A function to calculate a unit's group in a panel data setting
- with a binary treatment and staggered treatment adoption and where 
+ with a binary treatment and staggered treatment adoption and where
  there is a column in the data indicating whether or not a unit is treated
 }
