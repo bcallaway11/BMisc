@@ -951,7 +951,7 @@ get_Yi1 <- function(df, idname, yname, tname, gname) {
 #' @param tp The time period for which to get the outcome
 #' @keywords internal
 #' @export
-get_Yit_inner <- function(this_df, tp, yname, tname, gname) {
+get_Yit_inner <- function(this_df, tp, yname, tname) {
     this_df <- as.data.frame(this_df)
     Yit <- this_df[this_df[,tname]==tp,yname]
     Yit
@@ -967,10 +967,10 @@ get_Yit_inner <- function(this_df, tp, yname, tname, gname) {
 #'  will have the length nT (i.e., this is returned for
 #'  each element in the panel, not for a particular period)
 #' @export
-get_Yit <- function(df, idname, yname, tname, gname) {
+get_Yit <- function(df, tp, idname, yname, tname) {
     Yit_vec <- df %>%
         group_by(.data[[idname]]) %>%
-        group_map(~ rep(get_Yit_inner(.x, yname, tname, gname), nrow(.x))) %>%
+        group_map(~ rep(get_Yit_inner(.x, tp, yname, tname, gname), nrow(.x))) %>%
         unlist()
     Yit_vec
 }
