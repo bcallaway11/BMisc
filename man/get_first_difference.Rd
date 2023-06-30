@@ -6,11 +6,19 @@
 \usage{
 get_first_difference(df, idname, yname, tname)
 }
+\arguments{
+\item{df}{the data.frame used in the function}
+
+\item{idname}{name of column that holds the unit id}
+
+\item{yname}{name of column containing the outcome (or other variable)
+for which to calculate its outcome in the immediate pre-treatment period}
+
+\item{tname}{name of column that holds the time period}
+}
 \description{
 A function that calculates the first difference in a panel data
  setting.  If the data.frame that is passed in has nxT rows, the resulting
  vector will also have nxT elements with one element for each unit set to be
  NA.
- @inheritParams get_lagYi
- @export
 }

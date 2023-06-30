@@ -989,8 +989,8 @@ get_lagYi <- function(df, idname, yname, tname, nlags=1) {
 #'  setting.  If the data.frame that is passed in has nxT rows, the resulting
 #'  vector will also have nxT elements with one element for each unit set to be
 #'  NA.
-#'  @inheritParams get_lagYi
-#'  @export
+#' @inheritParams get_lagYi
+#' @export
 get_first_difference <- function(df, idname, yname, tname) {
     df$.lag <- get_lagYi(df, idname, yname, tname)
     df[,yname] - df$.lag
