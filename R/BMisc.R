@@ -869,7 +869,7 @@ get_group_inner <- function(this_df, tname, treatname) {
 #' @export
 get_group <- function(df, idname, tname, treatname) {
   group_vec <- df %>%
-    group_by(state) %>%
+    group_by(.data[[idname]]) %>%
     group_map(~ rep(get_group_inner(.x, tname, treatname), nrow(.x))) %>%
     unlist()
   group_vec
