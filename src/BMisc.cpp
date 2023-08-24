@@ -51,6 +51,37 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 
 }
 
+// In-place sample rademacher
+void fill_rademacher(arma::vec &v)
+{
+  size_t n = v.size();
+
+  // Calculate the number of integers needed based on N
+  int num_integers = ceil(n / 31.0);
+
+  // 2^31 - 1 = 2147483647
+  IntegerVector random_integer = Rcpp::sample(2147483647, num_integers, true);
+
+  int k = 0;
+  int J = 30;
+  for (int i = 0; i < num_integers - 1; ++i)
+  {
+    int curr = random_integer[i];
+
+    for (int j = J; j >= 0; j--)
+    {
+      v[k] = ((curr >> j) & 1) * 2 - 1;
+      k = k + 1;
+    }
+  }
+
+  int j = J;
+  for (; k < n; ++k, --j)
+  {
+    v[k] = ((random_integer[num_integers - 1] >> j) & 1) * 2 - 1;
+  }
+}
+
 //' @title multiplier_bootstrap
 //'
 //' @description A function that takes in an influence function (an
@@ -66,28 +97,21 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 //' @return a Bxk matrix
 //' @export
 // [[Rcpp::export]]
-arma::mat multiplier_bootstrap(arma::mat inf_func, int biters) {
-
+arma::mat multiplier_bootstrap(arma::mat inf_func, int biters)
+{
   int n = inf_func.n_rows;
   int K = inf_func.n_cols;
-
-  arma::mat innerMat(n,K);
   arma::vec Ub(n);
-  //double innerSum;
-  arma::mat outMat(biters,K);
+  arma::mat outMat(biters, K);
 
-
-  for (int b=0; b<biters; b++) {
-    // draw Rademechar weights
-    Ub = arma::ones<arma::vec>(n) - 2*arma::round(arma::randu<arma::vec>(n));
-    //Rcout << "Ub : " << Ub << "\n";
-    innerMat = inf_func.each_col() % Ub;
-    //Rcout << "innerMat : " << innerMat << "\n";
-    //Rcout << "sum: " << arma::sum(innerMat, 0)/n;
-    outMat.row(b) = arma::sum(innerMat, 0)/n;
-    //outMat(b,_) = meanCpp(innerMat.each_col());
+  for (int b = 0; b < biters; ++b)
+  {
+    fill_rademacher(Ub);
+    for (int j = 0; j < K; ++j)
+    {
+      outMat.at(b, j) = arma::dot(inf_func.col(j), Ub);
+    }
   }
-  
-  return(outMat);
 
+  return (outMat / n);
 }
