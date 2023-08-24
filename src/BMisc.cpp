@@ -104,10 +104,10 @@ arma::mat multiplier_bootstrap(arma::mat inf_func, int biters)
   arma::vec Ub(n);
   arma::mat outMat(biters, K);
 
-  for (size_t b = 0; b < biters; ++b)
+  for (int b = 0; b < biters; ++b)
   {
     fill_rademacher(Ub);
-    for (size_t j = 0; j < K; ++j)
+    for (int j = 0; j < K; ++j)
     {
       outMat.at(b, j) = arma::dot(inf_func.col(j), Ub);
     }
@@ -115,3 +115,4 @@ arma::mat multiplier_bootstrap(arma::mat inf_func, int biters)
 
   return (outMat / n);
 }
+
