@@ -59,14 +59,13 @@ void fill_rademacher(arma::vec &v)
   // Calculate the number of integers needed based on N
   int num_integers = ceil(n / 31.0);
 
-  // 2^31 - 1 = 2147483647
-  IntegerVector random_integer = Rcpp::sample(2147483647, num_integers, true);
-
   int k = 0;
   int J = 30;
+  int curr;
   for (int i = 0; i < num_integers - 1; ++i)
   {
-    int curr = random_integer[i];
+    // 2^31 - 1 = 2147483647
+    curr = Rcpp::sample(2147483647, 1)[0];
 
     for (int j = J; j >= 0; j--)
     {
@@ -76,9 +75,10 @@ void fill_rademacher(arma::vec &v)
   }
 
   int j = J;
+  curr = Rcpp::sample(2147483647, 1)[0];
   for (; k < n; ++k, --j)
   {
-    v[k] = ((random_integer[num_integers - 1] >> j) & 1) * 2 - 1;
+    v[k] = ((curr >> j) & 1) * 2 - 1;
   }
 }
 
