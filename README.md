@@ -1,14 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# BMisc
+# BMisc <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 [![](http://cranlogs.r-pkg.org/badges/grand-total/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
 [![](http://cranlogs.r-pkg.org/badges/last-month/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
 [![](https://www.r-pkg.org/badges/version/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
-[![](https://img.shields.io/badge/devel%20version-1.4.3-blue.svg)](https://github.com/bcallaway11/BMisc)
+[![](https://img.shields.io/badge/devel%20version-1.4.6-blue.svg)](https://github.com/bcallaway11/BMisc)
 [![CRAN
-checks](https://cranchecks.info/badges/summary/BMisc)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
+checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
 [![](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)
 
 BMisc includes miscellaneous functions for working with panel data,
