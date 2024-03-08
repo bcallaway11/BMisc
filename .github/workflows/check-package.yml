@@ -1,0 +1,43 @@
+name: R Package Checks and Coverage
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ${{ matrix.config.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: windows-latest, r: 'release'}
+          - {os: windows-latest, r: 'devel'}
+          - {os: macOS-latest, r: 'release'}
+          - {os: ubuntu-latest, r: 'release'}
+          - {os: ubuntu-latest, r: 'devel'}
+
+    name: ${{ matrix.config.os }} (R ${{ matrix.config.r }})
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+      - name: Install dependencies
+        run: |
+          install.packages("remotes")
+          remotes::install_deps(dependencies = TRUE)
+      - name: Check
+        run: |
+          install.packages("rcmdcheck")
+          rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error", check_dir = "check")
+      - name: Test
+        run: |
+          install.packages("testthat")
+          devtools::test()
+      - name: Code Coverage
+        if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
+        run: |
+          install.packages("covr")
+          covr::codecov()

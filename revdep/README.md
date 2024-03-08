@@ -1,53 +1,49 @@
 # Platform
 
-|field    |value                        |
-|:--------|:----------------------------|
-|version  |R version 4.1.2 (2021-11-01) |
-|os       |Ubuntu 20.04.3 LTS           |
-|system   |x86_64, linux-gnu            |
-|ui       |X11                          |
-|language |(EN)                         |
-|collate  |en_US.UTF-8                  |
-|ctype    |en_US.UTF-8                  |
-|tz       |America/New_York             |
-|date     |2021-12-09                   |
-|pandoc   |2.5 @ /usr/bin/pandoc        |
+|field    |value                               |
+|:--------|:-----------------------------------|
+|version  |R version 4.3.3 (2024-02-29)        |
+|os       |Ubuntu 22.04.4 LTS                  |
+|system   |x86_64, linux-gnu                   |
+|ui       |RStudio                             |
+|language |(EN)                                |
+|collate  |en_US.UTF-8                         |
+|ctype    |en_US.UTF-8                         |
+|tz       |America/New_York                    |
+|date     |2024-03-08                          |
+|rstudio  |2023.12.0+369 Ocean Storm (desktop) |
+|pandoc   |2.9.2.1 @ /usr/bin/pandoc           |
 
 # Dependencies
 
-|package       |old    |new        |Δ  |
-|:-------------|:------|:----------|:--|
-|BMisc         |1.4.2  |1.4.3      |*  |
-|cli           |3.1.0  |3.1.0      |   |
-|cpp11         |0.4.2  |0.4.2      |   |
-|crayon        |1.4.2  |1.4.2      |   |
-|dplyr         |1.0.7  |1.0.7      |   |
-|ellipsis      |0.3.2  |0.3.2      |   |
-|fansi         |0.5.0  |0.5.0      |   |
-|generics      |0.1.1  |0.1.1      |   |
-|glue          |1.5.1  |1.5.1      |   |
-|lifecycle     |1.0.1  |1.0.1      |   |
-|magrittr      |2.0.1  |2.0.1      |   |
-|pillar        |1.6.4  |1.6.4      |   |
-|pkgconfig     |2.0.3  |2.0.3      |   |
-|purrr         |0.3.4  |0.3.4      |   |
-|R6            |2.5.1  |2.5.1      |   |
-|Rcpp          |NA     |1.0.7      |*  |
-|RcppArmadillo |NA     |0.10.7.3.0 |*  |
-|rlang         |0.4.12 |0.4.12     |   |
-|tibble        |3.1.6  |3.1.6      |   |
-|tidyr         |1.1.4  |1.1.4      |   |
-|tidyselect    |1.1.1  |1.1.1      |   |
-|utf8          |1.2.2  |1.2.2      |   |
-|vctrs         |0.3.8  |0.3.8      |   |
+|package       |old        |new        |Δ  |
+|:-------------|:----------|:----------|:--|
+|BMisc         |1.4.5      |1.4.6      |*  |
+|cli           |NA         |3.6.2      |*  |
+|data.table    |1.15.2     |1.15.2     |   |
+|dplyr         |NA         |1.1.4      |*  |
+|fansi         |NA         |1.0.6      |*  |
+|generics      |NA         |0.1.3      |*  |
+|glue          |NA         |1.7.0      |*  |
+|lifecycle     |NA         |1.0.4      |*  |
+|magrittr      |NA         |2.0.3      |*  |
+|pillar        |NA         |1.9.0      |*  |
+|pkgconfig     |NA         |2.0.3      |*  |
+|R6            |NA         |2.5.1      |*  |
+|Rcpp          |1.0.12     |1.0.12     |   |
+|RcppArmadillo |0.12.8.1.0 |0.12.8.1.0 |   |
+|rlang         |NA         |1.1.3      |*  |
+|tibble        |NA         |3.2.1      |*  |
+|tidyselect    |NA         |1.2.0      |*  |
+|utf8          |NA         |1.2.4      |*  |
+|vctrs         |NA         |0.6.5      |*  |
+|withr         |NA         |3.0.0      |*  |
 
 # Revdeps
 
-## Failed to check (3)
+## Failed to check (1)
 
-|package   |version |error |warning |note |
-|:---------|:-------|:-----|:-------|:----|
-|csabounds |?       |      |        |     |
-|did       |?       |      |        |     |
-|qte       |?       |      |        |     |
+|package |version |error |warning |note |
+|:-------|:-------|:-----|:-------|:----|
+|did     |?       |      |        |     |
 

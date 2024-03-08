@@ -73,10 +73,28 @@
     <loc>/reference/get_YiGmin1_inner.html</loc>
   </url>
   <url>
+    <loc>/reference/get_Yibar.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_Yibar_inner.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_Yit.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_Yit_inner.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_first_difference.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_group.html</loc>
   </url>
   <url>
     <loc>/reference/get_group_inner.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_lagYi.html</loc>
   </url>
   <url>
     <loc>/reference/id2rownum.html</loc>

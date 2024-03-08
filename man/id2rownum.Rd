@@ -7,14 +7,14 @@
 id2rownum(id, data, idname)
 }
 \arguments{
+\item{id}{a particular id}
+
 \item{data}{data frame}
 
 \item{idname}{unique id}
-
-\item{ids}{vector of ids}
 }
 \description{
-id2rownum takes an id and converts it t the right
+id2rownum takes an id and converts it to the right
  row number in the dataset; ids should be unique in the dataset
  that is, don't pass the function panel data with multiple same ids
 }

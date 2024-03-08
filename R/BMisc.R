@@ -155,13 +155,13 @@ ids2rownum <- function(ids, data, idname) {
 }
 
 
-#'@title Take particular id and convert to row number
+#' @title Take particular id and convert to row number
 #'
-#' @description id2rownum takes an id and converts it t the right
+#' @description id2rownum takes an id and converts it to the right
 #'  row number in the dataset; ids should be unique in the dataset
 #'  that is, don't pass the function panel data with multiple same ids
 #'
-#' @param ids vector of ids
+#' @param id a particular id
 #' @param data data frame
 #' @param idname unique id
 #'
@@ -999,6 +999,46 @@ get_Yibar <- function(df, idname, yname) {
     group_map(~ rep(get_Yibar_inner(.x, yname), nrow(.x))) %>%
     unlist()
   Yibar_vec
+}
+
+#' @title get_Yibar_pre_inner
+#' @description Calculates a unit's average outcome in pre-treatment periods
+#'  (or also can be used for a covariate).  The unit's group must
+#'  be specified at this point.  This function operates on a data.frame
+#'  that is already local to a particular unit.
+#' @param this_df a data.frame, for this function it should be specific to
+#'  a particular unit
+#' @inheritParams get_YiGmin1_inner
+#' @keywords internal
+#' @export
+get_Yibar_pre_inner <- function(this_df, yname, tname, gname) {
+    this_df <- as.data.frame(this_df)
+    maxT <- max(this_df[,tname])
+    this_group <- unique(this_df[,gname])
+    Yibarpre <- ifelse(this_group==0,
+                      mean(this_df[,yname]),
+                      mean(this_df[this_df[,tname] < this_group, yname]) )
+    Yibarpre
+}
+
+#' @title get_Yibar_pre
+#' @description A function to calculate average outcomes for units in
+#'  their pre-treatment periods (this function can also be used to recover
+#'  pre-treatment averages of covariates, etc.).
+#'  For units that do not
+#'  participate in the treatment (and therefore have group==0), the
+#'  function calculates their overall average outcome.
+#' @param yname name of column containing the outcome (or other variable)
+#'  for which to calculate its outcome in the immediate pre-treatment period
+#' @param gname name of column containing the unit's group
+#' @inheritParams get_YiGmin1
+#' @export
+get_Yibar_pre <- function(df, idname, yname, tname, gname) {
+    YiGmin1_vec <- df %>%
+        group_by(.data[[idname]]) %>%
+        group_map(~ rep(get_Yibar_pre_inner(.x, yname, tname, gname), nrow(.x))) %>%
+        unlist()
+    YiGmin1_vec
 }
 
 #' @title get_lagYi

@@ -8,7 +8,7 @@ using namespace Rcpp;
 //'
 //' @description This is a function that takes in two matrices of dimension
 //' nxB and nxk and returns a Bxk matrix that comes from
-//' element-wise multiplication of every column 
+//' element-wise multiplication of every column
 //' in the first matrix times the entire second matrix and the
 //' averaging over the n-dimension.  It is equivalent (but faster
 //' than) the following R code:
@@ -24,6 +24,8 @@ using namespace Rcpp;
 //'  estimates)
 //'
 //' @return a Bxk matrix
+//' @export
+ // [[Rcpp::export]]
 arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 
   int n = U.n_rows;
@@ -34,7 +36,7 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
   arma::vec Ub(n);
   double innerSum;
   arma::mat outMat(B,K);
-  
+
   for (int b=0; b < B; b++) {
     Ub = U.col(b);
     innerMat = inf_func.each_col() % Ub;
@@ -46,7 +48,7 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
       outMat(b,k) = innerSum/n;
     }
   }
-      
+
   return(outMat);
 
 }
@@ -76,7 +78,7 @@ void fill_rademacher(arma::vec &v)
 
   int j = J;
   curr = Rcpp::sample(2147483647, 1)[0];
-  for (; k < n; ++k, --j)
+  for (; k < static_cast<int>(n); ++k, --j)
   {
     v[k] = ((curr >> j) & 1) * 2 - 1;
   }
@@ -88,7 +90,7 @@ void fill_rademacher(arma::vec &v)
 //' nxk matrix) and the number of bootstrap iterations and
 //' returns a Bxk matrix of bootstrap results. This function
 //' uses Rademechar weights.
-//' 
+//'
 //' @param inf_func nxk matrix of (e.g., these could be a matrix
 //'  containing the influence function for different parameter
 //'  estimates)

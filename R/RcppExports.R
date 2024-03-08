@@ -5,7 +5,7 @@
 #'
 #' @description This is a function that takes in two matrices of dimension
 #' nxB and nxk and returns a Bxk matrix that comes from
-#' element-wise multiplication of every column 
+#' element-wise multiplication of every column
 #' in the first matrix times the entire second matrix and the
 #' averaging over the n-dimension.  It is equivalent (but faster
 #' than) the following R code:
@@ -21,7 +21,10 @@
 #'  estimates)
 #'
 #' @return a Bxk matrix
-NULL
+#' @export
+element_wise_mult <- function(U, inf_func) {
+    .Call('_BMisc_element_wise_mult', PACKAGE = 'BMisc', U, inf_func)
+}
 
 #' @title multiplier_bootstrap
 #'
@@ -29,7 +32,7 @@ NULL
 #' nxk matrix) and the number of bootstrap iterations and
 #' returns a Bxk matrix of bootstrap results. This function
 #' uses Rademechar weights.
-#' 
+#'
 #' @param inf_func nxk matrix of (e.g., these could be a matrix
 #'  containing the influence function for different parameter
 #'  estimates)

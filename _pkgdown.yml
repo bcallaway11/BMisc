@@ -4,7 +4,7 @@ template:
 
 reference:
   - title: Funtions for working with panel data
-    contents: 
+    contents:
       - makeBalancedPanel
       - panel2cs
       - panel2cs2
@@ -16,6 +16,10 @@ reference:
       - get_group
       - get_YiGmin1
       - get_Yi1
+      - get_Yibar
+      - get_Yit
+      - get_first_difference
+      - get_lagYi
 
   - title: Functions for working with distributions
     contents:
@@ -46,6 +50,7 @@ reference:
       - getListElement
       - source_all
       - TorF
+      - element_wise_mult
 
   - title: Package documentation
     contents:

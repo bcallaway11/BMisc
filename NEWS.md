@@ -8,6 +8,8 @@
     in period t for all units in a panel.
   
   * Restore default of `makeBalancedPanel` to return a data.frame rather than a data.table.  New function argument `return_data.table` allows for returning a data.table if this is the desired functionality from the user.
+  
+  * Fixes documentation NOTE in `id2rownum`
 
 # BMisc 1.4.5
   

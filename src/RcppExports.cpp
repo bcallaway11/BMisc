@@ -11,6 +11,18 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// element_wise_mult
+arma::mat element_wise_mult(arma::mat U, arma::mat inf_func);
+RcppExport SEXP _BMisc_element_wise_mult(SEXP USEXP, SEXP inf_funcSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type U(USEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type inf_func(inf_funcSEXP);
+    rcpp_result_gen = Rcpp::wrap(element_wise_mult(U, inf_func));
+    return rcpp_result_gen;
+END_RCPP
+}
 // multiplier_bootstrap
 arma::mat multiplier_bootstrap(arma::mat inf_func, int biters);
 RcppExport SEXP _BMisc_multiplier_bootstrap(SEXP inf_funcSEXP, SEXP bitersSEXP) {
@@ -25,6 +37,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_BMisc_element_wise_mult", (DL_FUNC) &_BMisc_element_wise_mult, 2},
     {"_BMisc_multiplier_bootstrap", (DL_FUNC) &_BMisc_multiplier_bootstrap, 2},
     {NULL, NULL, 0}
 };
