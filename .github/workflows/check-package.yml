@@ -30,14 +30,13 @@ jobs:
           Rscript -e "remotes::install_deps(dependencies = TRUE)"
       - name: Install system dependencies (Ubuntu only)
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
+        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfreetype6-dev libfontconfig1-dev
       - name: Check
         run: |
           Rscript -e "install.packages('rcmdcheck')"
           Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
       - name: Test
         run: |
-          Rscript -e "install.packages('devtools')"
           Rscript -e "install.packages('testthat')"
           Rscript -e "devtools::test()"
       - name: Code Coverage
