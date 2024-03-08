@@ -34,6 +34,7 @@ jobs:
           Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
       - name: Test
         run: |
+          Rscript -e "install.packages('devtools')"
           Rscript -e "install.packages('testthat')"
           Rscript -e "devtools::test()"
       - name: Code Coverage
