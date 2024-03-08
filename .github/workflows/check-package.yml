@@ -26,18 +26,18 @@ jobs:
           r-version: ${{ matrix.config.r }}
       - name: Install dependencies
         run: |
-          install.packages("remotes")
-          remotes::install_deps(dependencies = TRUE)
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
       - name: Check
         run: |
-          install.packages("rcmdcheck")
-          rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error", check_dir = "check")
+          Rscript -e "install.packages('rcmdcheck')"
+          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
       - name: Test
         run: |
-          install.packages("testthat")
-          devtools::test()
+          Rscript -e "install.packages('testthat')"
+          Rscript -e "devtools::test()"
       - name: Code Coverage
         if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
         run: |
-          install.packages("covr")
-          covr::codecov()
+          Rscript -e "install.packages('covr')"
+          Rscript -e "covr::codecov()"
