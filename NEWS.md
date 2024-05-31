@@ -1,3 +1,7 @@
+# BMisc 1.4.7
+
+  * moved functions `t2orig` and `orig2t` to `BMisc` from `pte` package
+
 # BMisc 1.4.6
 
   * Adds functions `get_group`, `get_YiGmin1`, and `get_Yi1` as utility functions for manipulating data.  This is especially useful for settings with staggered treatment adoption.

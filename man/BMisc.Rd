@@ -2,8 +2,22 @@
 % Please edit documentation in R/imports.R
 \docType{package}
 \name{BMisc}
+\alias{BMisc-package}
 \alias{BMisc}
 \title{BMisc}
 \description{
 A set of miscellaneous helper functions
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://bcallaway11.github.io/BMisc/}
+  \item \url{https://github.com/bcallaway11/BMisc}
+  \item Report bugs at \url{https://github.com/bcallaway11/BMisc/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Brantly Callaway \email{brantly.callaway@uga.edu}
+
 }

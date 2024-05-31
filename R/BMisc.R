@@ -1067,3 +1067,40 @@ get_first_difference <- function(df, idname, yname, tname) {
     df$.lag <- get_lagYi(df, idname, yname, tname)
     df[,yname] - df$.lag
 }
+
+
+#' @title t2orig
+#'
+#' @description A helper function to switch from "new" t values to
+#' original t values.  This allows for periods not being exactly spaced
+#' apart by 1.
+#'
+#' @param t a particular time period to convert back to original time
+#'  periods.
+#' @param original_time.periods vector containing all original time periods.
+#'
+#' @return original time period converted from new time period
+#'
+#' @export
+t2orig <- function(t, original_time.periods) {
+    new_time.periods <- seq(1,length(unique(original_time.periods)))
+    unique(c(original_time.periods,0))[which(c(new_time.periods,0)==t)]
+}
+
+#' @title orig2t
+#'
+#' @description A helper function to switch from original time periods to
+#'  "new" time periods (which are just time periods going from 1 to total
+#'  number of available periods).  This allows for periods not being
+#'  exactly spaced apart by 1.
+#'
+#' @inheritParams t2orig
+#'
+#' @return new time period converted from original time period
+#'
+#' @export
+orig2t <- function(orig, original_time.periods) {
+    new_time.periods <- seq(1,length(unique(original_time.periods)))
+    c(new_time.periods,0)[which(unique(c(original_time.periods,0))==orig)]
+}
+
