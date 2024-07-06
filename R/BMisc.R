@@ -1068,6 +1068,52 @@ get_first_difference <- function(df, idname, yname, tname) {
     df[,yname] - df$.lag
 }
 
+#' Matrix-Vector Multiplication
+#'
+#' This function multiplies a matrix by a vector and returns a numeric vector.
+#'
+#' @param A an nxk matrix.
+#' @param v a vector (can be stored as numeric or as a kx1 matrix)
+#'
+#' @return A numeric vector resulting from the multiplication of the matrix by the vector.
+#' @export
+#'
+#' @examples
+#' A <- matrix(1:9, nrow = 3, ncol = 3)
+#' v <- c(2, 4, 6)
+#' mv_mult(A, v)
+mv_mult <- function(A, v) {
+    drop(A %*% v)
+}
+
+#' @title t2orig_inner
+#'
+#' @description A helper function to switch from "new" t values to
+#' original t values for a single t.
+#'
+#' @param t a single time period to convert back to original time
+#' @inheritParams t2orig
+#'
+#' @export
+t2orig_inner <- function(t, original_time.periods) {
+    new_time.periods <- seq(1,length(unique(original_time.periods)))
+    unique(c(original_time.periods,0))[which(c(new_time.periods,0)==t)]
+}
+
+#' @title orig2t_inner
+#'
+#' @description A helper function to switch from original t values to
+#' "new" t values (which are just time periods going from 1 to total
+#' number of available periods).
+#'
+#' @param orig a single original time period to convert to new time period
+#' @inheritParams orig2t
+#'
+#' @export
+orig2t_inner <- function(orig, original_time.periods) {
+    new_time.periods <- seq(1,length(unique(original_time.periods)))
+    c(new_time.periods,0)[which(unique(c(original_time.periods,0))==orig)]
+}
 
 #' @title t2orig
 #'
@@ -1075,7 +1121,7 @@ get_first_difference <- function(df, idname, yname, tname) {
 #' original t values.  This allows for periods not being exactly spaced
 #' apart by 1.
 #'
-#' @param t a particular time period to convert back to original time
+#' @param t a vector of time periods to convert back to original time
 #'  periods.
 #' @param original_time.periods vector containing all original time periods.
 #'
@@ -1083,8 +1129,11 @@ get_first_difference <- function(df, idname, yname, tname) {
 #'
 #' @export
 t2orig <- function(t, original_time.periods) {
-    new_time.periods <- seq(1,length(unique(original_time.periods)))
-    unique(c(original_time.periods,0))[which(c(new_time.periods,0)==t)]
+    # check that orignal time periods are equally spaced
+    if (length(unique(diff(original_time.periods))) > 1) {
+        warning("original_time.periods are unequally spaced, some downstream functions may not work as expected.")
+    }
+    sapply(t, t2orig_inner, original_time.periods=original_time.periods)
 }
 
 #' @title orig2t
@@ -1095,12 +1144,17 @@ t2orig <- function(t, original_time.periods) {
 #'  exactly spaced apart by 1.
 #'
 #' @inheritParams t2orig
+#' @param orig a vector of original time periods to convert to new time periods.
 #'
 #' @return new time period converted from original time period
 #'
 #' @export
 orig2t <- function(orig, original_time.periods) {
-    new_time.periods <- seq(1,length(unique(original_time.periods)))
-    c(new_time.periods,0)[which(unique(c(original_time.periods,0))==orig)]
+    # check that orignal time periods are equally spaced
+    if (length(unique(diff(original_time.periods))) > 1) {
+        warning("original_time.periods are unequally spaced, some downstream functions may not work as expected.")
+    }
+    sapply(orig, orig2t_inner, original_time.periods=original_time.periods)
 }
+
 

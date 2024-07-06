@@ -7,6 +7,8 @@
 orig2t(orig, original_time.periods)
 }
 \arguments{
+\item{orig}{a vector of original time periods to convert to new time periods.}
+
 \item{original_time.periods}{vector containing all original time periods.}
 }
 \value{

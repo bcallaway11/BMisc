@@ -7,7 +7,7 @@
 t2orig(t, original_time.periods)
 }
 \arguments{
-\item{t}{a particular time period to convert back to original time
+\item{t}{a vector of time periods to convert back to original time
 periods.}
 
 \item{original_time.periods}{vector containing all original time periods.}
