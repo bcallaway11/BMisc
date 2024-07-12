@@ -22,9 +22,9 @@ ids2rownum takes a vector of ids and converts it to the right
  that is, don't pass the function panel data with multiple same ids
 }
 \examples{
-ids <- seq(1,1000,length.out=100)
+ids <- seq(1, 1000, length.out = 100)
 ids <- ids[order(runif(100))]
-df <- data.frame(id=ids)
+df <- data.frame(id = ids)
 ids2rownum(df$id, df, "id")
 
 }

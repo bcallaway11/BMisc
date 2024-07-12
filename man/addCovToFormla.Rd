@@ -20,7 +20,7 @@ formula
 }
 \examples{
 formla <- y ~ x
-addCovToFormla(list("w","z"), formla)
+addCovToFormla(list("w", "z"), formla)
 
 formla <- ~x
 addCovToFormla("z", formla)

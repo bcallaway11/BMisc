@@ -25,12 +25,12 @@ Combines two distribution functions with given weights by pstrat
 }
 \examples{
 x <- rnorm(100)
-y <- rnorm(100,1,1)
+y <- rnorm(100, 1, 1)
 Fx <- ecdf(x)
 Fy <- ecdf(y)
-both <- combineDfs(seq(-2,3,0.1), list(Fx,Fy))
-plot(Fx, col="green")
-plot(Fy, col="blue", add=TRUE)
-plot(both, add=TRUE)
+both <- combineDfs(seq(-2, 3, 0.1), list(Fx, Fy))
+plot(Fx, col = "green")
+plot(Fy, col = "blue", add = TRUE)
+plot(both, add = TRUE)
 
 }

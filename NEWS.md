@@ -1,6 +1,7 @@
 # BMisc 1.4.7
 
   * moved functions `t2orig` and `orig2t` to `BMisc` from `pte` package
+  * add function `drop_collinear` to drop collinear columns from a matrix
 
 # BMisc 1.4.6
 

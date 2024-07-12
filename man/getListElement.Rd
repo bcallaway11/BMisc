@@ -20,7 +20,7 @@ a function to take a list and get a particular part
 }
 \examples{
 len <- 100 # number elements in list
-lis <- lapply(1:len, function(l) list(x=(-l), y=l^2) ) # create list
+lis <- lapply(1:len, function(l) list(x = (-l), y = l^2)) # create list
 getListElement(lis, "x")[1] # should be equal to -1
 getListElement(lis, 1)[1] # should be equal to -1
 
