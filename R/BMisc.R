@@ -241,7 +241,7 @@ blockBootSample <- function(data, idname) {
 makeDist <- function(x, Fx, sorted = FALSE, rearrange = FALSE, force01 = FALSE, method = "constant") {
   if (!sorted) {
     tmat <- cbind(x, Fx)
-    tmat <- tmat[order(x), ]
+    tmat <- tmat[order(x), , drop=FALSE]
     x <- tmat[, 1]
     Fx <- tmat[, 2]
   }
