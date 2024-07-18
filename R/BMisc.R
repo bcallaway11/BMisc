@@ -1202,3 +1202,56 @@ drop_collinear <- function(matrix) {
 
   return(matrix)
 }
+
+#' @title get_principal_components
+#' @description A function to calculate unit-specific principal components, given panel data
+#' @param xformula a formula specifying the variables to use in the principal component analysis
+#' @param data a data.frame containing the panel data
+#' @param idname the name of the column containing the unit id
+#' @param tname the name of the column containing the time period
+#' @param n_components the number of principal components to retain, the default is NULL which 
+#'  will result in all principal components being retained
+#' @param ret_wide whether to return the data in wide format (where the number of rows 
+#'  is equal to n = length(unique(data[[idname]])) or long format (where the number 
+#'  of rows is equal to nT = nrow(data)).  The default is FALSE, so that long data 
+#'  is returned by default.
+#' @param ret_id whether to return the id column in the output data.frame.  The default is FALSE.
+#' @return a data.frame containing the original data with the principal components appended
+#' @export
+get_principal_components <- function(xformula, data, idname, tname, 
+  n_components=NULL, ret_wide=FALSE, ret_id=FALSE) {
+  X <- model.matrix(xformula, data)
+  # drop intercept if it is included
+  if (all(X[,1] == 1)) {
+    X <- X[, -1, drop=FALSE]
+  }
+  nperiods <- length(unique(data[[tname]]))
+  # handle number of components to return
+  if (is.null(n_components)) {
+    n_components <- nperiods
+  }
+  pc_list <- list()
+  for (i in 1:ncol(X)) {
+    this_x_name <- colnames(X)[i]
+    x <- X[, i]
+    df <- data.frame(.id=data[[idname]], .time=data[[tname]], x)
+    wide_data <- df %>% pivot_wider(id_cols = .id, names_from = .time, names_prefix="_x_", values_from = x)
+    .id <- wide_data$.id
+    pca_inner <- wide_data %>%
+      select(starts_with("_x_")) %>%
+      prcomp(center = FALSE, scale. = FALSE)
+    princ_comp <- pca_inner$x[, 1:n_components]
+    colnames(princ_comp) <- paste0(this_x_name, "_", colnames(princ_comp))
+    pc_list[[i]] <- princ_comp
+  }
+  pc_data <- do.call(cbind.data.frame, pc_list)
+  if (ret_id) {
+    pc_data <- cbind.data.frame(.id, pc_data)
+  }
+
+  if (ret_wide) {
+    return(pc_data)
+  } else {
+    return(pc_data[rep(1:nrow(pc_data), each=nperiods), ])
+  }
+}

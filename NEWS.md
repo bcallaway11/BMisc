@@ -1,7 +1,10 @@
 # BMisc 1.4.7
 
   * moved functions `t2orig` and `orig2t` to `BMisc` from `pte` package
+
   * add function `drop_collinear` to drop collinear columns from a matrix
+
+  * add function `get_principal_components` to get unit-specific principal components of time-varying variables
 
 # BMisc 1.4.6
 
