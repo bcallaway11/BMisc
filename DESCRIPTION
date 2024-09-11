@@ -8,7 +8,8 @@ Imports:
     data.table,
     dplyr,
     Rcpp,
-    caret
+    caret,
+    tidyr
 License: GPL-2
 Suggests: 
     testthat (>= 3.0.0),

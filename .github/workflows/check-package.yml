@@ -45,3 +45,9 @@ jobs:
         run: |
           Rscript -e "install.packages('covr')"
           Rscript -e "covr::codecov()"
+      - name: Upload check results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: R-CMD-check-results
+          path: check
