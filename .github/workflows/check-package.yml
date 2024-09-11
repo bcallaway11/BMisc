@@ -35,12 +35,13 @@ jobs:
       - name: Check
         run: |
           Rscript -e "install.packages('rcmdcheck')"
-          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
+          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = paste0('check-', Sys.getenv('RUNNER_OS'), '-', R.version$os))"
       - name: Test
         run: |
           Rscript -e "install.packages('devtools')"
           Rscript -e "install.packages('testthat')"
-          Rscript -e "devtools::test()"
+          Rscript -e "dir.create('test-results')"
+          Rscript -e "devtools::test(reporter = testthat::JUnitReporter$new(file = 'test-results/test-report.xml'))"
       - name: Code Coverage
         if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
         run: |
@@ -50,5 +51,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: R-CMD-check-results
-          path: check
+          name: R-CMD-check-results-${{ matrix.config.os }}-${{ matrix.config.r }}
+          path: check-*
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: R-test-results-${{ matrix.config.os }}-${{ matrix.config.r }}
+          path: test-results
