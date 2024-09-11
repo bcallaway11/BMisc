@@ -1,147 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/BMisc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/TorF.html</loc>
-  </url>
-  <url>
-    <loc>/reference/addCovToFormla.html</loc>
-  </url>
-  <url>
-    <loc>/reference/blockBootSample.html</loc>
-  </url>
-  <url>
-    <loc>/reference/checkfun.html</loc>
-  </url>
-  <url>
-    <loc>/reference/combineDfs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compareBinary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compareSingleBinary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cs2panel.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dropCovFromFormla.html</loc>
-  </url>
-  <url>
-    <loc>/reference/element_wise_mult.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getListElement.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getWeightedDf.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getWeightedMean.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getWeightedQuantile.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getWeightedQuantiles.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_Yi1.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_Yi1_inner.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_YiGmin1.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_YiGmin1_inner.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_Yibar.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_Yibar_inner.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_Yit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_Yit_inner.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_first_difference.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_group.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_group_inner.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_lagYi.html</loc>
-  </url>
-  <url>
-    <loc>/reference/id2rownum.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ids2rownum.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/invertEcdf.html</loc>
-  </url>
-  <url>
-    <loc>/reference/lhs.vars.html</loc>
-  </url>
-  <url>
-    <loc>/reference/makeBalancedPanel.html</loc>
-  </url>
-  <url>
-    <loc>/reference/makeDist.html</loc>
-  </url>
-  <url>
-    <loc>/reference/multiplier_bootstrap.html</loc>
-  </url>
-  <url>
-    <loc>/reference/panel2cs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/panel2cs2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rhs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rhs.vars.html</loc>
-  </url>
-  <url>
-    <loc>/reference/source_all.html</loc>
-  </url>
-  <url>
-    <loc>/reference/subsample.html</loc>
-  </url>
-  <url>
-    <loc>/reference/toformula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/weighted.checkfun.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://bcallaway11.github.io/BMisc/404.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/authors.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/index.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/news/index.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/BMisc.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/TorF.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/addCovToFormla.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/blockBootSample.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/checkfun.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/combineDfs.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/compareBinary.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/compareSingleBinary.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/cs2panel.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/dropCovFromFormla.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/drop_collinear.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/element_wise_mult.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/getListElement.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/getWeightedDf.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/getWeightedMean.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/getWeightedQuantile.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/getWeightedQuantiles.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yi1.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yi1_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_YiGmin1.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_YiGmin1_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yibar.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yibar_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yibar_pre.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yibar_pre_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yit.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_Yit_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_first_difference.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_group.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_group_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_lagYi.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/get_principal_components.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/id2rownum.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/ids2rownum.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/index.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/invertEcdf.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/lhs.vars.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/makeBalancedPanel.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/makeDist.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/multiplier_bootstrap.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/mv_mult.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/orig2t.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/orig2t_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/panel2cs.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/panel2cs2.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/rhs.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/rhs.vars.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/source_all.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/subsample.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/t2orig.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/t2orig_inner.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/toformula.html</loc></url>
+<url><loc>https://bcallaway11.github.io/BMisc/reference/weighted.checkfun.html</loc></url>
 </urlset>
+

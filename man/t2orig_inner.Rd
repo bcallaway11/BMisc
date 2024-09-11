@@ -15,3 +15,4 @@ t2orig_inner(t, original_time.periods)
 A helper function to switch from "new" t values to
 original t values for a single t.
 }
+\keyword{internal}

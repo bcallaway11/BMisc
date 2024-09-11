@@ -1116,6 +1116,7 @@ mv_mult <- function(A, v) {
 #' @param t a single time period to convert back to original time
 #' @inheritParams t2orig
 #'
+#' @keywords internal
 #' @export
 t2orig_inner <- function(t, original_time.periods) {
   new_time.periods <- seq(1, length(unique(original_time.periods)))
@@ -1131,6 +1132,7 @@ t2orig_inner <- function(t, original_time.periods) {
 #' @param orig a single original time period to convert to new time period
 #' @inheritParams orig2t
 #'
+#' @keywords internal
 #' @export
 orig2t_inner <- function(orig, original_time.periods) {
   new_time.periods <- seq(1, length(unique(original_time.periods)))

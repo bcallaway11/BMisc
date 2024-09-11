@@ -1,6 +1,8 @@
+url: https://bcallaway11.github.io/BMisc/
+
 template:
-  params:
-    bootswatch: cerulean
+  bootstrap: 5
+  bootswatch: cerulean
 
 reference:
   - title: Funtions for working with panel data
@@ -20,6 +22,10 @@ reference:
       - get_Yit
       - get_first_difference
       - get_lagYi
+      - get_Yibar_pre
+      - get_principal_components
+      - orig2t
+      - t2orig
 
   - title: Functions for working with distributions
     contents:
@@ -51,6 +57,8 @@ reference:
       - source_all
       - TorF
       - element_wise_mult
+      - mv_mult
+      - drop_collinear
 
   - title: Package documentation
     contents:

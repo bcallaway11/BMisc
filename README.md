@@ -6,7 +6,7 @@
 [![](http://cranlogs.r-pkg.org/badges/grand-total/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
 [![](http://cranlogs.r-pkg.org/badges/last-month/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
 [![](https://www.r-pkg.org/badges/version/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)
-[![](https://img.shields.io/badge/devel%20version-1.4.6-blue.svg)](https://github.com/bcallaway11/BMisc)
+[![](https://img.shields.io/badge/devel%20version-1.4.7-blue.svg)](https://github.com/bcallaway11/BMisc)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
 [![](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)

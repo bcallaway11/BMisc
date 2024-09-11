@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # BMisc <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
-```{r echo=FALSE, results='asis', message=FALSE}
+```{r echo=FALSE, results='asis', message=FALSE, warning=FALSE}
 cat(
   badger::badge_cran_download("BMisc", "grand-total", "blue"),
   badger::badge_cran_download("BMisc", "last-month", "blue"),
