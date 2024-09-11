@@ -1,6 +1,6 @@
 ## Test environments
 
-- Local Ubuntu 22.04, R 4.3.3:
+- Local Ubuntu 22.04, R 4.4.1:
     - All checks passed without issues.
 - macOS (on CRAN's macOS test server, Ventura 13.3.1, R-release):
     - All checks passed without issues.
