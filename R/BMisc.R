@@ -1103,7 +1103,7 @@ get_first_difference <- function(df, idname, yname, tname) {
 #' @export
 time_invariant_to_panel <- function(x, df, idname, balanced_panel = FALSE) {
   # Ensure that x has the same length as the number of unique ids
-  unique_ids <- unique(df[[id]])
+  unique_ids <- unique(df[[idname]])
   if (length(x) != length(unique_ids)) {
     stop("The length of x must be equal to the number of unique ids in df.")
   }
@@ -1120,7 +1120,7 @@ time_invariant_to_panel <- function(x, df, idname, balanced_panel = FALSE) {
     id_to_x <- setNames(x, unique_ids)
 
     # Repeat each value of x according to the occurrences of each id
-    out <- id_to_x[df[[id]]]
+    out <- id_to_x[df[[idname]]]
   }
 
   return(out)
