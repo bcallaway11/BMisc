@@ -9,6 +9,8 @@
   * add function `time_invariant_to_panel` for repeating time-invariant variables, mainly with the
     idea of adding them into a panel data set
 
+  * update get_group to allow for non-binary treatments
+
 # BMisc 1.4.6
 
   * Adds functions `get_group`, `get_YiGmin1`, and `get_Yi1` as utility functions for manipulating data.  This is especially useful for settings with staggered treatment adoption.

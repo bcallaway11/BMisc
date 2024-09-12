@@ -875,7 +875,7 @@ get_group_inner <- function(this_df, tname, treatname) {
     return(0)
   }
 
-  as.numeric(this_df[this_df[, treatname] == 1, ][1, tname])
+  as.numeric(this_df[this_df[, treatname] > 0, ][1, tname])
 }
 
 #' @title get_group
