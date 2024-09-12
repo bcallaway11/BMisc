@@ -3,6 +3,8 @@
 export(TorF)
 export(addCovToFormla)
 export(blockBootSample)
+export(check_staggered)
+export(check_staggered_inner)
 export(checkfun)
 export(combineDfs)
 export(compareBinary)

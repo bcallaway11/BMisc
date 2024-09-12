@@ -11,6 +11,9 @@
 
   * update get_group to allow for non-binary treatments
 
+  * add function `check_staggered` to check if a panel data set has staggered treatment adoption,
+    this function can work with non-binary treatments
+
 # BMisc 1.4.6
 
   * Adds functions `get_group`, `get_YiGmin1`, and `get_Yi1` as utility functions for manipulating data.  This is especially useful for settings with staggered treatment adoption.

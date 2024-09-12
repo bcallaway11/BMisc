@@ -1122,6 +1122,38 @@ time_invariant_to_panel <- function(x, df, idname, balanced_panel = TRUE) {
   return(out)
 }
 
+#' @title check_staggered_inner
+#'
+#' @description A helper function to check if treatment is staggered in a panel data set.
+#'
+#' @inheritParams get_group_inner
+#'
+#' @keywords internal
+#' @export
+check_staggered_inner <- function(this_df, treatname) {
+  this_df <- as.data.frame(this_df)
+  is_staggered <- TRUE
+  if (length(unique(this_df[, treatname])) > 1) is_staggered <- FALSE
+  if (any(diff(this_df[, treatname]) < 0)) is_staggered <- FALSE
+  is_staggered
+}
+
+#' @title check_staggered
+#'
+#' @description A function to check if treatment is staggered in a panel data set.
+#'
+#' @inheritParams get_group
+#'
+#' @return a logical indicating whether treatment is staggered
+#' @export
+check_staggered <- function(df, idname, treatname) {
+  this_staggered <- df %>%
+    group_by(.data[[idname]]) %>%
+    group_map(~ check_staggered_inner(.x, treatname)) %>%
+    unlist()
+  all(this_staggered)
+}
+
 #' Matrix-Vector Multiplication
 #'
 #' This function multiplies a matrix by a vector and returns a numeric vector.

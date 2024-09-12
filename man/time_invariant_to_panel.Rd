@@ -4,7 +4,7 @@
 \alias{time_invariant_to_panel}
 \title{time_invariant_to_panel}
 \usage{
-time_invariant_to_panel(x, df, idname, balanced_panel = FALSE)
+time_invariant_to_panel(x, df, idname, balanced_panel = TRUE)
 }
 \arguments{
 \item{x}{a vector of length equal to the number of unique ids in df.}
@@ -13,7 +13,9 @@ time_invariant_to_panel(x, df, idname, balanced_panel = FALSE)
 
 \item{idname}{name of column that holds the unit id}
 
-\item{balanced_panel}{a logical indicating whether the panel is balanced.}
+\item{balanced_panel}{a logical indicating whether the panel is balanced.
+If TRUE, the function will optimize the repetition process.  Default
+is TRUE.}
 }
 \value{
 a vector of length equal to the number of rows in df.
