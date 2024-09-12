@@ -1098,10 +1098,12 @@ get_first_difference <- function(df, idname, yname, tname) {
 #' @param x a vector of length equal to the number of unique ids in df.
 #' @inheritParams get_lagYi
 #' @param balanced_panel a logical indicating whether the panel is balanced.
+#'  If TRUE, the function will optimize the repetition process.  Default
+#'  is TRUE.
 #'
 #' @return a vector of length equal to the number of rows in df.
 #' @export
-time_invariant_to_panel <- function(x, df, idname, balanced_panel = FALSE) {
+time_invariant_to_panel <- function(x, df, idname, balanced_panel = TRUE) {
   # Ensure that x has the same length as the number of unique ids
   unique_ids <- unique(df[[idname]])
   if (length(x) != length(unique_ids)) {
@@ -1110,17 +1112,11 @@ time_invariant_to_panel <- function(x, df, idname, balanced_panel = FALSE) {
 
   # If the panel is balanced, optimize the repetition process
   if (balanced_panel) {
-    # Calculate the number of rows per id (assuming the panel is balanced)
     n_per_id <- nrow(df) / length(unique_ids)
-
-    # Repeat each value in x by the number of periods per id
     out <- rep(x, each = n_per_id)
   } else {
-    # For unbalanced panels, create a lookup table
-    id_to_x <- setNames(x, unique_ids)
-
-    # Repeat each value of x according to the occurrences of each id
-    out <- id_to_x[df[[idname]]]
+    x_id_map <- cbind.data.frame(x, id = unique_ids)
+    out <- merge(df, x_id_map, by = "id")[, "x"]
   }
 
   return(out)
