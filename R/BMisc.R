@@ -241,7 +241,7 @@ blockBootSample <- function(data, idname) {
 makeDist <- function(x, Fx, sorted = FALSE, rearrange = FALSE, force01 = FALSE, method = "constant") {
   if (!sorted) {
     tmat <- cbind(x, Fx)
-    tmat <- tmat[order(x), , drop=FALSE]
+    tmat <- tmat[order(x), , drop = FALSE]
     x <- tmat[, 1]
     Fx <- tmat[, 2]
   }
@@ -1090,6 +1090,42 @@ get_first_difference <- function(df, idname, yname, tname) {
   df[, yname] - df$.lag
 }
 
+#' @title time_invariant_to_panel
+#'
+#' @description This function takes a time-invariant variable and repeats it
+#'  for each period in a panel data set.
+#'
+#' @param x a vector of length equal to the number of unique ids in df.
+#' @inheritParams get_lagYi
+#' @param balanced_panel a logical indicating whether the panel is balanced.
+#'
+#' @return a vector of length equal to the number of rows in df.
+#' @export
+time_invariant_to_panel <- function(x, df, idname, balanced_panel = FALSE) {
+  # Ensure that x has the same length as the number of unique ids
+  unique_ids <- unique(df[[id]])
+  if (length(x) != length(unique_ids)) {
+    stop("The length of x must be equal to the number of unique ids in df.")
+  }
+
+  # If the panel is balanced, optimize the repetition process
+  if (balanced_panel) {
+    # Calculate the number of rows per id (assuming the panel is balanced)
+    n_per_id <- nrow(df) / length(unique_ids)
+
+    # Repeat each value in x by the number of periods per id
+    out <- rep(x, each = n_per_id)
+  } else {
+    # For unbalanced panels, create a lookup table
+    id_to_x <- setNames(x, unique_ids)
+
+    # Repeat each value of x according to the occurrences of each id
+    out <- id_to_x[df[[id]]]
+  }
+
+  return(out)
+}
+
 #' Matrix-Vector Multiplication
 #'
 #' This function multiplies a matrix by a vector and returns a numeric vector.
@@ -1211,21 +1247,22 @@ drop_collinear <- function(matrix) {
 #' @param data a data.frame containing the panel data
 #' @param idname the name of the column containing the unit id
 #' @param tname the name of the column containing the time period
-#' @param n_components the number of principal components to retain, the default is NULL which 
+#' @param n_components the number of principal components to retain, the default is NULL which
 #'  will result in all principal components being retained
-#' @param ret_wide whether to return the data in wide format (where the number of rows 
-#'  is equal to n = length(unique(data[[idname]])) or long format (where the number 
-#'  of rows is equal to nT = nrow(data)).  The default is FALSE, so that long data 
+#' @param ret_wide whether to return the data in wide format (where the number of rows
+#'  is equal to n = length(unique(data[[idname]])) or long format (where the number
+#'  of rows is equal to nT = nrow(data)).  The default is FALSE, so that long data
 #'  is returned by default.
 #' @param ret_id whether to return the id column in the output data.frame.  The default is FALSE.
 #' @return a data.frame containing the original data with the principal components appended
 #' @export
-get_principal_components <- function(xformula, data, idname, tname, 
-  n_components=NULL, ret_wide=FALSE, ret_id=FALSE) {
+get_principal_components <- function(
+    xformula, data, idname, tname,
+    n_components = NULL, ret_wide = FALSE, ret_id = FALSE) {
   X <- model.matrix(xformula, data)
   # drop intercept if it is included
-  if (all(X[,1] == 1)) {
-    X <- X[, -1, drop=FALSE]
+  if (all(X[, 1] == 1)) {
+    X <- X[, -1, drop = FALSE]
   }
   nperiods <- length(unique(data[[tname]]))
   # handle number of components to return
@@ -1236,8 +1273,8 @@ get_principal_components <- function(xformula, data, idname, tname,
   for (i in 1:ncol(X)) {
     this_x_name <- colnames(X)[i]
     x <- X[, i]
-    df <- data.frame(.id=data[[idname]], .time=data[[tname]], x)
-    wide_data <- df %>% pivot_wider(id_cols = .id, names_from = .time, names_prefix="_x_", values_from = x)
+    df <- data.frame(.id = data[[idname]], .time = data[[tname]], x)
+    wide_data <- df %>% pivot_wider(id_cols = .id, names_from = .time, names_prefix = "_x_", values_from = x)
     .id <- wide_data$.id
     pca_inner <- wide_data %>%
       select(starts_with("_x_")) %>%
@@ -1254,6 +1291,6 @@ get_principal_components <- function(xformula, data, idname, tname,
   if (ret_wide) {
     return(pc_data)
   } else {
-    return(pc_data[rep(1:nrow(pc_data), each=nperiods), ])
+    return(pc_data[rep(1:nrow(pc_data), each = nperiods), ])
   }
 }

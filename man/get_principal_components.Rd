@@ -23,12 +23,12 @@ get_principal_components(
 
 \item{tname}{the name of the column containing the time period}
 
-\item{n_components}{the number of principal components to retain, the default is NULL which 
+\item{n_components}{the number of principal components to retain, the default is NULL which
 will result in all principal components being retained}
 
-\item{ret_wide}{whether to return the data in wide format (where the number of rows 
-is equal to n = length(unique(data[[idname]])) or long format (where the number 
-of rows is equal to nT = nrow(data)).  The default is FALSE, so that long data 
+\item{ret_wide}{whether to return the data in wide format (where the number of rows
+is equal to n = length(unique(data[[idname]])) or long format (where the number
+of rows is equal to nT = nrow(data)).  The default is FALSE, so that long data
 is returned by default.}
 
 \item{ret_id}{whether to return the id column in the output data.frame.  The default is FALSE.}
