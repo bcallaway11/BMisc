@@ -35,7 +35,8 @@ jobs:
       - name: Check
         run: |
           Rscript -e "install.packages('rcmdcheck')"
-          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = paste0('check-', Sys.getenv('RUNNER_OS'), '-', R.version$os))"
+          mkdir -p "check-${{ matrix.config.os }}"
+          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check-${{ matrix.config.os }}')"
       - name: Test
         run: |
           Rscript -e "install.packages('devtools')"
