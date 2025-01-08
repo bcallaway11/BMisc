@@ -39,9 +39,10 @@ jobs:
           Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check-${{ matrix.config.os }}')"
       - name: Test
         run: |
+          mkdir -p "test-results-${{ matrix.config.os }}"
           Rscript -e "install.packages('devtools')"
           Rscript -e "install.packages('testthat')"
-          Rscript -e "devtools::test()"
+          Rscript -e "devtools::test(pkg = '.', reporter = testthat::CheckReporter$new(), stop_on_failure = FALSE)"
       - name: Code Coverage
         if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
         run: |
