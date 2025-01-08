@@ -2,13 +2,6 @@ name: Reverse Dependency Check
 
 on:
   workflow_dispatch:
-    inputs:
-      which:
-        type: choice
-        description: Which dependents to check
-        options:
-          - strong
-          - most
 
 jobs:
   revdep_check:
@@ -39,9 +32,6 @@ jobs:
             reverse = TRUE
           )
           rev_deps <- rev_deps[['BMisc']]
-          if ('${{ inputs.which }}' == 'strong') {
-            rev_deps <- rev_deps[rev_deps %in% tools::package_dependencies('BMisc', reverse = TRUE, db = available.packages(), dependencies = 'strong')[[1]]]
-          }
           cat('Testing the following reverse dependencies:', rev_deps, '\n')
 
           for (pkg in rev_deps) {
