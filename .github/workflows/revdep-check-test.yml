@@ -34,13 +34,13 @@ jobs:
         run: |
           Rscript -e "
           rev_deps <- tools::package_dependencies(
-            packages = 'your_package_name',
+            packages = 'BMisc',
             db = available.packages(),
             reverse = TRUE
           )
-          rev_deps <- rev_deps[['your_package_name']]
+          rev_deps <- rev_deps[['BMisc']]
           if ('${{ inputs.which }}' == 'strong') {
-            rev_deps <- rev_deps[rev_deps %in% tools::package_dependencies('your_package_name', reverse = TRUE, db = available.packages(), dependencies = 'strong')[[1]]]
+            rev_deps <- rev_deps[rev_deps %in% tools::package_dependencies('BMisc', reverse = TRUE, db = available.packages(), dependencies = 'strong')[[1]]]
           }
           cat('Testing the following reverse dependencies:', rev_deps, '\n')
 

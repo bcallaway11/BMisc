@@ -41,6 +41,8 @@ jobs:
         run: |
           mkdir -p "test-results-${{ matrix.config.os }}"
           Rscript -e "install.packages('testthat')"
+          Rscript -e "install.packages('devtools')"
+          Rscript -e "devtools::install('.', dependencies = TRUE)"
           Rscript -e "testthat::test_dir('tests', reporter = testthat::SummaryReporter)"
       - name: Code Coverage
         if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
