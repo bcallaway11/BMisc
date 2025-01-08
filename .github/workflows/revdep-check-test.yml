@@ -1,3 +1,5 @@
+name: Reverse Dependency Check
+
 on:
   workflow_dispatch:
     inputs:
@@ -8,12 +10,54 @@ on:
           - strong
           - most
 
-name: Reverse dependency check
-
 jobs:
   revdep_check:
+    runs-on: ubuntu-latest
+
     name: Reverse check ${{ inputs.which }} dependents
-    uses: r-devel/recheck/.github/workflows/recheck.yml@v1
-    with:
-      which: ${{ inputs.which }}
-      subdirectory: '' #if your package is in a git subdir
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+
+      - name: Install dependencies
+        run: |
+          Rscript -e "install.packages(c('remotes', 'revdepcheck', 'testthat'))"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
+
+      - name: Reverse Dependency Check
+        run: |
+          Rscript -e "
+          rev_deps <- tools::package_dependencies(
+            packages = 'your_package_name',
+            db = available.packages(),
+            reverse = TRUE
+          )
+          rev_deps <- rev_deps[['your_package_name']]
+          if ('${{ inputs.which }}' == 'strong') {
+            rev_deps <- rev_deps[rev_deps %in% tools::package_dependencies('your_package_name', reverse = TRUE, db = available.packages(), dependencies = 'strong')[[1]]]
+          }
+          cat('Testing the following reverse dependencies:', rev_deps, '\n')
+
+          for (pkg in rev_deps) {
+            cat('Installing and testing package:', pkg, '\n')
+            tryCatch({
+              install.packages(pkg, dependencies = TRUE)
+              testthat::test_package(pkg)
+            }, error = function(e) {
+              cat('Error testing package:', pkg, '\n', e$message, '\n')
+            })
+          }
+          "
+
+      - name: Upload Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Reverse-Dependency-Check-Results
+          path: revdep/
