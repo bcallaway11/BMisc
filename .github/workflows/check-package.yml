@@ -41,8 +41,7 @@ jobs:
         run: |
           Rscript -e "install.packages('devtools')"
           Rscript -e "install.packages('testthat')"
-          Rscript -e "dir.create('test-results')"
-          Rscript -e "devtools::test(reporter = testthat::JUnitReporter$new(file = 'test-results/test-report.xml'))"
+          Rscript -e "devtools::test(reporter = testthat::SummaryReporter$new())"
       - name: Code Coverage
         if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
         run: |
