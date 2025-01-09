@@ -1,14 +1,13 @@
 ## Test environments
 
-- Local Ubuntu 22.04, R 4.4.1:
+- Local Ubuntu 24.04, R 4.4.1:
     - All checks passed without issues.
-- macOS (on CRAN's macOS test server, Ventura 13.3.1, R-release):
-    - All checks passed without issues.
-- R-hub:
-    - R-hub Windows Server 2022, R-devel, 64 bit
-    - R-hub Ubuntu Linux 20.04.1 LTS, R-release, GCC
-    - R-hub Fedora Linux, R-devel, clang, gfortran
-    - R-hub Debian Linux, R-devel, GCC ASAN/UBSAN
+- Github Actions
+    - Windows-latest (R release)
+    - Windows-latest (R devel)
+    - macOS-latest (R release)
+    - Ubuntu-latest (R release)
+    - Ubuntu-latest (R devel)
     - All checks passed without issues.
 
 ## R CMD check results

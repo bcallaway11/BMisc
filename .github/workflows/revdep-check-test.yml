@@ -38,7 +38,7 @@ jobs:
 
       - name: Install R dependencies
         run: |
-          Rscript -e "install.packages(c('remotes', 'revdepcheck', 'testthat'))"
+          Rscript -e "install.packages(c('remotes', 'revdepcheck', 'testthat', 'rcmdcheck'))"
           Rscript -e "remotes::install_deps(dependencies = TRUE)"
 
       - name: Setup Reverse Dependency Check
@@ -60,6 +60,30 @@ jobs:
       - name: Reverse Dependency Check
         run: |
           Rscript -e "
+          rev_deps <- tools::package_dependencies(
+            packages = 'BMisc',
+            db = available.packages(),
+            reverse = TRUE
+          )
+          rev_deps <- rev_deps[['BMisc']]
+          for (pkg in rev_deps) {
+            cat('Checking package:', pkg, '\n')
+            tryCatch({
+              rcmdcheck::rcmdcheck(pkg, error_on = "never", args = "--no-manual")
+            }, error = function(e) {
+              cat('Error checking package:', pkg, '\n', e$message, '\n')
+            })
+          }
+          "
+      - name: Reverse Dependency Test
+        run: |
+          Rscript -e "
+          rev_deps <- tools::package_dependencies(
+            packages = 'BMisc',
+            db = available.packages(),
+            reverse = TRUE
+          )
+          rev_deps <- rev_deps[['BMisc']]
           for (pkg in rev_deps) {
             cat('Testing package:', pkg, '\n')
             tryCatch({
