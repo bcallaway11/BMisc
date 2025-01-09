@@ -41,7 +41,7 @@ jobs:
           Rscript -e "install.packages(c('remotes', 'revdepcheck', 'testthat'))"
           Rscript -e "remotes::install_deps(dependencies = TRUE)"
 
-      - name: Reverse Dependency Check
+      - name: Setup Reverse Dependency Check
         run: |
           Rscript -e "
           rev_deps <- tools::package_dependencies(
@@ -53,9 +53,16 @@ jobs:
           cat('Testing the following reverse dependencies:', rev_deps, '\n')
 
           for (pkg in rev_deps) {
-            cat('Installing and testing package:', pkg, '\n')
+            cat('Installing package:', pkg, '\n')
+            install.packages(pkg, dependencies = TRUE)
+          }
+          "
+      - name: Reverse Dependency Check
+        run: |
+          Rscript -e "
+          for (pkg in rev_deps) {
+            cat('Testing package:', pkg, '\n')
             tryCatch({
-              install.packages(pkg, dependencies = TRUE)
               testthat::test_package(pkg)
             }, error = function(e) {
               cat('Error testing package:', pkg, '\n', e$message, '\n')

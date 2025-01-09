@@ -32,17 +32,21 @@ jobs:
       - name: Install system dependencies (Ubuntu only)
         if: runner.os == 'Linux'
         run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfreetype6-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libpng-dev libjpeg-dev libtiff5-dev
-      - name: Check
+      - name: Setup Check
         run: |
           Rscript -e "install.packages('rcmdcheck')"
           mkdir -p "check-${{ matrix.config.os }}"
+      - name: Check
+        run: |
           Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check-${{ matrix.config.os }}')"
-      - name: Test
+      - name: Setup Test
         run: |
           mkdir -p "test-results-${{ matrix.config.os }}"
           Rscript -e "install.packages('testthat')"
           Rscript -e "install.packages('devtools')"
           Rscript -e "devtools::install('.', dependencies = TRUE)"
+      - name: Test
+        run: |
           Rscript -e "testthat::test_dir('tests', reporter = testthat::SummaryReporter)"
       - name: Code Coverage
         if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
