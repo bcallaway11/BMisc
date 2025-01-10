@@ -66,12 +66,24 @@ jobs:
             reverse = TRUE
           )
           rev_deps <- rev_deps[['BMisc']]
+
+          dir.create('revdep_tarballs', showWarnings = FALSE)
+
           for (pkg in rev_deps) {
             cat('Checking package:', pkg, '\n')
-            tryCatch({
-              rcmdcheck::rcmdcheck(pkg, error_on = "never", args = "--no-manual")
+            # Download the source tarball
+            tarball <- tryCatch({
+              download.packages(pkg, destdir = 'revdep_tarballs', type = 'source')
+              file.path('revdep_tarballs', paste0(pkg, '_source.tar.gz'))
             }, error = function(e) {
-              cat('Error checking package:', pkg, '\n', e$message, '\n')
+              cat('Error downloading source tarball for package:', pkg, '\n', conditionMessage(e), '\n')
+              next
+            })
+            pkg_path <- find.package(pkg, quiet = TRUE)
+            tryCatch({
+              rcmdcheck::rcmdcheck(tarball, error_on = 'never', args = '--no-manual')
+            }, error = function(e) {
+              cat('Error checking package:', pkg, '\n', conditionMessage(e), '\n')
             })
           }
           "

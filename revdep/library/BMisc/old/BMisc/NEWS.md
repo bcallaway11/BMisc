@@ -1,3 +1,16 @@
+# BMisc 1.4.6
+
+  * Adds functions `get_group`, `get_YiGmin1`, and `get_Yi1` as utility functions for manipulating data.  This is especially useful for settings with staggered treatment adoption.
+  
+  * Add functions `get_lagYi` and `get_first_difference` as more utility functions for working with panel data. 
+  
+  * Add function `get_Yit` which recovers outcomes 
+    in period t for all units in a panel.
+  
+  * Restore default of `makeBalancedPanel` to return a data.frame rather than a data.table.  New function argument `return_data.table` allows for returning a data.table if this is the desired functionality from the user.
+  
+  * Fixes documentation NOTE in `id2rownum`
+
 # BMisc 1.4.5
   
   * only execute examples for `subsample` and `blockBootSample` if `plm` package is available (thanks Achim Zeileis)

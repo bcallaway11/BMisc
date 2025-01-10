@@ -1,12 +1,13 @@
-BMisc                   BMisc
 TorF                    TorF
 addCovToFormla          Add a Covariate to a Formula
 blockBootSample         Block Bootstrap
+check_staggered         check_staggered
 checkfun                Check Function
 combineDfs              Combine Two Distribution Functions
 compareBinary           Compare Variables across Groups
 cs2panel                Cross Section to Panel
 dropCovFromFormla       Drop a Covariate from a Formula
+drop_collinear          drop_collinear
 element_wise_mult       element_wise_mult
 getListElement          Return Particular Element from Each Element in
                         a List
@@ -21,6 +22,8 @@ get_Yit                 get_Yit
 get_first_difference    get_first_difference
 get_group               get_group
 get_lagYi               get_lagYi
+get_principal_components
+                        get_principal_components
 ids2rownum              Convert Vector of ids into Vector of Row
                         Numbers
 invertEcdf              Invert Ecdf
@@ -28,11 +31,16 @@ lhs.vars                Left-hand Side Variables
 makeBalancedPanel       Balance a Panel Data Set
 makeDist                Make a Distribution Function
 multiplier_bootstrap    multiplier_bootstrap
+mv_mult                 Matrix-Vector Multiplication
+orig2t                  orig2t
 panel2cs                Panel Data to Repeated Cross Sections
 panel2cs2               Panel Data to Repeated Cross Sections
 rhs                     Right-hand Side of Formula
 rhs.vars                Right-hand Side Variables
 source_all              source_all
 subsample               Subsample of Observations from Panel Data
+t2orig                  t2orig
+time_invariant_to_panel
+                        time_invariant_to_panel
 toformula               Variable Names to Formula
 weighted.checkfun       Weighted Check Function

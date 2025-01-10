@@ -7,11 +7,20 @@ combineDfs              Combine Two Distribution Functions
 compareBinary           Compare Variables across Groups
 cs2panel                Cross Section to Panel
 dropCovFromFormla       Drop a Covariate from a Formula
+element_wise_mult       element_wise_mult
 getListElement          Return Particular Element from Each Element in
                         a List
 getWeightedDf           Weighted Distribution Function
 getWeightedMean         Weighted Mean
 getWeightedQuantiles    Get Weighted Quantiles
+get_Yi1                 get_Yi1
+get_YiGmin1             get_YiGmin1
+get_Yibar               get_Yibar
+get_Yibar_pre           get_Yibar_pre
+get_Yit                 get_Yit
+get_first_difference    get_first_difference
+get_group               get_group
+get_lagYi               get_lagYi
 ids2rownum              Convert Vector of ids into Vector of Row
                         Numbers
 invertEcdf              Invert Ecdf
