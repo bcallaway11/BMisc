@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{weighted.checkfun}
 \alias{weighted.checkfun}
-\title{Weighted Check Function}
+\title{weighted.checkfun}
 \usage{
 weighted.checkfun(q, cvec, tau, weights)
 }
@@ -16,9 +16,8 @@ weighted.checkfun(q, cvec, tau, weights)
 \item{weights}{the weights, weighted.checkfun normalizes the weights
 to sum to 1.}
 }
-\value{
-numeric
-}
 \description{
-Weights the check function
+Legacy version of `weighted_checkfun`, please use that
+ function instead.  This function will eventually be deleted.
 }
+\keyword{internal}

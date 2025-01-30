@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getWeightedQuantiles}
 \alias{getWeightedQuantiles}
-\title{Get Weighted Quantiles}
+\title{getWeightedQuantiles}
 \usage{
 getWeightedQuantiles(tau, cvec, weights = NULL, norm = TRUE)
 }
@@ -17,10 +17,8 @@ to sum to 1.}
 \item{norm}{normalize the weights so that they have mean of 1, default is
 to normalize}
 }
-\value{
-vector of quantiles
-}
 \description{
-Finds multiple quantiles by repeatedly calling
- getWeightedQuantile
+Legacy version of `weighted_quantile`, please use that
+ function instead.  This function will eventually be deleted.
 }
+\keyword{internal}

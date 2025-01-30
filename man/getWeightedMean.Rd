@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getWeightedMean}
 \alias{getWeightedMean}
-\title{Weighted Mean}
+\title{getWeightedMean}
 \usage{
 getWeightedMean(y, weights = NULL, norm = TRUE)
 }
@@ -14,9 +14,8 @@ getWeightedMean(y, weights = NULL, norm = TRUE)
 \item{norm}{normalize the weights so that they have mean of 1, default is
 to normalize}
 }
-\value{
-the weighted mean
-}
 \description{
-Get the mean applying some weights
+Legacy version of `weighted_mean`, please use
+ that function instead.  This function will eventually be deleted.
 }
+\keyword{internal}

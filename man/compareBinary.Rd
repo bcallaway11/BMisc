@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{compareBinary}
 \alias{compareBinary}
-\title{Compare Variables across Groups}
+\title{compareBinary}
 \usage{
 compareBinary(
   x,
@@ -24,10 +24,8 @@ compareBinary(
 \item{report}{which type of report to make; diff is the difference between
 the two variables by group}
 }
-\value{
-matrix of results
-}
 \description{
-\code{compareBinary} takes in a variable e.g. union
-and runs bivariate regression of x on treatment (for summary statistics)
+Legacy version of `compare_binary`, please use that
+ function instead.  This function will eventually be deleted.
 }
+\keyword{internal}

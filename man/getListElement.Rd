@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getListElement}
 \alias{getListElement}
-\title{Return Particular Element from Each Element in a List}
+\title{getListElement}
 \usage{
 getListElement(listolists, whichone = 1)
 }
@@ -11,17 +11,8 @@ getListElement(listolists, whichone = 1)
 
 \item{whichone}{which item to get out of each list (can be numeric or name)}
 }
-\value{
-list of all the elements 'whichone' from each list
-}
 \description{
-a function to take a list and get a particular part
- out of each element in the list
+Legacy version of `get_list_element`, please use that function
+ instead.  This function will eventually be deleted.
 }
-\examples{
-len <- 100 # number elements in list
-lis <- lapply(1:len, function(l) list(x = (-l), y = l^2)) # create list
-getListElement(lis, "x")[1] # should be equal to -1
-getListElement(lis, 1)[1] # should be equal to -1
-
-}
+\keyword{internal}

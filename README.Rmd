@@ -25,7 +25,7 @@ cat(
 )
 ```
 
-BMisc includes miscellaneous functions for working with panel data, quantiles, and printing results.
+BMisc includes miscellaneous functions for working with panel data, quantiles, dealing with formulas, among other things.
 
 ## Installation
 
@@ -41,9 +41,9 @@ or from CRAN with:
 install.packages("BMisc")
 ```
 
-## Example 1
+## Example 1: Working with distribution functions
 
-One of the most useful functions in the `BMisc` package is `makeDist` which takes a vector of observations and turns them into a distribution function.
+The `make_dist` creates a distribution function from a vector of value of the random variable and the corresponding value of its cdf.
 
 ```{r example1}
 library(BMisc)
@@ -51,21 +51,21 @@ y <- rnorm(100)
 y <- y[order(y)]
 u <- runif(100)
 u <- u[order(u)]
-F <- makeDist(y,u)
+F <- make_dist(y, u)
 class(F)
-##plot(F)
+# plot(F)
 ```
 
-## Example 2
-Another useful function is the `makeBalancedPanel` function which drops observations from a panel dataset which are not available in all time periods.
+## Example 2: Working with panel data
+Another useful function is the `make_balanced_panel` function which drops observations from a panel dataset which are not available in all time periods.
 
 ```{r example2}
-id <- rep(seq(1,100,1),2) ## individual ids for setting up a two period panel
-t <- rep(seq(1,2),100) ## time periods
+id <- rep(seq(1, 100, 1), 2) ## individual ids for setting up a two period panel
+t <- rep(seq(1, 2), 100) ## time periods
 y <- rnorm(200) ## outcomes
-dta <- data.frame(id=id, t=t, y=y) ## make into data frame
-dta <- dta[-7,] ## drop the 7th row from the dataset (which creates an unbalanced panel)
+dta <- data.frame(id = id, t = t, y = y) ## make into data frame
+dta <- dta[-7, ] ## drop the 7th row from the dataset (which creates an unbalanced panel)
 nrow(dta)
-dta <- makeBalancedPanel(dta, idname="id", tname="t")
+dta <- make_balanced_panel(dta, idname = "id", tname = "t")
 nrow(dta) ## now all the observations with missing data in any period are dropped
 ```

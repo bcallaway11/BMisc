@@ -2,21 +2,12 @@
 % Please edit documentation in R/BMisc.R
 \name{lhs.vars}
 \alias{lhs.vars}
-\title{Left-hand Side Variables}
+\title{lhs.vars}
 \usage{
 lhs.vars(formla)
 }
-\arguments{
-\item{formla}{a formula}
-}
-\value{
-vector of variable names
-}
 \description{
-Take a formula and return a vector of the variables
- on the left hand side, it will return NULL for a one sided formula
+Legacy version of `lhs_vars`, please use that function
+ instead.  This function will eventually be deleted.
 }
-\examples{
-ff <- yvar ~ x1 + x2
-lhs.vars(ff)
-}
+\keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{getWeightedDf}
 \alias{getWeightedDf}
-\title{Weighted Distribution Function}
+\title{getWeightedDf}
 \usage{
 getWeightedDf(y, y.seq = NULL, weights = NULL, norm = TRUE)
 }
@@ -17,10 +17,8 @@ for; the default is to use all unique values of y}
 \item{norm}{normalize the weights so that they have mean of 1, default is
 to normalize}
 }
-\value{
-ecdf
-}
 \description{
-Get a distribution function from a vector of values
- after applying some weights
+Legacy version of `weighted_ecdf`, please use that function
+ instead.  This function will eventually be deleted.
 }
+\keyword{internal}

@@ -2,27 +2,16 @@
 % Please edit documentation in R/BMisc.R
 \name{addCovToFormla}
 \alias{addCovToFormla}
-\title{Add a Covariate to a Formula}
+\title{addCovToFormla}
 \usage{
 addCovToFormla(covs, formla)
 }
 \arguments{
 \item{covs}{should be a list of variable names}
-
-\item{formla}{which formula to add covariates to}
-}
-\value{
-formula
 }
 \description{
-\code{addCovFromFormla} adds some covariates to a formula;
-  covs should be a list of variable names
+Legacy version of `add_cov_to_formula`, please
+ use that function instead.  This function will eventually be
+ deleted.
 }
-\examples{
-formla <- y ~ x
-addCovToFormla(list("w", "z"), formla)
-
-formla <- ~x
-addCovToFormla("z", formla)
-
-}
+\keyword{internal}

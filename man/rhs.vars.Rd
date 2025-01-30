@@ -2,25 +2,15 @@
 % Please edit documentation in R/BMisc.R
 \name{rhs.vars}
 \alias{rhs.vars}
-\title{Right-hand Side Variables}
+\title{rhs.vars}
 \usage{
 rhs.vars(formla)
 }
 \arguments{
 \item{formla}{a formula}
 }
-\value{
-vector of variable names
-}
 \description{
-Take a formula and return a vector of the variables
- on the right hand side
+Legacy version of `rhs_vars`, please use that
+ function instead.  This function will eventually be deleted.
 }
-\examples{
-ff <- yvar ~ x1 + x2
-rhs.vars(ff)
-
-ff <- y ~ x1 + I(x1^2)
-rhs.vars(ff)
-
-}
+\keyword{internal}

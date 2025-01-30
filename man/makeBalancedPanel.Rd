@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{makeBalancedPanel}
 \alias{makeBalancedPanel}
-\title{Balance a Panel Data Set}
+\title{makeBalancedPanel}
 \usage{
 makeBalancedPanel(data, idname, tname, return_data.table = FALSE)
 }
@@ -13,23 +13,13 @@ makeBalancedPanel(data, idname, tname, return_data.table = FALSE)
 
 \item{tname}{time period name}
 
-\item{return_data.table}{if TRUE, makeBalancedPanel will
+\item{return_data.table}{if TRUE, make_balanced_panel will
 return a data.table rather than a data.frame.  Default
 is FALSE.}
 }
-\value{
-data.frame that is a balanced panel
-}
 \description{
-This function drops observations from data.frame
- that are not part of balanced panel data set.
+Legacy version of `make_balanced_panel`,
+ please use that function name going forward, though this will
+ still work for now.
 }
-\examples{
-id <- rep(seq(1, 100), each = 2) # individual ids for setting up a two period panel
-t <- rep(seq(1, 2), 100) # time periods
-y <- rnorm(200) # outcomes
-dta <- data.frame(id = id, t = t, y = y) # make into data frame
-dta <- dta[-7, ] # drop the 7th row from the dataset (which creates an unbalanced panel)
-dta <- makeBalancedPanel(dta, idname = "id", tname = "t")
-
-}
+\keyword{internal}

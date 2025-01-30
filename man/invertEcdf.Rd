@@ -2,17 +2,15 @@
 % Please edit documentation in R/BMisc.R
 \name{invertEcdf}
 \alias{invertEcdf}
-\title{Invert Ecdf}
+\title{invertEcdf}
 \usage{
 invertEcdf(df)
 }
 \arguments{
 \item{df}{an ecdf object}
 }
-\value{
-stepfun object that contains the quantiles of the df
-}
 \description{
-take an ecdf object and invert it to get a step-quantile
- function
+Legacy function for `invert_ecdf`, please use that
+ function instead.  This function will eventually be deleted.
 }
+\keyword{internal}

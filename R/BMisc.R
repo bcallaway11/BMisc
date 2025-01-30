@@ -6,7 +6,7 @@
 #' @param data data.frame used in function
 #' @param idname unique id
 #' @param tname time period name
-#' @param return_data.table if TRUE, makeBalancedPanel will
+#' @param return_data.table if TRUE, make_balanced_panel will
 #'  return a data.table rather than a data.frame.  Default
 #'  is FALSE.
 #' @examples
@@ -15,14 +15,14 @@
 #' y <- rnorm(200) # outcomes
 #' dta <- data.frame(id = id, t = t, y = y) # make into data frame
 #' dta <- dta[-7, ] # drop the 7th row from the dataset (which creates an unbalanced panel)
-#' dta <- makeBalancedPanel(dta, idname = "id", tname = "t")
+#' dta <- make_balanced_panel(dta, idname = "id", tname = "t")
 #'
 #' @return data.frame that is a balanced panel
 #' @export
-makeBalancedPanel <- function(data,
-                              idname,
-                              tname,
-                              return_data.table = FALSE) {
+make_balanced_panel <- function(data,
+                                idname,
+                                tname,
+                                return_data.table = FALSE) {
   if (!inherits(data, "data.frame")) {
     stop("data must be a data.frame")
   }
@@ -35,6 +35,28 @@ makeBalancedPanel <- function(data,
   } else if (return_data.table) {
     return(data[, if (.N == nt) .SD, by = idname])
   }
+}
+
+#' @title makeBalancedPanel
+#'
+#' @description Legacy version of `make_balanced_panel`,
+#'  please use that function name going forward, though this will
+#'  still work for now.
+#'
+#' @inheritParams make_balanced_panel
+#'
+#' @keywords internal
+#' @export
+makeBalancedPanel <- function(data,
+                              idname,
+                              tname,
+                              return_data.table = FALSE) {
+  make_balanced_panel(
+    data = data,
+    idname = idname,
+    tname = tname,
+    return_data.table = return_data.table
+  )
 }
 
 
@@ -63,7 +85,7 @@ panel2cs <- function(data, timevars, idname, tname) {
   }
 
   # balance the data, just in case
-  data <- makeBalancedPanel(data, idname, tname)
+  data <- make_balanced_panel(data, idname, tname)
 
   # put everything in the right order,
   # so we can match it easily later on
@@ -110,7 +132,7 @@ panel2cs2 <- function(data, yname, idname, tname, balance_panel = TRUE) {
 
   # balance the data, just in case
   if (balance_panel) {
-    data <- makeBalancedPanel(data, idname, tname)
+    data <- make_balanced_panel(data, idname, tname)
   }
 
   # data.table sorting (fast and memory efficient)
@@ -166,6 +188,7 @@ ids2rownum <- function(ids, data, idname) {
 #' @param idname unique id
 #'
 #' @keywords internal
+#' @export
 id2rownum <- function(id, data, idname) {
   which(data[, idname] == id)
 }
@@ -192,12 +215,12 @@ id2rownum <- function(id, data, idname) {
 #' }
 #' }
 #' data("LaborSupply", package = "plm")
-#' bbs <- blockBootSample(LaborSupply, "id")
+#' bbs <- block_boot_sample(LaborSupply, "id")
 #' nrow(bbs)
 #' head(bbs$id)
 #'
 #' @export
-blockBootSample <- function(data, idname) {
+block_boot_sample <- function(data, idname) {
   n <- nrow(data)
   ids <- sample(unique(data[, idname]), replace = TRUE)
   newid <- seq(1:length(ids))
@@ -209,7 +232,22 @@ blockBootSample <- function(data, idname) {
   do.call(rbind, b1)
 }
 
-
+#' @title blockBootSample
+#'
+#' @description Legacy name for the function `block_boot_sample`,
+#'  please use that function going forward.  This function will
+#'  eventually be deleted
+#'
+#' @inheritParams block_boot_sample
+#'
+#' @keywords internal
+#' @export
+blockBootSample <- function(data, idname) {
+  block_boot_sample(
+    data = data,
+    idname = idname
+  )
+}
 
 #' @title Make a Distribution Function
 #'
@@ -234,11 +272,17 @@ blockBootSample <- function(data, idname) {
 #' y <- y[order(y)]
 #' u <- runif(100)
 #' u <- u[order(u)]
-#' F <- makeDist(y, u)
+#' F <- make_dist(y, u)
 #'
 #' @return ecdf
 #' @export
-makeDist <- function(x, Fx, sorted = FALSE, rearrange = FALSE, force01 = FALSE, method = "constant") {
+make_dist <- function(
+    x,
+    Fx,
+    sorted = FALSE,
+    rearrange = FALSE,
+    force01 = FALSE,
+    method = "constant") {
   if (!sorted) {
     tmat <- cbind(x, Fx)
     tmat <- tmat[order(x), , drop = FALSE]
@@ -263,6 +307,33 @@ makeDist <- function(x, Fx, sorted = FALSE, rearrange = FALSE, force01 = FALSE, 
   retF
 }
 
+#' @title makeDist
+#'
+#' @description Legacy name of `make_dist` function, please
+#'  use that function instead.  This function will eventually
+#'  be deleted.
+#'
+#' @inheritParams make_dist
+#'
+#' @keywords internal
+#' @export
+makeDist <- function(
+    x,
+    Fx,
+    sorted = FALSE,
+    rearrange = FALSE,
+    force01 = FALSE,
+    method = "constant") {
+  makeDist(
+    x = x,
+    Fx = Fx,
+    sorted = sorted,
+    rearrange = rearrange,
+    force01 = force01,
+    method = method
+  )
+}
+
 
 #' @title Invert Ecdf
 #'
@@ -274,11 +345,24 @@ makeDist <- function(x, Fx, sorted = FALSE, rearrange = FALSE, force01 = FALSE, 
 #' @return stepfun object that contains the quantiles of the df
 #'
 #' @export
-invertEcdf <- function(df) {
+invert_ecdf <- function(df) {
   q <- knots(df)
   tau <- df(q)
   q <- c(q[1], q)
   stepfun(tau, q)
+}
+
+#' @title invertEcdf
+#'
+#' @description Legacy function for `invert_ecdf`, please use that
+#'  function instead.  This function will eventually be deleted.
+#'
+#' @inheritParams invert_ecdf
+#'
+#' @keywords internal
+#' @export
+invertEcdf <- function(df) {
+  invert_ecdf(df)
 }
 
 ## ## TODO: fix this, can reference quantreg package
@@ -329,10 +413,28 @@ checkfun <- function(a, tau) {
 #'
 #' @return numeric
 #' @export
-weighted.checkfun <- function(q, cvec, tau, weights) {
+weighted_checkfun <- function(q, cvec, tau, weights) {
   w <- weights
   retval <- mean(w * checkfun(cvec - q, tau))
   return(retval)
+}
+
+#' @title weighted.checkfun
+#'
+#' @description Legacy version of `weighted_checkfun`, please use that
+#'  function instead.  This function will eventually be deleted.
+#'
+#' @inheritParams weighted_checkfun
+#'
+#' @keywords internal
+#' @export
+weighted.checkfun <- function(q, cvec, tau, weights) {
+  weighted_checkfun(
+    q = q,
+    cvec = cvec,
+    tau = tau,
+    weights = weights
+  )
 }
 
 
@@ -348,7 +450,8 @@ weighted.checkfun <- function(q, cvec, tau, weights) {
 #'  to normalize
 #'
 #' @keywords internal
-getWeightedQuantile <- function(tau, cvec, weights = NULL, norm = TRUE) {
+#' @export
+weighted_quantile_inner <- function(tau, cvec, weights = NULL, norm = TRUE) {
   if (is.null(weights)) {
     weights <- 1
   }
@@ -363,10 +466,9 @@ getWeightedQuantile <- function(tau, cvec, weights = NULL, norm = TRUE) {
   )$minimum)
 }
 
-#' @title Get Weighted Quantiles
+#' @title weighted_quantile
 #'
-#' @description Finds multiple quantiles by repeatedly calling
-#'  getWeightedQuantile
+#' @description function to recover quantiles of a vector with weights
 #'
 #' @param tau a vector of values between 0 and 1
 #' @param cvec a vector to compute quantiles for
@@ -377,9 +479,26 @@ getWeightedQuantile <- function(tau, cvec, weights = NULL, norm = TRUE) {
 #'
 #' @return vector of quantiles
 #' @export
+weighted_quantile <- function(tau, cvec, weights = NULL, norm = TRUE) {
+  vapply(tau, weighted_quantile_inner, 1.0, cvec = cvec, weights = weights, norm = norm)
+}
+
+#' @title getWeightedQuantiles
+#'
+#' @description Legacy version of `weighted_quantile`, please use that
+#'  function instead.  This function will eventually be deleted.
+#'
+#' @inheritParams weighted_quantile
+#'
+#' @keywords internal
+#' @export
 getWeightedQuantiles <- function(tau, cvec, weights = NULL, norm = TRUE) {
-  vapply(tau, getWeightedQuantile, 1.0, cvec = cvec, weights = weights, norm = norm)
-  ## wtd.quantile(cvec, weights=weights, probs=tau, normwt=T)
+  weighted_quantile(
+    tau = tau,
+    cvec = cvec,
+    weights = weights,
+    norm = norm
+  )
 }
 
 #' @title Weighted Mean
@@ -393,7 +512,7 @@ getWeightedQuantiles <- function(tau, cvec, weights = NULL, norm = TRUE) {
 #'
 #' @return the weighted mean
 #' @export
-getWeightedMean <- function(y, weights = NULL, norm = TRUE) {
+weighted_mean <- function(y, weights = NULL, norm = TRUE) {
   if (is.null(weights)) {
     weights <- 1
   }
@@ -402,6 +521,23 @@ getWeightedMean <- function(y, weights = NULL, norm = TRUE) {
     weights <- weights / mw
   }
   mean(weights * y)
+}
+
+#' @title getWeightedMean
+#'
+#' @description Legacy version of `weighted_mean`, please use
+#'  that function instead.  This function will eventually be deleted.
+#'
+#' @inheritParams weighted_mean
+#'
+#' @keywords internal
+#' @export
+getWeightedMean <- function(y, weights = NULL, norm = TRUE) {
+  weighted_mean(
+    y = y,
+    weights = weights,
+    norm = norm
+  )
 }
 
 #' @title Weighted Distribution Function
@@ -418,7 +554,7 @@ getWeightedMean <- function(y, weights = NULL, norm = TRUE) {
 #'
 #' @return ecdf
 #' @export
-getWeightedDf <- function(y, y.seq = NULL, weights = NULL, norm = TRUE) {
+weighted_ecdf <- function(y, y.seq = NULL, weights = NULL, norm = TRUE) {
   if (is.null(weights)) {
     weights <- 1
   }
@@ -433,7 +569,25 @@ getWeightedDf <- function(y, y.seq = NULL, weights = NULL, norm = TRUE) {
   dvals <- vapply(y.seq, FUN = function(x) {
     mean(weights * (y <= x))
   }, 1.0)
-  makeDist(y.seq, dvals)
+  make_dist(y.seq, dvals)
+}
+
+#' @title getWeightedDf
+#'
+#' @description Legacy version of `weighted_ecdf`, please use that function
+#'  instead.  This function will eventually be deleted.
+#'
+#' @inheritParams weighted_ecdf
+#'
+#' @keywords internal
+#' @export
+getWeightedDf <- function(y, y.seq = NULL, weights = NULL, norm = TRUE) {
+  weighted_ecdf(
+    y = y,
+    y.seq = y.seq,
+    weights = weights,
+    norm = norm
+  )
 }
 
 #' @title Cross Section to Panel
@@ -471,7 +625,7 @@ cs2panel <- function(cs1, cs2, yname) {
 
 #' @title Compare Variables across Groups
 #'
-#' @description \code{compareBinary} takes in a variable e.g. union
+#' @description \code{compare_binary} takes in a variable e.g. union
 #' and runs bivariate regression of x on treatment (for summary statistics)
 #'
 #' @param x variables to run regression on
@@ -484,29 +638,49 @@ cs2panel <- function(cs1, cs2, yname) {
 #'
 #' @return matrix of results
 #' @export
-compareBinary <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("diff", "levels", "both")) {
+compare_binary <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("diff", "levels", "both")) {
   if (inherits(dta[, x], "factor")) {
     df <- model.matrix(as.formula(paste0("~", x, "-1")), dta)
     vnames <- colnames(df)
     df <- data.frame(cbind(df, dta[, on]))
     colnames(df) <- c(vnames, "treat")
-    t(simplify2array(lapply(vnames, compareSingleBinary, on = "treat", dta = df, w = w, report = report)))
+    t(simplify2array(lapply(vnames, compare_binary_inner, on = "treat", dta = df, w = w, report = report)))
   } else {
-    compareSingleBinary(x, on, dta, w, report)
+    compare_binary_inner(x, on, dta, w, report)
   }
+}
+
+#' @title compareBinary
+#'
+#' @description Legacy version of `compare_binary`, please use that
+#'  function instead.  This function will eventually be deleted.
+#'
+#' @inheritParams compare_binary
+#'
+#' @keywords internal
+#' @export
+compareBinary <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("diff", "levels", "both")) {
+  compare_binary(
+    x = x,
+    on = on,
+    dta = dta,
+    w = w,
+    report = report
+  )
 }
 
 #' @title Compare a single variable across two groups
 #'
-#' @description \code{compareBinary} takes in a variable e.g. union
+#' @description \code{compare_binary_inner} takes in a variable e.g. union
 #' and runs bivariate regression of x on treatment (for summary statistics)
 #'
-#' @inheritParams compareBinary
+#' @inheritParams compare_binary
 #'
 #' @return matrix of results
 #'
 #' @keywords internal
-compareSingleBinary <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("diff", "levels", "both")) {
+#' @export
+compare_binary_inner <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("diff", "levels", "both")) {
   coefmat <- summary(lm(as.formula(paste(x, on, sep = " ~ ")),
     data = dta,
     weights = w
@@ -530,23 +704,32 @@ compareSingleBinary <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("d
 #' @description Take a formula and return a vector of the variables
 #'  on the right hand side
 #'
-#' @param formla a formula
+#' @param formula a formula
 #'
 #' @examples
 #' ff <- yvar ~ x1 + x2
-#' rhs.vars(ff)
+#' rhs_vars(ff)
 #'
 #' ff <- y ~ x1 + I(x1^2)
-#' rhs.vars(ff)
+#' rhs_vars(ff)
 #'
 #' @return vector of variable names
 #' @export
+rhs_vars <- function(formula) {
+  labels(terms(formula))
+}
+
+#' @title rhs.vars
+#'
+#' @description Legacy version of `rhs_vars`, please use that
+#'  function instead.  This function will eventually be deleted.
+#'
+#' @param formla a formula
+#'
+#' @keywords internal
+#' @export
 rhs.vars <- function(formla) {
-  ## allvars <- all.vars(formla)
-  ## if (length(formla)==3) {
-  ##   allvars <- allvars[-1]
-  ## }
-  labels(terms(formla))
+  rhs_vars(formla)
 }
 
 #' @title Left-hand Side Variables
@@ -554,18 +737,31 @@ rhs.vars <- function(formla) {
 #' @description Take a formula and return a vector of the variables
 #'  on the left hand side, it will return NULL for a one sided formula
 #'
-#' @inheritParams rhs.vars
+#' @inheritParams rhs_vars
 #'
 #' @examples
 #' ff <- yvar ~ x1 + x2
 #' lhs.vars(ff)
 #' @return vector of variable names
 #' @export
-lhs.vars <- function(formla) {
-  if (length(formla) == 2) {
+lhs_vars <- function(formula) {
+  if (length(formula) == 2) {
     return(NULL) ## there is no lhs variable
   }
   all.vars(formla)[1]
+}
+
+#' @title lhs.vars
+#'
+#' @description Legacy version of `lhs_vars`, please use that function
+#'  instead.  This function will eventually be deleted.
+#'
+#' @inheritParams lhs_vars
+#'
+#' @keywords internal
+#' @export
+lhs.vars <- function(formla) {
+  lhs_vars(formla)
 }
 
 #' @title Right-hand Side of Formula
@@ -573,7 +769,7 @@ lhs.vars <- function(formla) {
 #' @description Take a formula and return the right hand side
 #'  of the formula
 #'
-#' @param formla a formula
+#' @inheritParams rhs_vars
 #'
 #' @examples
 #' ff <- yvar ~ x1 + x2
@@ -581,7 +777,7 @@ lhs.vars <- function(formla) {
 #'
 #' @return a one sided formula
 #' @export
-rhs <- function(formla) {
+rhs <- function(formula) {
   toformula(NULL, rhs.vars(formla))
 }
 
@@ -613,65 +809,89 @@ toformula <- function(yname, xnames) {
 }
 
 #' @title Add a Covariate to a Formula
-#' @description \code{addCovFromFormla} adds some covariates to a formula;
+#' @description \code{add_cov_to_formula} adds some covariates to a formula;
 #'   covs should be a list of variable names
 #'
 #'
 #' @param covs should be a list of variable names
-#' @param formla which formula to add covariates to
+#' @param formula which formula to add covariates to
 #' @return formula
 #'
 #' @examples
-#' formla <- y ~ x
-#' addCovToFormla(list("w", "z"), formla)
+#' ff <- y ~ x
+#' add_cov_to_formula(list("w", "z"), ff)
 #'
-#' formla <- ~x
-#' addCovToFormla("z", formla)
+#' ff <- ~x
+#' add_cov_to_formula("z", ff)
 #'
 #' @export
-addCovToFormla <- function(covs, formla) {
-  vs <- rhs.vars(formla) ## vector of x variable names
+add_cov_to_formula <- function(covs, formula) {
+  vs <- rhs_vars(formla) ## vector of x variable names
   vs <- c(vs, covs)
-  formla <- toformula(lhs.vars(formla), vs)
-  return(formla)
+  formula <- toformula(lhs_vars(formla), vs)
+  return(formula)
 }
 
+#' @title addCovToFormla
+#'
+#' @description Legacy version of `add_cov_to_formula`, please
+#'  use that function instead.  This function will eventually be
+#'  deleted.
+#'
+#' @inheritParams add_cov_to_formula
+#'
+#' @keywords internal
+#' @export
+addCovToFormla <- function(covs, formla) {
+  add_cov_to_formula(
+    covs = covs,
+    formula = formla
+  )
+}
 
 #' @title Drop a Covariate from a Formula
-#' @description \code{dropCovFromFormla} adds drops some covariates from a
+#' @description \code{drop_cov_from_formula} adds drops some covariates from a
 #' formula; covs should be a list of variable names
-#'
 #'
 #' @param covs should be a list of variable names
 #' @param formla which formula to drop covariates from
 #' @return formula
 #'
 #' @examples
-#' formla <- y ~ x + w + z
-#' dropCovFromFormla(list("w", "z"), formla)
+#' ff <- y ~ x + w + z
+#' drop_cov_from_formula(list("w", "z"), ff)
 #'
-#' dropCovFromFormla("z", formla)
+#' drop_cov_from_formula("z", ff)
 #'
 #' @export
-dropCovFromFormla <- function(covs, formla) {
-  vs <- rhs.vars(formla)
+drop_cov_from_formula <- function(covs, formula) {
+  vs <- rhs_vars(formula)
   vs <- vs[!(vs %in% covs)]
-  toformula(lhs.vars(formla), vs)
+  toformula(lhs_vars(formula), vs)
 }
 
-
-
-
+#' @title dropCovFromFormla
+#'
+#' @description Legacy version of `drop_cov_from_formula`, please use
+#'  that function instead.  This function will eventually be deleted.
+#'
+#' @inheritParams drop_cov_from_formula
+#'
+#' @keywords internal
+#' @export
+dropCovFromFormla <- function(covs, formla) {
+  drop_cov_from_formula(covs = covs, formula = formla)
+}
 
 #' @title Combine Two Distribution Functions
 #'
-#' @description Combines two distribution functions with given weights by pstrat
+#' @description Combines two distribution functions with given weights by `weights`
 #' @param y.seq sequence of possible y values
 #' @param dflist list of distribution functions to combine
-#' @param pstrat a vector of weights to put on each distribution function;
+#' @param weights a vector of weights to put on each distribution function;
 #'  if weights are not provided then equal weight is given to each
 #'  distribution function
-#' @param ... additional arguments that can be past to BMisc::makeDist
+#' @param ... additional arguments that can be past to BMisc::make_dist
 #'
 #' @examples
 #' x <- rnorm(100)
@@ -685,22 +905,39 @@ dropCovFromFormla <- function(covs, formla) {
 #'
 #' @return ecdf
 #' @export
-combineDfs <- function(y.seq, dflist, pstrat = NULL, ...) {
-  if (is.null(pstrat)) {
-    pstrat <- rep(1 / length(dflist), length(dflist))
+combine_ecdfs <- function(y.seq, dflist, weights = NULL, ...) {
+  if (is.null(weights)) {
+    weights <- rep(1 / length(dflist), length(dflist))
   }
   y.seq <- y.seq[order(y.seq)]
   df.valslist <- lapply(dflist, function(ddff) {
     ddff(y.seq)
   })
   df.valsmat <- simplify2array(df.valslist)
-  for (i in 1:length(pstrat)) {
-    df.valsmat[, i] <- df.valsmat[, i] * pstrat[i]
+  for (i in 1:length(weights)) {
+    df.valsmat[, i] <- df.valsmat[, i] * weights[i]
   }
 
   df.vals <- rowSums(df.valsmat)
 
-  makeDist(y.seq, df.vals, ...)
+  make_dist(y.seq, df.vals, ...)
+}
+
+#' @title combineDfs
+#'
+#' @description Legacy version of `combine_ecdfs`, please use that
+#'  function instead.  This function will eventually be deleted.
+#'
+#' @inheritParams combine_ecdfs
+#'
+#' @keywords internal
+#' @export
+combineDfs <- function(y.seq, dflist, pstrat = NULL, ...) {
+  combine_ecdfs(
+    y.seq = y.seq,
+    dflist = dflist,
+    weights = pstrat, ...
+  )
 }
 
 #' @title Subsample of Observations from Panel Data
@@ -765,7 +1002,7 @@ subsample <- function(dta, idname, tname, keepids = NULL, nkeep = NULL) {
 ##     y.seq <- y.seq[order(y.seq)]
 ##     df.vals <- vapply(y.seq, function(x) {
 ##         mean((d/pscore)*(y <= x) / (mean(d/pscore))) }, 1.0)
-##     makeDist(y.seq, df.vals)
+##     make_dist(y.seq, df.vals)
 ## }
 
 ## ## this should return the distribution function
@@ -788,7 +1025,7 @@ subsample <- function(dta, idname, tname, keepids = NULL, nkeep = NULL) {
 ##     y.seq <- y.seq[order(y.seq)]
 ##     df.vals <- vapply(y.seq, function(x) {
 ##         mean(((1-d)/(1-pscore))*(y <= x) / mean((1-d)/(1-pscore))) }, 1.0)
-##     makeDist(y.seq, df.vals)
+##     make_dist(y.seq, df.vals)
 ## }
 
 ## ##get the distribution function
@@ -828,8 +1065,21 @@ subsample <- function(dta, idname, tname, keepids = NULL, nkeep = NULL) {
 #' getListElement(lis, 1)[1] # should be equal to -1
 #'
 #' @export
-getListElement <- function(listolists, whichone = 1) {
+get_list_element <- function(listolists, whichone = 1) {
   lapply(listolists, function(l) l[[whichone]])
+}
+
+#' @title getListElement
+#'
+#' @description Legacy version of `get_list_element`, please use that function
+#'  instead.  This function will eventually be deleted.
+#'
+#' @inheritParams get_list_element
+#'
+#' @keywords internal
+#' @export
+getListElement <- function(listolists, whichone = 1) {
+  get_list_element(listolists = listolists, whichone = whichone)
 }
 
 #' @title source_all
@@ -1321,4 +1571,51 @@ get_principal_components <- function(
   } else {
     return(pc_data[rep(1:nrow(pc_data), each = nperiods), ])
   }
+}
+
+#' @title weighted_combine_list
+#'
+#' @description A function that takes in either a list of vectors or matrices
+#'  and computes a weighted average of them, where the weights are applied to
+#'  every element in the list.
+#'
+#' @param l a list that contains either vectors or matrices of the same dimension
+#'  that are to be combined
+#'
+#' @param w a vector of weights, the weights should have the same number
+#'  of elements as `length(l)`
+#'
+#' @param normalize_weights whether or not to force the weights to sum to 1,
+#'  default is true
+#'
+#' @return matrix or vector corresponding to the weighted average of
+#'  all of the elements in `l`
+#'
+#' @export
+weighted_combine_list <- function(l, w, normalize_weights = TRUE) {
+  # make sure the arguments passed in are compatible with the function
+  if (!is.list(l)) stop("`l` should be a list")
+  if (!is.numeric(w)) stop("`w` should be a numeric vector")
+  # unique_l_class <- unique(sapply(l, class))
+  # if (!(length(unique_l_class) == 1)) stop("all elements of `l` should have the same class")
+  if (!(is.matrix(l[[1]]) | is.numeric(l[[1]]))) stop("`l` should contain numeric vectors or matrices")
+  if (is.numeric(l[[1]]) & is.vector(l[[1]])) {
+    unique_l_length <- unique(sapply(l, length))
+    if (!(length(unique_l_length) == 1)) stop("all elements of `l` should have the same length")
+  }
+  if (is.matrix(l[[1]])) {
+    dim_mat <- sapply(l, dim)
+    all_same_dim <- all(apply(dim_mat, 2, function(col) all(col == dim_mat[, 1])))
+    if (!all_same_dim) stop("all elements of `l` should have the same dimension")
+  }
+  if (length(l) != length(w)) stop("`l` and `w` should have the same length")
+
+  if (normalize_weights) {
+    w <- w / sum(w)
+  }
+
+  weighted_list <- Map(function(x, y) x * y, l, w)
+  combined_list <- Reduce(`+`, weighted_list)
+
+  combined_list
 }

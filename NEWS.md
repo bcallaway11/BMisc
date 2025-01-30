@@ -1,3 +1,11 @@
+# BMisc 1.4.8
+
+  * added function `weighted_combine_list` for computing weighed averages of
+    a list of matrices or vectors
+
+  * modernized function names to snake case, keeping older function names available
+    as internal functions
+
 # BMisc 1.4.7
 
   * moved functions `t2orig` and `orig2t` to `BMisc` from `pte` package

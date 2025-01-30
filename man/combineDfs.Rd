@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{combineDfs}
 \alias{combineDfs}
-\title{Combine Two Distribution Functions}
+\title{combineDfs}
 \usage{
 combineDfs(y.seq, dflist, pstrat = NULL, ...)
 }
@@ -11,26 +11,10 @@ combineDfs(y.seq, dflist, pstrat = NULL, ...)
 
 \item{dflist}{list of distribution functions to combine}
 
-\item{pstrat}{a vector of weights to put on each distribution function;
-if weights are not provided then equal weight is given to each
-distribution function}
-
-\item{...}{additional arguments that can be past to BMisc::makeDist}
-}
-\value{
-ecdf
+\item{...}{additional arguments that can be past to BMisc::make_dist}
 }
 \description{
-Combines two distribution functions with given weights by pstrat
+Legacy version of `combine_ecdfs`, please use that
+ function instead.  This function will eventually be deleted.
 }
-\examples{
-x <- rnorm(100)
-y <- rnorm(100, 1, 1)
-Fx <- ecdf(x)
-Fy <- ecdf(y)
-both <- combineDfs(seq(-2, 3, 0.1), list(Fx, Fy))
-plot(Fx, col = "green")
-plot(Fy, col = "blue", add = TRUE)
-plot(both, add = TRUE)
-
-}
+\keyword{internal}

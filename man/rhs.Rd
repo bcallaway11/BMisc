@@ -4,10 +4,10 @@
 \alias{rhs}
 \title{Right-hand Side of Formula}
 \usage{
-rhs(formla)
+rhs(formula)
 }
 \arguments{
-\item{formla}{a formula}
+\item{formula}{a formula}
 }
 \value{
 a one sided formula

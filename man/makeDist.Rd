@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{makeDist}
 \alias{makeDist}
-\title{Make a Distribution Function}
+\title{makeDist}
 \usage{
 makeDist(
   x,
@@ -32,18 +32,9 @@ distribution function.  Default is "constant"; other possible choice is
 "linear".  "constant" returns a step function, just like an empirical
 cdf; "linear" linearly interpolates between neighboring points.}
 }
-\value{
-ecdf
-}
 \description{
-turn vectors of a values and their distribution function values
- into an ecdf.  Vectors should be the same length and both increasing.
+Legacy name of `make_dist` function, please
+ use that function instead.  This function will eventually
+ be deleted.
 }
-\examples{
-y <- rnorm(100)
-y <- y[order(y)]
-u <- runif(100)
-u <- u[order(u)]
-F <- makeDist(y, u)
-
-}
+\keyword{internal}

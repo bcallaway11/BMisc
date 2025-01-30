@@ -7,13 +7,13 @@ template:
 reference:
   - title: Funtions for working with panel data
     contents:
-      - makeBalancedPanel
+      - make_balanced_panel
       - panel2cs
       - panel2cs2
       - ids2rownum
       - cs2panel
       - subsample
-      - blockBootSample
+      - block_boot_sample
       - multiplier_bootstrap
       - get_group
       - get_YiGmin1
@@ -26,39 +26,42 @@ reference:
       - get_principal_components
       - orig2t
       - t2orig
+      - check_staggered
+      - time_invariant_to_panel
 
   - title: Functions for working with distributions
     contents:
-      - makeDist
-      - combineDfs
-      - invertEcdf
+      - make_dist
+      - combine_ecdfs
+      - invert_ecdf
       - checkfun
-      - weighted.checkfun
-      - getWeightedQuantiles
-      - getWeightedMean
-      - getWeightedDf
+      - weighted_checkfun
+      - weighted_quantile
+      - weighted_mean
+      - weighted_ecdf
 
   - title: Functions for creating summary statistics
     contents:
-      - compareBinary
+      - compare_binary
 
   - title: Functions for working with formulas
     contents:
-      - dropCovFromFormla
-      - addCovToFormla
-      - lhs.vars
+      - drop_cov_from_formula
+      - add_cov_to_formula
+      - lhs_vars
       - rhs
-      - rhs.vars
+      - rhs_vars
       - toformula
 
   - title: Other miscellaneous functions
     contents:
-      - getListElement
+      - get_list_element
       - source_all
       - TorF
       - element_wise_mult
       - mv_mult
       - drop_collinear
+      - weighted_combine_list
 
   - title: Package documentation
     contents:

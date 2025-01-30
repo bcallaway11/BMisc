@@ -2,7 +2,7 @@
 % Please edit documentation in R/BMisc.R
 \name{blockBootSample}
 \alias{blockBootSample}
-\title{Block Bootstrap}
+\title{blockBootSample}
 \usage{
 blockBootSample(data, idname)
 }
@@ -11,27 +11,9 @@ blockBootSample(data, idname)
 
 \item{idname}{column in data which contains an individual identifier}
 }
-\value{
-data.frame bootstrapped from the original dataset; this data.frame
- will contain new ids
-}
 \description{
-make draws of all observations with the same id in a panel
- data context.  This is useful for bootstrapping with panel data.
+Legacy name for the function `block_boot_sample`,
+ please use that function going forward.  This function will
+ eventually be deleted
 }
-\examples{
-\dontshow{
-if (!requireNamespace("plm")) {
-  if (interactive() || is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA))) {
-    stop("package 'plm' is required for this example")
-  } else {
-    q()
-  }
-}
-}
-data("LaborSupply", package = "plm")
-bbs <- blockBootSample(LaborSupply, "id")
-nrow(bbs)
-head(bbs$id)
-
-}
+\keyword{internal}
