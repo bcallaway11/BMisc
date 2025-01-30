@@ -55,13 +55,13 @@ jobs:
           Rscript -e "covr::codecov()"
       - name: Upload check results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: R-CMD-check-results-${{ matrix.config.os }}-${{ matrix.config.r }}
           path: check-*
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: R-test-results-${{ matrix.config.os }}-${{ matrix.config.r }}
           path: test-results-*

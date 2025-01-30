@@ -8,8 +8,6 @@ dropCovFromFormla(covs, formla)
 }
 \arguments{
 \item{covs}{should be a list of variable names}
-
-\item{formla}{which formula to drop covariates from}
 }
 \description{
 Legacy version of `drop_cov_from_formula`, please use

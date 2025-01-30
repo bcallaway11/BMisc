@@ -9,7 +9,7 @@ drop_cov_from_formula(covs, formula)
 \arguments{
 \item{covs}{should be a list of variable names}
 
-\item{formla}{which formula to drop covariates from}
+\item{formula}{the formula to drop covariates from}
 }
 \value{
 formula

@@ -2,7 +2,7 @@ pandoc: 3.1.3
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2025-01-30T20:36Z
+last_built: 2025-01-30T20:40Z
 urls:
   reference: https://bcallaway11.github.io/BMisc/reference
   article: https://bcallaway11.github.io/BMisc/articles

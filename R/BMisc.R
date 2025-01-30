@@ -748,7 +748,7 @@ lhs_vars <- function(formula) {
   if (length(formula) == 2) {
     return(NULL) ## there is no lhs variable
   }
-  all.vars(formla)[1]
+  all.vars(formula)[1]
 }
 
 #' @title lhs.vars
@@ -778,7 +778,7 @@ lhs.vars <- function(formla) {
 #' @return a one sided formula
 #' @export
 rhs <- function(formula) {
-  toformula(NULL, rhs.vars(formla))
+  toformula(NULL, rhs.vars(formula))
 }
 
 #' @title Variable Names to Formula
@@ -826,9 +826,9 @@ toformula <- function(yname, xnames) {
 #'
 #' @export
 add_cov_to_formula <- function(covs, formula) {
-  vs <- rhs_vars(formla) ## vector of x variable names
+  vs <- rhs_vars(formula) ## vector of x variable names
   vs <- c(vs, covs)
-  formula <- toformula(lhs_vars(formla), vs)
+  formula <- toformula(lhs_vars(formula), vs)
   return(formula)
 }
 
@@ -854,7 +854,7 @@ addCovToFormla <- function(covs, formla) {
 #' formula; covs should be a list of variable names
 #'
 #' @param covs should be a list of variable names
-#' @param formla which formula to drop covariates from
+#' @param formula the formula to drop covariates from
 #' @return formula
 #'
 #' @examples
