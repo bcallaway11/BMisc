@@ -66,11 +66,11 @@ formula; covs should be a list of variable names</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ff</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="va">w</span> <span class="op">+</span> <span class="va">z</span></span></span>
 <span class="r-in"><span><span class="fu">drop_cov_from_formula</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"w"</span>, <span class="st">"z"</span><span class="op">)</span>, <span class="va">ff</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x60bcaa9387c8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55ef7ae60ba8&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">drop_cov_from_formula</span><span class="op">(</span><span class="st">"z"</span>, <span class="va">ff</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ x + w</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x60bcad8bd0b8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55ef7a386198&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

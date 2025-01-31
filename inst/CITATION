@@ -1,11 +1,19 @@
-bibentry(
-  bibtype  = "Article",
-  title    = ,
-  author   = ,
-  journal  = ,
-  year     = ,
-  volume   = ,
-  number   = ,
-  pages    = ,
-  doi      =
-)
+citHeader("To cite this package, use:")
+
+
+          bibentry(
+
+            bibtype = "Manual",
+
+            title = "Miscellaneous Functions for Panel Data, Quantiles, and Printing Results",
+
+            author = person("Brantly", "Callaway", email = "brantly.callaway@uga.edu", role = c("aut", "cre")),
+
+            year = "2025",
+
+            note = "R package version 1.4.8",
+
+            url = "
+    https://bcallaway11.github.io/BMisc/,
+    https://github.com/bcallaway11/BMisc"
+          )
