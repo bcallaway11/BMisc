@@ -73,8 +73,10 @@ jobs:
             cat('Checking package:', pkg, '\n')
             # Download the source tarball
             tarball <- tryCatch({
-              download.packages(pkg, destdir = 'revdep_tarballs', type = 'source')
-              file.path('revdep_tarballs', paste0(pkg, '_source.tar.gz'))
+              tarball_info <- download.packages(pkg, destdir = 'revdep_tarballs', type = 'source')
+              # Extract the correct tarball file path
+              tarball_path <- tarball_info[, 2]  # The second column contains the file path
+              tarball_path  # Return the correct path
             }, error = function(e) {
               cat('Error downloading source tarball for package:', pkg, '\n', conditionMessage(e), '\n')
               next
@@ -84,24 +86,6 @@ jobs:
               rcmdcheck::rcmdcheck(tarball, error_on = 'never', args = '--no-manual')
             }, error = function(e) {
               cat('Error checking package:', pkg, '\n', conditionMessage(e), '\n')
-            })
-          }
-          "
-      - name: Reverse Dependency Test
-        run: |
-          Rscript -e "
-          rev_deps <- tools::package_dependencies(
-            packages = 'BMisc',
-            db = available.packages(),
-            reverse = TRUE
-          )
-          rev_deps <- rev_deps[['BMisc']]
-          for (pkg in rev_deps) {
-            cat('Testing package:', pkg, '\n')
-            tryCatch({
-              testthat::test_package(pkg)
-            }, error = function(e) {
-              cat('Error testing package:', pkg, '\n', e$message, '\n')
             })
           }
           "
