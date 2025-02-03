@@ -1,0 +1,95 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "BMisc" in publications use:'
+type: software
+license: GPL-2.0-only
+title: 'BMisc: Miscellaneous Functions for Panel Data, Quantiles, and Printing Results'
+version: 1.4.8
+identifiers:
+- type: doi
+  value: 10.32614/CRAN.package.BMisc
+abstract: These are miscellaneous functions for working with panel data, quantiles,
+  and printing results. For panel data, the package includes functions for making
+  a panel data balanced (that is, dropping missing individuals that have missing observations
+  in any time period), converting id numbers to row numbers, and to treat repeated
+  cross sections as panel data under the assumption of rank invariance. For quantiles,
+  there are functions to make distribution functions from a set of data points (this
+  is particularly useful when a distribution function is created in several steps),
+  to combine distribution functions based on some external weights, and to invert
+  distribution functions. Finally, there are several other miscellaneous functions
+  for obtaining weighted means, weighted distribution functions, and weighted quantiles;
+  to generate summary statistics and their differences for two groups; and to add
+  or drop covariates from formulas.
+authors:
+- family-names: Callaway
+  given-names: Brantly
+  email: brantly.callaway@uga.edu
+preferred-citation:
+  type: manual
+  title: Miscellaneous Functions for Panel Data, Quantiles, and Printing Results
+  authors:
+  - family-names: Callaway
+    given-names: Brantly
+    email: brantly.callaway@uga.edu
+  year: '2025'
+  notes: R package version 1.4.8
+  url: https://bcallaway11.github.io/BMisc/
+repository: https://CRAN.R-project.org/package=BMisc
+repository-code: https://github.com/bcallaway11/BMisc
+url: https://bcallaway11.github.io/BMisc/
+contact:
+- family-names: Callaway
+  given-names: Brantly
+  email: brantly.callaway@uga.edu
+references:
+- type: software
+  title: 'R: A Language and Environment for Statistical Computing'
+  notes: Depends
+  url: https://www.R-project.org/
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2025'
+  version: '>= 3.1.0'
+- type: software
+  title: Rcpp
+  abstract: 'Rcpp: Seamless R and C++ Integration'
+  notes: Imports
+  url: https://www.rcpp.org
+  repository: https://CRAN.R-project.org/package=Rcpp
+  authors:
+  - family-names: Eddelbuettel
+    given-names: Dirk
+    email: edd@debian.org
+    orcid: https://orcid.org/0000-0001-6419-907X
+  - family-names: Francois
+    given-names: Romain
+    orcid: https://orcid.org/0000-0002-2444-4226
+  - family-names: Allaire
+    given-names: JJ
+    orcid: https://orcid.org/0000-0003-0174-9868
+  - family-names: Ushey
+    given-names: Kevin
+    orcid: https://orcid.org/0000-0003-2880-7407
+  - family-names: Kou
+    given-names: Qiang
+    orcid: https://orcid.org/0000-0001-6786-5453
+  - family-names: Russell
+    given-names: Nathan
+  - family-names: Ucar
+    given-names: Iñaki
+    orcid: https://orcid.org/0000-0001-6403-5550
+  - family-names: Bates
+    given-names: Doug
+    orcid: https://orcid.org/0000-0001-8316-9503
+  - family-names: Chambers
+    given-names: John
+  year: '2025'
+  doi: 10.32614/CRAN.package.Rcpp
+
