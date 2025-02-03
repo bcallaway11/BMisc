@@ -21,7 +21,5 @@ Config/testthat/edition: 3
 LinkingTo:
     Rcpp,
     RcppArmadillo
-URL:
-    https://bcallaway11.github.io/BMisc/,
-    https://github.com/bcallaway11/BMisc
+URL: https://bcallaway11.github.io/BMisc/
 BugReports: https://github.com/bcallaway11/BMisc/issues
