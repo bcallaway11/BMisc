@@ -324,7 +324,7 @@ makeDist <- function(
     rearrange = FALSE,
     force01 = FALSE,
     method = "constant") {
-  makeDist(
+  make_dist(
     x = x,
     Fx = Fx,
     sorted = sorted,
