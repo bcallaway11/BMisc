@@ -12,7 +12,6 @@ A set of miscellaneous helper functions
 Useful links:
 \itemize{
   \item \url{https://bcallaway11.github.io/BMisc/}
-  \item \url{https://github.com/bcallaway11/BMisc}
   \item Report bugs at \url{https://github.com/bcallaway11/BMisc/issues}
 }
 

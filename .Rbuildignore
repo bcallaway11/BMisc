@@ -11,4 +11,5 @@
 ^CRAN-SUBMISSION$
 ^pkgdown$
 ^\.github$
+^CITATION\.cff$
 
