@@ -23,4 +23,5 @@ We checked 5 reverse dependencies, comparing R CMD check results across CRAN and
 
 # Additional comments
 
-Removed 2nd URL that caused issue in last submission.
+* Removed 2nd URL that caused issue in last submission.
+* Fixed bug related to `makeDist` function calling itself that caused issue in last submission.
