@@ -51,6 +51,7 @@ makeBalancedPanel <- function(data,
                               idname,
                               tname,
                               return_data.table = FALSE) {
+  .Deprecated("make_balanced_panel")
   make_balanced_panel(
     data = data,
     idname = idname,
@@ -324,6 +325,7 @@ makeDist <- function(
     rearrange = FALSE,
     force01 = FALSE,
     method = "constant") {
+  .Deprecated("make_dist")
   make_dist(
     x = x,
     Fx = Fx,
@@ -429,6 +431,7 @@ weighted_checkfun <- function(q, cvec, tau, weights) {
 #' @keywords internal
 #' @export
 weighted.checkfun <- function(q, cvec, tau, weights) {
+  .Deprecated("weighted_checkfun")
   weighted_checkfun(
     q = q,
     cvec = cvec,
@@ -493,6 +496,7 @@ weighted_quantile <- function(tau, cvec, weights = NULL, norm = TRUE) {
 #' @keywords internal
 #' @export
 getWeightedQuantiles <- function(tau, cvec, weights = NULL, norm = TRUE) {
+  .Deprecated("weighted_quantile")
   weighted_quantile(
     tau = tau,
     cvec = cvec,
@@ -533,6 +537,7 @@ weighted_mean <- function(y, weights = NULL, norm = TRUE) {
 #' @keywords internal
 #' @export
 getWeightedMean <- function(y, weights = NULL, norm = TRUE) {
+  .Deprecated("weighted_mean")
   weighted_mean(
     y = y,
     weights = weights,
@@ -582,6 +587,7 @@ weighted_ecdf <- function(y, y.seq = NULL, weights = NULL, norm = TRUE) {
 #' @keywords internal
 #' @export
 getWeightedDf <- function(y, y.seq = NULL, weights = NULL, norm = TRUE) {
+  .Deprecated("weighted_ecdf")
   weighted_ecdf(
     y = y,
     y.seq = y.seq,
@@ -660,6 +666,7 @@ compare_binary <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("diff",
 #' @keywords internal
 #' @export
 compareBinary <- function(x, on, dta, w = rep(1, nrow(dta)), report = c("diff", "levels", "both")) {
+  .Deprecated("compare_binary")
   compare_binary(
     x = x,
     on = on,
@@ -729,6 +736,7 @@ rhs_vars <- function(formula) {
 #' @keywords internal
 #' @export
 rhs.vars <- function(formla) {
+  .Deprecated("rhs_vars")
   rhs_vars(formla)
 }
 
@@ -761,6 +769,7 @@ lhs_vars <- function(formula) {
 #' @keywords internal
 #' @export
 lhs.vars <- function(formla) {
+  .Deprecated("lhs_vars")
   lhs_vars(formla)
 }
 
@@ -843,6 +852,7 @@ add_cov_to_formula <- function(covs, formula) {
 #' @keywords internal
 #' @export
 addCovToFormla <- function(covs, formla) {
+  .Deprecated("add_cov_to_formula")
   add_cov_to_formula(
     covs = covs,
     formula = formla
@@ -880,6 +890,7 @@ drop_cov_from_formula <- function(covs, formula) {
 #' @keywords internal
 #' @export
 dropCovFromFormla <- function(covs, formla) {
+  .Deprecated("drop_cov_from_formula")
   drop_cov_from_formula(covs = covs, formula = formla)
 }
 
@@ -956,6 +967,7 @@ combine_ecdfs <- function(y.seq, ecdflist, weights = NULL, ...) {
 #' @keywords internal
 #' @export
 combineDfs <- function(y.seq, dflist, pstrat = NULL, ...) {
+  .Deprecated("combine_ecdfs")
   combine_ecdfs(
     y.seq = y.seq,
     ecdflist = dflist,
@@ -1102,6 +1114,7 @@ get_list_element <- function(listolists, whichone = 1) {
 #' @keywords internal
 #' @export
 getListElement <- function(listolists, whichone = 1) {
+  .Deprecated("get_list_element")
   get_list_element(listolists = listolists, whichone = whichone)
 }
 
