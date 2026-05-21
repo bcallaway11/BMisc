@@ -9,8 +9,6 @@ combineDfs(y.seq, dflist, pstrat = NULL, ...)
 \arguments{
 \item{y.seq}{sequence of possible y values}
 
-\item{dflist}{list of distribution functions to combine}
-
 \item{...}{additional arguments that can be past to BMisc::make_dist}
 }
 \description{

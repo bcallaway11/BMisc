@@ -19,5 +19,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Brantly Callaway \email{brantly.callaway@uga.edu}
 
+Authors:
+\itemize{
+  \item Brantly Callaway \email{brantly.callaway@uga.edu}
+}
+
 }
 \keyword{internal}

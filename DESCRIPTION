@@ -16,10 +16,10 @@ Suggests:
     plm,
     tibble
 Encoding: UTF-8
-RoxygenNote: 7.3.2
 Config/testthat/edition: 3
 LinkingTo:
     Rcpp,
     RcppArmadillo
 URL: https://bcallaway11.github.io/BMisc/
 BugReports: https://github.com/bcallaway11/BMisc/issues
+Config/roxygen2/version: 8.0.0

@@ -887,7 +887,7 @@ dropCovFromFormla <- function(covs, formla) {
 #'
 #' @description Combines two distribution functions with given weights by `weights`
 #' @param y.seq sequence of possible y values
-#' @param dflist list of distribution functions to combine
+#' @param ecdflist list of ecdf objects (distribution functions) to combine
 #' @param weights a vector of weights to put on each distribution function;
 #'  if weights are not provided then equal weight is given to each
 #'  distribution function
@@ -898,19 +898,42 @@ dropCovFromFormla <- function(covs, formla) {
 #' y <- rnorm(100, 1, 1)
 #' Fx <- ecdf(x)
 #' Fy <- ecdf(y)
-#' both <- combineDfs(seq(-2, 3, 0.1), list(Fx, Fy))
+#' both <- combine_ecdfs(seq(-2, 3, 0.1), list(Fx, Fy))
 #' plot(Fx, col = "green")
 #' plot(Fy, col = "blue", add = TRUE)
 #' plot(both, add = TRUE)
 #'
 #' @return ecdf
 #' @export
-combine_ecdfs <- function(y.seq, dflist, weights = NULL, ...) {
+combine_ecdfs <- function(y.seq, ecdflist, weights = NULL, ...) {
+  # Handle deprecated 'dflist' argument name passed via ...
+  extra_args <- list(...)
+  if ("dflist" %in% names(extra_args)) {
+    if (!missing(ecdflist)) {
+      stop("combine_ecdfs: cannot specify both 'ecdflist' and deprecated 'dflist'")
+    }
+    warning("combine_ecdfs: argument 'dflist' is deprecated; use 'ecdflist' instead",
+            call. = FALSE)
+    ecdflist <- extra_args[["dflist"]]
+    extra_args[["dflist"]] <- NULL
+  }
+  # Guard against non-ecdf entries (e.g. NULL from uncomputable attgt cells),
+  # which would crash silently inside the lapply below.
+  not_ecdf <- !vapply(ecdflist, inherits, logical(1L), what = "ecdf")
+  if (any(not_ecdf)) {
+    bad_idx <- which(not_ecdf)
+    stop(sprintf(
+      "combine_ecdfs: element(s) %s of ecdflist are not ecdf objects (got: %s)",
+      paste(bad_idx, collapse = ", "),
+      paste(vapply(ecdflist[bad_idx], function(x) class(x)[1L], character(1L)),
+            collapse = ", ")
+    ))
+  }
   if (is.null(weights)) {
-    weights <- rep(1 / length(dflist), length(dflist))
+    weights <- rep(1 / length(ecdflist), length(ecdflist))
   }
   y.seq <- y.seq[order(y.seq)]
-  df.valslist <- lapply(dflist, function(ddff) {
+  df.valslist <- lapply(ecdflist, function(ddff) {
     ddff(y.seq)
   })
   df.valsmat <- simplify2array(df.valslist)
@@ -920,7 +943,7 @@ combine_ecdfs <- function(y.seq, dflist, weights = NULL, ...) {
 
   df.vals <- rowSums(df.valsmat)
 
-  make_dist(y.seq, df.vals, ...)
+  do.call(make_dist, c(list(y.seq, df.vals), extra_args))
 }
 
 #' @title combineDfs
@@ -935,7 +958,7 @@ combine_ecdfs <- function(y.seq, dflist, weights = NULL, ...) {
 combineDfs <- function(y.seq, dflist, pstrat = NULL, ...) {
   combine_ecdfs(
     y.seq = y.seq,
-    dflist = dflist,
+    ecdflist = dflist,
     weights = pstrat, ...
   )
 }
