@@ -462,7 +462,7 @@ weighted_quantile_inner <- function(tau, cvec, weights = NULL, norm = TRUE) {
   if (norm) {
     weights <- weights / mw
   }
-  return(optimize(weighted.checkfun,
+  return(optimize(weighted_checkfun,
     lower = min(cvec),
     upper = max(cvec),
     cvec = cvec, tau = tau, weights = weights
