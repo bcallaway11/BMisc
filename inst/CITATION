@@ -11,7 +11,7 @@ bibentry(
 
   year = "2025",
 
-  note = "R package version 1.4.8",
+  note = "R package version 1.4.9",
 
   url = "https://bcallaway11.github.io/BMisc/"
 )
