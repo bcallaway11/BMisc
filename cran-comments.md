@@ -12,7 +12,11 @@
 
 ## R CMD check results
 
-0 ERRORs | 0 WARNINGs | 0 NOTEs
+0 ERRORs | 0 WARNINGs | 1 NOTE (local only)
+
+The local Ubuntu 24.04 check produces one NOTE about a non-portable compilation
+flag (`-mno-omit-leaf-frame-pointer`). This flag comes from Ubuntu's R 4.6.0
+build configuration, not the package. It does not appear on any other platform.
 
 ## Downstream dependencies
 
