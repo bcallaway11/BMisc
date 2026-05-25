@@ -92,11 +92,11 @@ dta <- data.frame(id = id, t = t, treat = treat)
 dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
 head(unique(dta[, c("id", "group")]))
 #>    id group
-#> 1   1     2
-#> 5   2     2
+#> 1   1     3
+#> 5   2     3
 #> 9   3     2
 #> 13  4     0
-#> 17  5     0
+#> 17  5     3
 #> 21  6     2
 check_staggered(dta, idname = "id", treatname = "treat")
 #> [1] FALSE
@@ -111,14 +111,11 @@ programmatically.
 ``` r
 ff <- y ~ x1 + x2 + x3
 rhs(ff)
-#> Warning in rhs.vars(formula): 'rhs.vars' is deprecated.
-#> Use 'rhs_vars' instead.
-#> See help("Deprecated")
 #> ~x1 + x2 + x3
-#> <environment: 0x57f907cd1088>
+#> <environment: 0x5823b0801128>
 toformula("y", c("x1", "x2", "x3"))
 #> y ~ x1 + x2 + x3
-#> <environment: 0x57f907d3d220>
+#> <environment: 0x5823b0847790>
 ```
 
 ## Example 5: Working with lists

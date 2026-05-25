@@ -23,9 +23,6 @@ vector of variable names
 
 ``` r
 ff <- yvar ~ x1 + x2
-lhs.vars(ff)
-#> Warning: 'lhs.vars' is deprecated.
-#> Use 'lhs_vars' instead.
-#> See help("Deprecated")
+lhs_vars(ff)
 #> [1] "yvar"
 ```

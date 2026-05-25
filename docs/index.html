@@ -118,10 +118,10 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dta</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"group"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    id group</span></span>
 <span><span class="co">#&gt; 1   1     3</span></span>
-<span><span class="co">#&gt; 5   2     0</span></span>
-<span><span class="co">#&gt; 9   3     3</span></span>
-<span><span class="co">#&gt; 13  4     2</span></span>
-<span><span class="co">#&gt; 17  5     2</span></span>
+<span><span class="co">#&gt; 5   2     3</span></span>
+<span><span class="co">#&gt; 9   3     2</span></span>
+<span><span class="co">#&gt; 13  4     0</span></span>
+<span><span class="co">#&gt; 17  5     3</span></span>
 <span><span class="co">#&gt; 21  6     2</span></span>
 <span><span class="fu"><a href="reference/check_staggered.html">check_staggered</a></span><span class="op">(</span><span class="va">dta</span>, idname <span class="op">=</span> <span class="st">"id"</span>, treatname <span class="op">=</span> <span class="st">"treat"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
@@ -133,14 +133,11 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ff</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="va">x2</span> <span class="op">+</span> <span class="va">x3</span></span>
 <span><span class="fu"><a href="reference/rhs.html">rhs</a></span><span class="op">(</span><span class="va">ff</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in rhs.vars(formula): 'rhs.vars' is deprecated.</span></span>
-<span><span class="co">#&gt; Use 'rhs_vars' instead.</span></span>
-<span><span class="co">#&gt; See help("Deprecated")</span></span>
 <span><span class="co">#&gt; ~x1 + x2 + x3</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x63ccf02626a0&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x5823b0801128&gt;</span></span>
 <span><span class="fu"><a href="reference/toformula.html">toformula</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; y ~ x1 + x2 + x3</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x63ccf02c6bc8&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5823b0847790&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example-5-working-with-lists">Example 5: Working with lists<a class="anchor" aria-label="anchor" href="#example-5-working-with-lists"></a>

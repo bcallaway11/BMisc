@@ -35,5 +35,5 @@ cs1 <- data.frame(y = rnorm(100))
 cs2 <- data.frame(y = rnorm(100, mean = 1))
 dy <- cs2panel(cs1, cs2, "y")
 mean(dy) ## approx 1
-#> [1] 1.05836
+#> [1] 1.043982
 ```

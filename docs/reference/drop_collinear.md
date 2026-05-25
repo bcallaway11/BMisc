@@ -30,10 +30,10 @@ a matrix with collinear columns removed
   }
 #> Warning: The following covariates were dropped due to collinearity: x2
 #>      x1         x3
-#> [1,]  1  0.4474135
-#> [2,]  2 -0.4545706
-#> [3,]  3 -0.0605266
-#> [4,]  4 -0.5895564
-#> [5,]  5  0.2506474
+#> [1,]  1 -0.1742460
+#> [2,]  2 -1.1062360
+#> [3,]  3 -0.9459850
+#> [4,]  4  0.2890896
+#> [5,]  5  0.8769131
 # }
 ```

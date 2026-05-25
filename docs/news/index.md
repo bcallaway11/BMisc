@@ -2,6 +2,11 @@
 
 ## BMisc 1.4.9
 
+- Added [`.Deprecated()`](https://rdrr.io/r/base/Deprecated.html)
+  wrappers to 13 legacy function names (e.g., `makeBalancedPanel`,
+  `rhs.vars`). The old names remain fully functional but now emit
+  deprecation warnings; removal is planned for a future version.
+
 - Fixed bug in
   [`rhs()`](https://bcallaway11.github.io/BMisc/reference/rhs.md) where
   it was internally calling the deprecated
@@ -17,7 +22,7 @@
 
 - Updated license from GPL-2 to GPL-3
 
-- Updated minimum R version from 3.1.0 to 4.0.0
+- Updated minimum R version from 3.1.0 to 4.1.0
 
 - Moved `caret` from Imports to Suggests; it is only required for
   [`drop_collinear()`](https://bcallaway11.github.io/BMisc/reference/drop_collinear.md)

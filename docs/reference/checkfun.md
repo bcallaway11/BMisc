@@ -27,5 +27,5 @@ numeric value
 ``` r
 x <- rnorm(100)
 x[which.min(checkfun(x, 0.5))] ## should be around 0
-#> [1] 0.01005771
+#> [1] 0.01917759
 ```

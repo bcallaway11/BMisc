@@ -33,5 +33,5 @@ the weighted mean
 y <- rnorm(100)
 w <- runif(100)
 weighted_mean(y, weights = w)
-#> [1] -0.06622311
+#> [1] 0.1045551
 ```

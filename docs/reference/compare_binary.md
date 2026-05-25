@@ -47,5 +47,5 @@ matrix of results
 ``` r
 dta <- data.frame(x = rnorm(100), treat = rep(c(0, 1), 50))
 compare_binary("x", "treat", dta, report = "diff")
-#> [1] 0.09063227 0.11632150 0.00000000
+#> [1]  0.17410745 -0.03708638  0.00000000
 ```

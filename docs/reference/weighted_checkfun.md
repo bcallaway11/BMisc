@@ -35,5 +35,5 @@ numeric
 ``` r
 x <- rnorm(100)
 weighted_checkfun(0, x, tau = 0.5, weights = rep(1, 100))
-#> [1] 0.4121769
+#> [1] 0.4272555
 ```

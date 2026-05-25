@@ -37,5 +37,5 @@ vector of quantiles
 y <- rnorm(100)
 w <- runif(100)
 weighted_quantile(c(0.25, 0.5, 0.75), y, weights = w)
-#> [1] -0.5317279  0.1819952  0.7973391
+#> [1] -0.9559477 -0.3194752  0.4146379
 ```

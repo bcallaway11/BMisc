@@ -28,10 +28,13 @@ contain new ids
 
 ``` r
 #> Loading required namespace: plm
+#> Error in DONTSHOW({    if (!requireNamespace("plm")) {        if (interactive() || is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_",             NA))) {            stop("package 'plm' is required for this example")        }        else {            q()        }    }}): package 'plm' is required for this example
 data("LaborSupply", package = "plm")
+#> Error in find.package(package, lib.loc, verbose = verbose): there is no package called ‘plm’
 bbs <- block_boot_sample(LaborSupply, "id")
+#> Error: object 'LaborSupply' not found
 nrow(bbs)
-#> [1] 5320
+#> Error: object 'bbs' not found
 head(bbs$id)
-#> [1] 1 1 1 1 1 1
+#> Error: object 'bbs' not found
 ```
