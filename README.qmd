@@ -1,0 +1,118 @@
+---
+format: gfm
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    fig.path: "README-"
+---
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
+
+# BMisc <img src="man/figures/logo.png" align="right" height="139" alt="" />
+
+```{r echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+cat(
+  badger::badge_cran_download("BMisc", "grand-total", "blue"),
+  badger::badge_cran_download("BMisc", "last-month", "blue"),
+  badger::badge_cran_release("BMisc", "blue"),
+  badger::badge_devel("bcallaway11/BMisc", "blue"),
+  badger::badge_cran_checks("BMisc"),
+  badger::badge_last_commit("bcallaway11/BMisc")
+)
+```
+
+BMisc includes miscellaneous functions useful for applied econometrics, with a
+focus on panel data and distributional analysis. Utilities cover balancing
+panels, working with distribution functions, computing weighted statistics,
+manipulating formulas, and supporting staggered treatment adoption settings
+(e.g., identifying treatment groups and recovering pre-treatment outcomes).
+
+## Installation
+
+You can install BMisc from CRAN with:
+
+```{r eval=FALSE}
+install.packages("BMisc")
+```
+
+Or install the development version from GitHub with:
+
+```{r gh-installation, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("bcallaway11/BMisc")
+```
+
+## Example 1: Working with distribution functions
+
+`make_dist` creates a distribution function from a vector of values and their
+corresponding CDF values.
+
+```{r example1}
+library(BMisc)
+y <- rnorm(100)
+y <- y[order(y)]
+u <- runif(100)
+u <- u[order(u)]
+F <- make_dist(y, u)
+class(F)
+# plot(F)
+```
+
+## Example 2: Working with panel data
+
+`make_balanced_panel` drops observations from a panel dataset that are not
+available in all time periods.
+
+```{r example2}
+id <- rep(seq(1, 100, 1), 2) ## individual ids for setting up a two period panel
+t <- rep(seq(1, 2), 100) ## time periods
+y <- rnorm(200) ## outcomes
+dta <- data.frame(id = id, t = t, y = y) ## make into data frame
+dta <- dta[-7, ] ## drop the 7th row from the dataset (which creates an unbalanced panel)
+nrow(dta)
+dta <- make_balanced_panel(dta, idname = "id", tname = "t")
+nrow(dta) ## now all the observations with missing data in any period are dropped
+```
+
+## Example 3: Staggered treatment adoption
+
+`get_group` identifies the time period in which each unit first becomes
+treated. `check_staggered` verifies that treatment is absorbing (no
+de-treatments).
+
+```{r example3}
+n <- 100
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+## assign units to groups: 0 = never treated, 2 = treated from period 2, 3 = from period 3
+g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
+treat <- as.integer(t >= g & g > 0)
+dta <- data.frame(id = id, t = t, treat = treat)
+
+dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
+head(unique(dta[, c("id", "group")]))
+check_staggered(dta, idname = "id", treatname = "treat")
+```
+
+## Example 4: Formula utilities
+
+`rhs` extracts the right-hand side of a formula. `toformula` builds a formula
+from variable name strings — useful when constructing formulas programmatically.
+
+```{r example4}
+ff <- y ~ x1 + x2 + x3
+rhs(ff)
+toformula("y", c("x1", "x2", "x3"))
+```
+
+## Example 5: Working with lists
+
+`get_list_element` extracts the same element from every entry in a list — a
+common pattern when results are stored as a list of lists.
+
+```{r example5}
+results <- lapply(1:5, function(i) list(est = i * 1.5, se = i * 0.1))
+get_list_element(results, "est")
+get_list_element(results, "se")
+```

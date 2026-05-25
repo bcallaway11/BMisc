@@ -1,7 +1,7 @@
 ^dev$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^README\.Rmd$
+^README\.qmd$
 ^README-.*\.png$
 ^cran-comments\.md$
 ^_pkgdown\.yml$
