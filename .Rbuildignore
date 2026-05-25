@@ -8,6 +8,7 @@
 ^docs$
 ^README-example1-1\.png$
 ^revdep$
+^\.revdeplite$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
 ^pkgdown$

@@ -2,4 +2,5 @@
 .Rhistory
 .RData
 /revdep/.cache.rds
+.revdeplite/
 dev/
