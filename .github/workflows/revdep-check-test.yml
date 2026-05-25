@@ -15,7 +15,7 @@ on:
       github_repos:
         description: "Comma-separated GitHub repos to check"
         required: false
-        default: "bcallaway11/did,bcallaway11/qte,bcallaway11/cdid,bcallaway11/contdid,bcallaway11/ptetools,bcallaway11/triplediff"
+        default: "bcallaway11/did,bcallaway11/qte,bcallaway11/contdid,bcallaway11/ptetools,pedrohcgs/DRDID"
       cran_packages:
         description: "Optional comma-separated CRAN package subset"
         required: false
