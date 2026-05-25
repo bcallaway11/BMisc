@@ -6,6 +6,9 @@ on:
       - "DESCRIPTION"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-citation:
     runs-on: ubuntu-latest
@@ -63,6 +66,10 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add inst/CITATION CITATION.cff
-          git commit -m "Auto-update citation files" || echo "No changes to commit"
-          git push
+          if git diff --quiet -- inst/CITATION CITATION.cff; then
+            echo "No citation file changes to commit"
+          else
+            git add inst/CITATION CITATION.cff
+            git commit -m "Auto-update citation files"
+            git push
+          fi
