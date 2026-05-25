@@ -92,11 +92,11 @@ dta <- data.frame(id = id, t = t, treat = treat)
 dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
 head(unique(dta[, c("id", "group")]))
 #>    id group
-#> 1   1     3
-#> 5   2     0
-#> 9   3     3
-#> 13  4     2
-#> 17  5     2
+#> 1   1     2
+#> 5   2     2
+#> 9   3     2
+#> 13  4     0
+#> 17  5     0
 #> 21  6     2
 check_staggered(dta, idname = "id", treatname = "treat")
 #> [1] FALSE
@@ -115,10 +115,10 @@ rhs(ff)
 #> Use 'rhs_vars' instead.
 #> See help("Deprecated")
 #> ~x1 + x2 + x3
-#> <environment: 0x63ccf02626a0>
+#> <environment: 0x57f907cd1088>
 toformula("y", c("x1", "x2", "x3"))
 #> y ~ x1 + x2 + x3
-#> <environment: 0x63ccf02c6bc8>
+#> <environment: 0x57f907d3d220>
 ```
 
 ## Example 5: Working with lists
