@@ -1,5 +1,37 @@
 # Changelog
 
+## BMisc 1.4.9
+
+- Fixed bug in
+  [`rhs()`](https://bcallaway11.github.io/BMisc/reference/rhs.md) where
+  it was internally calling the deprecated
+  [`rhs.vars()`](https://bcallaway11.github.io/BMisc/reference/rhs.vars.md)
+  instead of
+  [`rhs_vars()`](https://bcallaway11.github.io/BMisc/reference/rhs_vars.md),
+  causing spurious deprecation warnings
+
+- Fixed bug in
+  [`panel2cs2()`](https://bcallaway11.github.io/BMisc/reference/panel2cs2.md)
+  where outcomes could shift across unit boundaries in unbalanced panels
+  when `balance_panel = FALSE`
+
+- Updated license from GPL-2 to GPL-3
+
+- Updated minimum R version from 3.1.0 to 4.0.0
+
+- Moved `caret` from Imports to Suggests; it is only required for
+  [`drop_collinear()`](https://bcallaway11.github.io/BMisc/reference/drop_collinear.md)
+  and will prompt a clear error if not installed
+
+- Added `@importFrom data.table .N .SD` in place of `@import data.table`
+  to reduce namespace pollution
+
+- Added roxygen2 examples to many previously undocumented exported
+  functions
+
+- Expanded test suite with coverage for panel utilities, distribution
+  functions, weighted statistics, formula utilities, and Rcpp functions
+
 ## BMisc 1.4.8
 
 CRAN release: 2025-02-04

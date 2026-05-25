@@ -24,5 +24,5 @@ a one sided formula
 ff <- yvar ~ x1 + x2
 rhs(ff)
 #> ~x1 + x2
-#> <environment: 0x574a17701bf0>
+#> <environment: 0x64576deab788>
 ```

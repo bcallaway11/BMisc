@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BMisc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,17 @@
       <small>Source: <a href="https://github.com/bcallaway11/BMisc/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4.9" id="bmisc-149">BMisc 1.4.9<a class="anchor" aria-label="anchor" href="#bmisc-149"></a></h2>
+<ul><li><p>Fixed bug in <code><a href="../reference/rhs.html">rhs()</a></code> where it was internally calling the deprecated <code><a href="../reference/rhs.vars.html">rhs.vars()</a></code> instead of <code><a href="../reference/rhs_vars.html">rhs_vars()</a></code>, causing spurious deprecation warnings</p></li>
+<li><p>Fixed bug in <code><a href="../reference/panel2cs2.html">panel2cs2()</a></code> where outcomes could shift across unit boundaries in unbalanced panels when <code>balance_panel = FALSE</code></p></li>
+<li><p>Updated license from GPL-2 to GPL-3</p></li>
+<li><p>Updated minimum R version from 3.1.0 to 4.0.0</p></li>
+<li><p>Moved <code>caret</code> from Imports to Suggests; it is only required for <code><a href="../reference/drop_collinear.html">drop_collinear()</a></code> and will prompt a clear error if not installed</p></li>
+<li><p>Added <code>@importFrom data.table .N .SD</code> in place of <code>@import data.table</code> to reduce namespace pollution</p></li>
+<li><p>Added roxygen2 examples to many previously undocumented exported functions</p></li>
+<li><p>Expanded test suite with coverage for panel utilities, distribution functions, weighted statistics, formula utilities, and Rcpp functions</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.8" id="bmisc-148">BMisc 1.4.8<a class="anchor" aria-label="anchor" href="#bmisc-148"></a></h2><p class="text-muted">CRAN release: 2025-02-04</p>
 <ul><li><p>added function <code>weighted_combine_list</code> for computing weighed averages of a list of matrices or vectors</p></li>

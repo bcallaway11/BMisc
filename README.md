@@ -11,7 +11,7 @@
 [![CRAN
 version](https://www.r-pkg.org/badges/version/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
 [![Development
-version](https://img.shields.io/badge/devel%20version-1.4.8-blue.svg)](https://github.com/bcallaway11/BMisc)
+version](https://img.shields.io/badge/devel%20version-1.4.9-blue.svg)](https://github.com/bcallaway11/BMisc)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
 [![Last
@@ -93,11 +93,11 @@ dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
 head(unique(dta[, c("id", "group")]))
 #>    id group
 #> 1   1     3
-#> 5   2     2
+#> 5   2     0
 #> 9   3     3
-#> 13  4     3
-#> 17  5     3
-#> 21  6     0
+#> 13  4     2
+#> 17  5     2
+#> 21  6     2
 check_staggered(dta, idname = "id", treatname = "treat")
 #> [1] FALSE
 ```
@@ -115,10 +115,10 @@ rhs(ff)
 #> Use 'rhs_vars' instead.
 #> See help("Deprecated")
 #> ~x1 + x2 + x3
-#> <environment: 0x610118e6e640>
+#> <environment: 0x63ccf02626a0>
 toformula("y", c("x1", "x2", "x3"))
 #> y ~ x1 + x2 + x3
-#> <environment: 0x610118edc6f8>
+#> <environment: 0x63ccf02c6bc8>
 ```
 
 ## Example 5: Working with lists
