@@ -33,7 +33,7 @@ panel2cs2 takes a 2 period dataset and turns it
 }
 \examples{
 id <- rep(seq(1, 50), 2)
-t <- rep(seq(1, 2), 50)
+t <- rep(seq(1, 2), each = 50)
 y <- rnorm(100)
 dta <- data.frame(id = id, t = t, y = y)
 out <- panel2cs2(dta, yname = "y", idname = "id", tname = "t")

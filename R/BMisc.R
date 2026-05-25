@@ -78,7 +78,7 @@ makeBalancedPanel <- function(data,
 #'
 #' @examples
 #' id <- rep(seq(1, 50), 2)
-#' t <- rep(seq(1, 2), 50)
+#' t <- rep(seq(1, 2), each = 50)
 #' y <- rnorm(100)
 #' dta <- data.frame(id = id, t = t, y = y)
 #' out <- panel2cs(dta, timevars = "y", idname = "id", tname = "t")
@@ -131,7 +131,7 @@ panel2cs <- function(data, timevars, idname, tname) {
 #'
 #' @examples
 #' id <- rep(seq(1, 50), 2)
-#' t <- rep(seq(1, 2), 50)
+#' t <- rep(seq(1, 2), each = 50)
 #' y <- rnorm(100)
 #' dta <- data.frame(id = id, t = t, y = y)
 #' out <- panel2cs2(dta, yname = "y", idname = "id", tname = "t")
@@ -162,9 +162,10 @@ panel2cs2 <- function(data, yname, idname, tname, balance_panel = TRUE) {
   data$.y0 <- data[[yname]]
   data$.dy <- data$.y1 - data$.y0
 
-  # Subset to first row
-  first.period <- min(data[[tname]])
-  data <- data[data[[tname]] == first.period, ]
+  # Subset to first period after computing the logical index explicitly.
+  first_period <- min(data[[tname]])
+  first_period_idx <- data[[tname]] == first_period
+  data <- data[first_period_idx, ]
 
   data
 }
