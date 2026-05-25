@@ -23,9 +23,6 @@ a one sided formula
 ``` r
 ff <- yvar ~ x1 + x2
 rhs(ff)
-#> Warning: 'rhs.vars' is deprecated.
-#> Use 'rhs_vars' instead.
-#> See help("Deprecated")
 #> ~x1 + x2
-#> <environment: 0x583ac29a40f0>
+#> <environment: 0x574a17701bf0>
 ```

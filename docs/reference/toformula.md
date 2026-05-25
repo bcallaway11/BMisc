@@ -28,13 +28,10 @@ a formula
 ``` r
 toformula("yvar", c("x1", "x2"))
 #> yvar ~ x1 + x2
-#> <environment: 0x583ac4975a20>
+#> <environment: 0x574a196b1258>
 
 ## should return yvar ~ 1
-toformula("yvar", rhs.vars(~1))
-#> Warning: 'rhs.vars' is deprecated.
-#> Use 'rhs_vars' instead.
-#> See help("Deprecated")
+toformula("yvar", rhs_vars(~1))
 #> yvar ~ 1
-#> <environment: 0x583ac49ba5a0>
+#> <environment: 0x574a196f9d20>
 ```

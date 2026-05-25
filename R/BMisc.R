@@ -844,7 +844,7 @@ lhs.vars <- function(formla) {
 #' @return a one sided formula
 #' @export
 rhs <- function(formula) {
-  toformula(NULL, rhs.vars(formula))
+  toformula(NULL, rhs_vars(formula))
 }
 
 #' @title Variable Names to Formula
@@ -859,7 +859,7 @@ rhs <- function(formula) {
 #' toformula("yvar", c("x1", "x2"))
 #'
 #' ## should return yvar ~ 1
-#' toformula("yvar", rhs.vars(~1))
+#' toformula("yvar", rhs_vars(~1))
 #'
 #' @return a formula
 #' @export

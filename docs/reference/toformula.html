@@ -65,15 +65,12 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">toformula</span><span class="op">(</span><span class="st">"yvar"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> yvar ~ x1 + x2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x583ac4975a20&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x574a196b1258&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## should return yvar ~ 1</span></span></span>
-<span class="r-in"><span><span class="fu">toformula</span><span class="op">(</span><span class="st">"yvar"</span>, <span class="fu"><a href="rhs.vars.html">rhs.vars</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'rhs.vars' is deprecated.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'rhs_vars' instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> See help("Deprecated")</span>
+<span class="r-in"><span><span class="fu">toformula</span><span class="op">(</span><span class="st">"yvar"</span>, <span class="fu"><a href="rhs_vars.html">rhs_vars</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> yvar ~ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x583ac49ba5a0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x574a196f9d20&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
