@@ -1,7 +1,6 @@
 name: R Package Checks and Coverage
 
 on:
-  push:
   pull_request:
   workflow_dispatch:
 

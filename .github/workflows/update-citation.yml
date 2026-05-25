@@ -1,9 +1,6 @@
 name: Update Citation Files
 
 on:
-  push:
-    paths:
-      - "DESCRIPTION"
   workflow_dispatch:
 
 permissions:
