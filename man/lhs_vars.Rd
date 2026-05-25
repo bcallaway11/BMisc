@@ -18,5 +18,5 @@ Take a formula and return a vector of the variables
 }
 \examples{
 ff <- yvar ~ x1 + x2
-lhs.vars(ff)
+lhs_vars(ff)
 }

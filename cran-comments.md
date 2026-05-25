@@ -1,6 +1,6 @@
 ## Test environments
 
-- Local Ubuntu 24.04, R 4.4.1:
+- Local Ubuntu 24.04, R 4.6.0:
     - All checks passed without issues.
 - Github Actions
     - Windows-latest (R release)

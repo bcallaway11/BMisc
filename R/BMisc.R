@@ -87,8 +87,6 @@ makeBalancedPanel <- function(data,
 #' @return data.frame
 #' @export
 panel2cs <- function(data, timevars, idname, tname) {
-  # .Deprecated("panel2cs2")
-
   if (length(unique(data[, tname])) != 2) {
     stop("panel2cs only for 2 periods of panel data")
   }
@@ -140,6 +138,7 @@ panel2cs <- function(data, timevars, idname, tname) {
 #' @return data from first period with .y0 (outcome in first period),
 #'  .y1 (outcome in second period), and .dy (change in outcomes
 #'  over time) appended to it
+#' @importFrom data.table :=
 #' @export
 panel2cs2 <- function(data, yname, idname, tname, balance_panel = TRUE) {
   # check that only 2 periods of data
@@ -243,10 +242,9 @@ id2rownum <- function(id, data, idname) {
 #'
 #' @export
 block_boot_sample <- function(data, idname) {
-  n <- nrow(data)
   ids <- sample(unique(data[, idname]), replace = TRUE)
-  newid <- seq(1:length(ids))
-  b1 <- lapply(1:length(ids), function(i) {
+  newid <- seq_along(ids)
+  b1 <- lapply(seq_along(ids), function(i) {
     bd <- data[data[, idname] == ids[i], ]
     bd[, idname] <- newid[i]
     bd
@@ -394,22 +392,6 @@ invertEcdf <- function(df) {
   invert_ecdf(df)
 }
 
-## ## TODO: fix this, can reference quantreg package
-## ecdf2density <- function(df) {
-##     q <- knots(df)
-##     tau <- df(q)
-##     ## akjfun comes from rq package
-##     akjfun <- function(z, p, d = 10, g = 300, ...) {
-##         mz <- sum(z * p)
-##         sz <- sqrt(sum((z - mz)^2 * p))
-##         hz <- seq(mz - d * sz, mz + d * sz, length = g)
-##         fz <- quantreg::akj(z, hz, p = p, ...)$dens
-##         approxfun(hz, fz)
-##     }
-##     p <- diff(taus)
-##     akjfun(q, p)
-## }
-
 
 
 
@@ -494,7 +476,7 @@ weighted_quantile_inner <- function(tau, cvec, weights = NULL, norm = TRUE) {
     weights <- weights / mw
   }
   return(optimize(weighted_checkfun,
-    lower = min(cvec),
+    lower = min(cvec), # nolint: indentation_linter. args to optimize() nested inside return()
     upper = max(cvec),
     cvec = cvec, tau = tau, weights = weights
   )$minimum)
@@ -668,13 +650,11 @@ cs2panel <- function(cs1, cs2, yname) {
     ut <- ut[order(-ut)] ## orders largest to smallest
     ps <- seq(1, 0, length.out = length(ut)) ## orders largest to smallest
     utmin1 <- quantile(cs1[, yname], probs = ps, type = 1)
-    ## F.untreated.change.t <- ecdf(ut-utmin1)
   } else {
     utmin1 <- cs2[, yname]
     utmin1 <- utmin1[order(-utmin1)] ## orders largest to smallest
     ps <- seq(1, 0, length.out = length(utmin1)) ## orders largest to smallest
     ut <- quantile(cs1[, yname], probs = ps, type = 1)
-    ## F.untreated.change.t <- ecdf(ut-utmin1)
   }
   return(ut - utmin1)
 }
@@ -806,7 +786,7 @@ rhs.vars <- function(formla) {
 #'
 #' @examples
 #' ff <- yvar ~ x1 + x2
-#' lhs.vars(ff)
+#' lhs_vars(ff)
 #' @return vector of variable names
 #' @export
 lhs_vars <- function(formula) {
@@ -1005,7 +985,7 @@ combine_ecdfs <- function(y.seq, ecdflist, weights = NULL, ...) {
     ddff(y.seq)
   })
   df.valsmat <- simplify2array(df.valslist)
-  for (i in 1:length(weights)) {
+  for (i in seq_along(weights)) {
     df.valsmat[, i] <- df.valsmat[, i] * weights[i]
   }
 
@@ -1075,72 +1055,6 @@ subsample <- function(dta, idname, tname, keepids = NULL, nkeep = NULL) {
   retdta <- dta[dta[, idname] %in% keepids, ]
   retdta
 }
-## THESE ARE THROWING ERRORS
-
-## this should return the distribution function
-## currently running ci.qte and then inverting, but probably
-## would be better to calculate it directly
-## ci.treated.Df <- function(data, y.seq, formla, xformla, probs, weights=NULL, se, iters, retEachIter, method="logit", pl, cores) {
-
-##     qp <- QTEparams(formla, xformla, t=NULL, tmin1=NULL, tmin2=NULL, tname=NULL, data=data, weights=weights, idname=NULL, probs=probs, iters=iters, alp=alp, method=method, plot=plot, se=se, retEachIter=retEachIter, bootstrapiter=FALSE, seedvec=NULL, pl=pl, cores=cores)
-##     setupData(qp)
-
-##     pscore.reg <- glm(data[,treat] ~ as.matrix(data[,x]),
-##                       family=binomial(link=method))
-##     pscore <- fitted(pscore.reg)
-##     d <- data[,treat]
-##     y <- data[,yname]
-
-##     y.seq <- y.seq[order(y.seq)]
-##     df.vals <- vapply(y.seq, function(x) {
-##         mean((d/pscore)*(y <= x) / (mean(d/pscore))) }, 1.0)
-##     make_dist(y.seq, df.vals)
-## }
-
-## ## this should return the distribution function
-## ## currently running ci.qte and then inverting, but probably
-## ## would be better to calculate it directly
-## ci.untreated.Df <- function(data, y.seq, formla, xformla, probs, weights=NULL, se, iters, retEachIter, method="logit", pl, cores) {
-##     ##OLD: using qte method
-##     ##cfirp <- ci.qte(formla=formla, xformla=xformla,
-##     ##            probs=probs, weights=weights, se=se, iters=iters,
-##     ##            retEachIter=RE, pl=pl, cores=cores, data=data)
-##     ##list(cfirp$F.treated.t, cfirp$F.treated.t.cf)
-##     qp <- QTEparams(formla, xformla, t=NULL, tmin1=NULL, tmin2=NULL, tname=NULL, data=data, weights=weights, idname=NULL, probs=probs, iters=iters, alp=alp, method=method, plot=plot, se=se, retEachIter=retEachIter, bootstrapiter=FALSE, seedvec=NULL, pl=pl, cores=cores)
-##     setupData(qp)
-
-##     pscore.reg <- glm(data[,treat] ~ as.matrix(data[,x]),
-##                       family=binomial(link=method))
-##     pscore <- fitted(pscore.reg)
-##     d <- data[,treat]
-##     y <- data[,yname]
-##     y.seq <- y.seq[order(y.seq)]
-##     df.vals <- vapply(y.seq, function(x) {
-##         mean(((1-d)/(1-pscore))*(y <= x) / mean((1-d)/(1-pscore))) }, 1.0)
-##     make_dist(y.seq, df.vals)
-## }
-
-## ##get the distribution function
-## ## under stratified random sampling
-## strat.ci.df <- function(y.seq, stratvarname, pstrat, formla, xformla, data, probs, weights, se, iters, retEachIter, pl, cores) {
-
-##     browser()
-
-##     cdta <- lapply(unique(data[,stratvarname]),
-##                    function(x) { data[data[,stratvarname]==x,] })
-##     ctreatedflist <- lapply(cdta, ci.treated.Df, y.seq=y.seq, formla=formla,
-##                         xformla=xformla, probs=probs,
-##                         se=se, iters=iters, retEachIter=retEachIter,
-##                         pl=pl, cores=cores)
-##     treated.df <- combineDfs(y.seq, ctreatedflist, pstrat)
-##     cuntreatedflist <- lapply(cdta, ci.untreated.Df, y.seq=y.seq, formla=formla,
-##                         xformla=xformla, probs=probs,
-##                         se=se, iters=iters, retEachIter=retEachIter,
-##                         pl=pl, cores=cores)
-##     untreated.df <- combineDfs(y.seq, cuntreatedflist, pstrat)
-##     return(c(treated.df, untreated.df))
-## }
-
 
 #' @title Return Particular Element from Each Element in a List
 #' @description a function to take a list and get a particular part
@@ -1197,7 +1111,7 @@ source_all <- function(fldr) {
 #' @return logical vector
 #'
 #' @export
-TorF <- function(cond, use_isTRUE = FALSE) {
+TorF <- function(cond, use_isTRUE = FALSE) { # nolint: object_name_linter. mixed-case param is stable exported API
   if (!is.logical(cond)) stop("cond should be a logical vector")
 
   if (use_isTRUE) {
@@ -1243,9 +1157,9 @@ get_group_inner <- function(this_df, tname, treatname) {
 #' head(unique(dta[, c("id", "group")]))
 #' @export
 get_group <- function(df, idname, tname, treatname) {
-  group_vec <- df %>%
-    group_by(.data[[idname]]) %>%
-    group_map(~ rep(get_group_inner(.x, tname, treatname), nrow(.x))) %>%
+  group_vec <- df |>
+    group_by(.data[[idname]]) |>
+    group_map(~ rep(get_group_inner(.x, tname, treatname), nrow(.x))) |>
     unlist()
   group_vec
 }
@@ -1294,9 +1208,9 @@ get_YiGmin1_inner <- function(this_df, yname, tname, gname) {
 #' head(unique(dta[, c("id", "group", "YiGmin1")]))
 #' @export
 get_YiGmin1 <- function(df, idname, yname, tname, gname) {
-  YiGmin1_vec <- df %>%
-    group_by(.data[[idname]]) %>%
-    group_map(~ rep(get_YiGmin1_inner(.x, yname, tname, gname), nrow(.x))) %>%
+  YiGmin1_vec <- df |>
+    group_by(.data[[idname]]) |>
+    group_map(~ rep(get_YiGmin1_inner(.x, yname, tname, gname), nrow(.x))) |>
     unlist()
   YiGmin1_vec
 }
@@ -1330,9 +1244,9 @@ get_Yi1_inner <- function(this_df, yname, tname, gname) {
 #' dta$Yi1 <- get_Yi1(dta, idname = "id", yname = "y", tname = "t", gname = "group")
 #' @export
 get_Yi1 <- function(df, idname, yname, tname, gname) {
-  Yi1_vec <- df %>%
-    group_by(.data[[idname]]) %>%
-    group_map(~ rep(get_Yi1_inner(.x, yname, tname, gname), nrow(.x))) %>%
+  Yi1_vec <- df |>
+    group_by(.data[[idname]]) |>
+    group_map(~ rep(get_Yi1_inner(.x, yname, tname, gname), nrow(.x))) |>
     unlist()
   Yi1_vec
 }
@@ -1371,9 +1285,9 @@ get_Yit_inner <- function(this_df, tp, yname, tname) {
 #'  each element in the panel, not for a particular period)
 #' @export
 get_Yit <- function(df, tp, idname, yname, tname) {
-  Yit_vec <- df %>%
-    group_by(.data[[idname]]) %>%
-    group_map(~ rep(get_Yit_inner(.x, tp, yname, tname), nrow(.x))) %>%
+  Yit_vec <- df |>
+    group_by(.data[[idname]]) |>
+    group_map(~ rep(get_Yit_inner(.x, tp, yname, tname), nrow(.x))) |>
     unlist()
   Yit_vec
 }
@@ -1404,9 +1318,9 @@ get_Yibar_inner <- function(this_df, yname) {
 #' dta$Yibar <- get_Yibar(dta, idname = "id", yname = "y")
 #' @export
 get_Yibar <- function(df, idname, yname) {
-  Yibar_vec <- df %>%
-    group_by(.data[[idname]]) %>%
-    group_map(~ rep(get_Yibar_inner(.x, yname), nrow(.x))) %>%
+  Yibar_vec <- df |>
+    group_by(.data[[idname]]) |>
+    group_map(~ rep(get_Yibar_inner(.x, yname), nrow(.x))) |>
     unlist()
   Yibar_vec
 }
@@ -1423,7 +1337,6 @@ get_Yibar <- function(df, idname, yname) {
 #' @export
 get_Yibar_pre_inner <- function(this_df, yname, tname, gname) {
   this_df <- as.data.frame(this_df)
-  maxT <- max(this_df[, tname])
   this_group <- unique(this_df[, gname])
   Yibarpre <- ifelse(this_group == 0,
     mean(this_df[, yname]),
@@ -1454,9 +1367,9 @@ get_Yibar_pre_inner <- function(this_df, yname, tname, gname) {
 #'                                tname = "t", gname = "group")
 #' @export
 get_Yibar_pre <- function(df, idname, yname, tname, gname) {
-  YiGmin1_vec <- df %>%
-    group_by(.data[[idname]]) %>%
-    group_map(~ rep(get_Yibar_pre_inner(.x, yname, tname, gname), nrow(.x))) %>%
+  YiGmin1_vec <- df |>
+    group_by(.data[[idname]]) |>
+    group_map(~ rep(get_Yibar_pre_inner(.x, yname, tname, gname), nrow(.x))) |>
     unlist()
   YiGmin1_vec
 }
@@ -1477,8 +1390,8 @@ get_Yibar_pre <- function(df, idname, yname, tname, gname) {
 #' dta$lag_y <- get_lagYi(dta, idname = "id", yname = "y", tname = "t")
 #' @export
 get_lagYi <- function(df, idname, yname, tname, nlags = 1) {
-  df <- df %>%
-    dplyr::group_by(.data[[idname]]) %>%
+  df <- df |>
+    dplyr::group_by(.data[[idname]]) |>
     dplyr::mutate(.lag = dplyr::lag(.data[[yname]], nlags, order_by = .data[[tname]]))
   df$.lag
 }
@@ -1577,9 +1490,9 @@ check_staggered_inner <- function(this_df, treatname) {
 #' @return a logical indicating whether treatment is staggered
 #' @export
 check_staggered <- function(df, idname, treatname) {
-  this_staggered <- df %>%
-    group_by(.data[[idname]]) %>%
-    group_map(~ check_staggered_inner(.x, treatname)) %>%
+  this_staggered <- df |>
+    group_by(.data[[idname]]) |>
+    group_map(~ check_staggered_inner(.x, treatname)) |>
     unlist()
   all(this_staggered)
 }
@@ -1756,14 +1669,14 @@ get_principal_components <- function(
     n_components <- nperiods
   }
   pc_list <- list()
-  for (i in 1:ncol(X)) {
+  for (i in seq_len(ncol(X))) {
     this_x_name <- colnames(X)[i]
     x <- X[, i]
     df <- data.frame(.id = data[[idname]], .time = data[[tname]], x)
-    wide_data <- df %>% pivot_wider(id_cols = .id, names_from = .time, names_prefix = "_x_", values_from = x)
-    .id <- wide_data$.id
-    pca_inner <- wide_data %>%
-      select(starts_with("_x_")) %>%
+    wide_data <- df |> pivot_wider(id_cols = .id, names_from = .time, names_prefix = "_x_", values_from = x)
+    .id <- wide_data$.id # nolint: object_name_linter. dot-prefix col name from pivot_wider
+    pca_inner <- wide_data |>
+      select(starts_with("_x_")) |>
       prcomp(center = FALSE, scale. = FALSE)
     princ_comp <- pca_inner$x[, 1:n_components]
     colnames(princ_comp) <- paste0(this_x_name, "_", colnames(princ_comp))
@@ -1777,7 +1690,7 @@ get_principal_components <- function(
   if (ret_wide) {
     return(pc_data)
   } else {
-    return(pc_data[rep(1:nrow(pc_data), each = nperiods), ])
+    return(pc_data[rep(seq_len(nrow(pc_data)), each = nperiods), ])
   }
 }
 
@@ -1808,10 +1721,8 @@ weighted_combine_list <- function(l, w, normalize_weights = TRUE) {
   # make sure the arguments passed in are compatible with the function
   if (!is.list(l)) stop("`l` should be a list")
   if (!is.numeric(w)) stop("`w` should be a numeric vector")
-  # unique_l_class <- unique(sapply(l, class))
-  # if (!(length(unique_l_class) == 1)) stop("all elements of `l` should have the same class")
-  if (!(is.matrix(l[[1]]) | is.numeric(l[[1]]))) stop("`l` should contain numeric vectors or matrices")
-  if (is.numeric(l[[1]]) & is.vector(l[[1]])) {
+  if (!(is.matrix(l[[1]]) || is.numeric(l[[1]]))) stop("`l` should contain numeric vectors or matrices")
+  if (is.numeric(l[[1]]) && is.vector(l[[1]])) {
     unique_l_length <- unique(sapply(l, length))
     if (!(length(unique_l_length) == 1)) stop("all elements of `l` should have the same length")
   }

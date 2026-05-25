@@ -5,10 +5,10 @@ test_that("make_dist and invert_ecdf produce valid ecdf objects", {
   set.seed(42)
   y <- sort(rnorm(100))
   Fx <- seq(0.01, 1, length.out = 100)
-  F <- make_dist(y, Fx)
+  ecdf_fn <- make_dist(y, Fx)
 
-  expect_s3_class(F, "ecdf")
-  expect_equal(F(0), 0.46, tolerance = 1e-4)
+  expect_s3_class(ecdf_fn, "ecdf")
+  expect_equal(ecdf_fn(0), 0.46, tolerance = 1e-4)
 
   Finv <- invert_ecdf(ecdf(y))
   expect_true(is.function(Finv))

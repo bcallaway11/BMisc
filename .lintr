@@ -1,0 +1,14 @@
+linters: linters_with_defaults(
+    return_linter = NULL,
+    line_length_linter = lintr::line_length_linter(120L),
+    object_name_linter = object_name_linter(
+      regexes = c(
+        snake_case  = "^[a-z][a-z0-9_]*$",
+        upper_camel = "^[a-zA-Z][a-zA-Z0-9]*$",
+        symbols     = "^[[:alpha:]]$",
+        dot_names   = "^[a-z][a-z0-9._]*$",
+        mixed_eco   = "^[a-z][a-zA-Z0-9_]*$",
+        upper_eco   = "^[A-Z][a-zA-Z0-9_]*$"
+      )
+    )
+  )

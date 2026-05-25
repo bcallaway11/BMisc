@@ -9,6 +9,8 @@
 ^README-example1-1\.png$
 ^revdep$
 ^\.revdeplite$
+^\.claude$
+^\.lintr$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
 ^pkgdown$

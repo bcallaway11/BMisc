@@ -15,7 +15,9 @@ test_that("mv_mult, t2orig, orig2t, and weighted_combine_list return correct val
 # element_wise_mult and multiplier_bootstrap: Rcpp output shape and type
 test_that("Rcpp functions return matrices of correct dimensions", {
   set.seed(42)
-  n <- 10; B <- 4; k <- 2
+  n <- 10
+  B <- 4
+  k <- 2
   U <- matrix(rnorm(n * B), n, B)
   inf_func <- matrix(rnorm(n * k), n, k)
 
