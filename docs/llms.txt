@@ -1,0 +1,267 @@
+# BMisc
+
+[![CRAN downloads
+(total)](http://cranlogs.r-pkg.org/badges/grand-total/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
+[![CRAN downloads
+(monthly)](http://cranlogs.r-pkg.org/badges/last-month/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
+[![CRAN
+version](https://www.r-pkg.org/badges/version/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
+[![Development
+version](https://img.shields.io/badge/devel%20version-1.4.8-blue.svg)](https://github.com/bcallaway11/BMisc)
+[![CRAN
+checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
+[![Last
+commit](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)
+
+BMisc includes miscellaneous functions useful for applied econometrics,
+with a focus on panel data and distributional analysis. Utilities cover
+balancing panels, working with distribution functions, computing
+weighted statistics, manipulating formulas, and supporting staggered
+treatment adoption settings (e.g., identifying treatment groups and
+recovering pre-treatment outcomes).
+
+## Installation
+
+You can install BMisc from CRAN with:
+
+``` r
+install.packages("BMisc")
+```
+
+Or install the development version from GitHub with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("bcallaway11/BMisc")
+```
+
+## Example 1: Working with distribution functions
+
+`make_dist` creates a distribution function from a vector of values and
+their corresponding CDF values.
+
+``` r
+library(BMisc)
+y <- rnorm(100)
+y <- y[order(y)]
+u <- runif(100)
+u <- u[order(u)]
+F <- make_dist(y, u)
+class(F)
+#> [1] "ecdf"     "stepfun"  "function"
+# plot(F)
+```
+
+## Example 2: Working with panel data
+
+`make_balanced_panel` drops observations from a panel dataset that are
+not available in all time periods.
+
+``` r
+id <- rep(seq(1, 100, 1), 2) ## individual ids for setting up a two period panel
+t <- rep(seq(1, 2), 100) ## time periods
+y <- rnorm(200) ## outcomes
+dta <- data.frame(id = id, t = t, y = y) ## make into data frame
+dta <- dta[-7, ] ## drop the 7th row from the dataset (which creates an unbalanced panel)
+nrow(dta)
+#> [1] 199
+dta <- make_balanced_panel(dta, idname = "id", tname = "t")
+nrow(dta) ## now all the observations with missing data in any period are dropped
+#> [1] 198
+```
+
+## Example 3: Staggered treatment adoption
+
+`get_group` identifies the time period in which each unit first becomes
+treated. `check_staggered` verifies that treatment is absorbing (no
+de-treatments).
+
+``` r
+n <- 100
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+## assign units to groups: 0 = never treated, 2 = treated from period 2, 3 = from period 3
+g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
+treat <- as.integer(t >= g & g > 0)
+dta <- data.frame(id = id, t = t, treat = treat)
+
+dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
+head(unique(dta[, c("id", "group")]))
+#>    id group
+#> 1   1     3
+#> 5   2     0
+#> 9   3     2
+#> 13  4     2
+#> 17  5     0
+#> 21  6     0
+check_staggered(dta, idname = "id", treatname = "treat")
+#> [1] FALSE
+```
+
+## Example 4: Formula utilities
+
+`rhs` extracts the right-hand side of a formula. `toformula` builds a
+formula from variable name strings — useful when constructing formulas
+programmatically.
+
+``` r
+ff <- y ~ x1 + x2 + x3
+rhs(ff)
+#> Warning in rhs.vars(formula): 'rhs.vars' is deprecated.
+#> Use 'rhs_vars' instead.
+#> See help("Deprecated")
+#> ~x1 + x2 + x3
+#> <environment: 0x5ff2c945c2e8>
+toformula("y", c("x1", "x2", "x3"))
+#> y ~ x1 + x2 + x3
+#> <environment: 0x5ff2c94c6560>
+```
+
+## Example 5: Working with lists
+
+`get_list_element` extracts the same element from every entry in a list
+— a common pattern when results are stored as a list of lists.
+
+``` r
+results <- lapply(1:5, function(i) list(est = i * 1.5, se = i * 0.1))
+get_list_element(results, "est")
+#> [[1]]
+#> [1] 1.5
+#> 
+#> [[2]]
+#> [1] 3
+#> 
+#> [[3]]
+#> [1] 4.5
+#> 
+#> [[4]]
+#> [1] 6
+#> 
+#> [[5]]
+#> [1] 7.5
+get_list_element(results, "se")
+#> [[1]]
+#> [1] 0.1
+#> 
+#> [[2]]
+#> [1] 0.2
+#> 
+#> [[3]]
+#> [1] 0.3
+#> 
+#> [[4]]
+#> [1] 0.4
+#> 
+#> [[5]]
+#> [1] 0.5
+```
+
+# Package index
+
+## Funtions for working with panel data
+
+- [`make_balanced_panel()`](https://bcallaway11.github.io/BMisc/reference/make_balanced_panel.md)
+  : Balance a Panel Data Set
+- [`panel2cs()`](https://bcallaway11.github.io/BMisc/reference/panel2cs.md)
+  : Panel Data to Repeated Cross Sections
+- [`panel2cs2()`](https://bcallaway11.github.io/BMisc/reference/panel2cs2.md)
+  : Panel Data to Repeated Cross Sections
+- [`ids2rownum()`](https://bcallaway11.github.io/BMisc/reference/ids2rownum.md)
+  : Convert Vector of ids into Vector of Row Numbers
+- [`cs2panel()`](https://bcallaway11.github.io/BMisc/reference/cs2panel.md)
+  : Cross Section to Panel
+- [`subsample()`](https://bcallaway11.github.io/BMisc/reference/subsample.md)
+  : Subsample of Observations from Panel Data
+- [`block_boot_sample()`](https://bcallaway11.github.io/BMisc/reference/block_boot_sample.md)
+  : Block Bootstrap
+- [`multiplier_bootstrap()`](https://bcallaway11.github.io/BMisc/reference/multiplier_bootstrap.md)
+  : multiplier_bootstrap
+- [`get_group()`](https://bcallaway11.github.io/BMisc/reference/get_group.md)
+  : get_group
+- [`get_YiGmin1()`](https://bcallaway11.github.io/BMisc/reference/get_YiGmin1.md)
+  : get_YiGmin1
+- [`get_Yi1()`](https://bcallaway11.github.io/BMisc/reference/get_Yi1.md)
+  : get_Yi1
+- [`get_Yibar()`](https://bcallaway11.github.io/BMisc/reference/get_Yibar.md)
+  : get_Yibar
+- [`get_Yit()`](https://bcallaway11.github.io/BMisc/reference/get_Yit.md)
+  : get_Yit
+- [`get_first_difference()`](https://bcallaway11.github.io/BMisc/reference/get_first_difference.md)
+  : get_first_difference
+- [`get_lagYi()`](https://bcallaway11.github.io/BMisc/reference/get_lagYi.md)
+  : get_lagYi
+- [`get_Yibar_pre()`](https://bcallaway11.github.io/BMisc/reference/get_Yibar_pre.md)
+  : get_Yibar_pre
+- [`get_principal_components()`](https://bcallaway11.github.io/BMisc/reference/get_principal_components.md)
+  : get_principal_components
+- [`orig2t()`](https://bcallaway11.github.io/BMisc/reference/orig2t.md)
+  : orig2t
+- [`t2orig()`](https://bcallaway11.github.io/BMisc/reference/t2orig.md)
+  : t2orig
+- [`check_staggered()`](https://bcallaway11.github.io/BMisc/reference/check_staggered.md)
+  : check_staggered
+- [`time_invariant_to_panel()`](https://bcallaway11.github.io/BMisc/reference/time_invariant_to_panel.md)
+  : time_invariant_to_panel
+
+## Functions for working with distributions
+
+- [`make_dist()`](https://bcallaway11.github.io/BMisc/reference/make_dist.md)
+  : Make a Distribution Function
+- [`combine_ecdfs()`](https://bcallaway11.github.io/BMisc/reference/combine_ecdfs.md)
+  : Combine Two Distribution Functions
+- [`invert_ecdf()`](https://bcallaway11.github.io/BMisc/reference/invert_ecdf.md)
+  : Invert Ecdf
+- [`checkfun()`](https://bcallaway11.github.io/BMisc/reference/checkfun.md)
+  : Check Function
+- [`weighted_checkfun()`](https://bcallaway11.github.io/BMisc/reference/weighted_checkfun.md)
+  : Weighted Check Function
+- [`weighted_quantile()`](https://bcallaway11.github.io/BMisc/reference/weighted_quantile.md)
+  : weighted_quantile
+- [`weighted_mean()`](https://bcallaway11.github.io/BMisc/reference/weighted_mean.md)
+  : Weighted Mean
+- [`weighted_ecdf()`](https://bcallaway11.github.io/BMisc/reference/weighted_ecdf.md)
+  : Weighted Distribution Function
+
+## Functions for creating summary statistics
+
+- [`compare_binary()`](https://bcallaway11.github.io/BMisc/reference/compare_binary.md)
+  : Compare Variables across Groups
+
+## Functions for working with formulas
+
+- [`drop_cov_from_formula()`](https://bcallaway11.github.io/BMisc/reference/drop_cov_from_formula.md)
+  : Drop a Covariate from a Formula
+- [`add_cov_to_formula()`](https://bcallaway11.github.io/BMisc/reference/add_cov_to_formula.md)
+  : Add a Covariate to a Formula
+- [`lhs_vars()`](https://bcallaway11.github.io/BMisc/reference/lhs_vars.md)
+  : Left-hand Side Variables
+- [`rhs()`](https://bcallaway11.github.io/BMisc/reference/rhs.md) :
+  Right-hand Side of Formula
+- [`rhs_vars()`](https://bcallaway11.github.io/BMisc/reference/rhs_vars.md)
+  : Right-hand Side Variables
+- [`toformula()`](https://bcallaway11.github.io/BMisc/reference/toformula.md)
+  : Variable Names to Formula
+
+## Other miscellaneous functions
+
+- [`get_list_element()`](https://bcallaway11.github.io/BMisc/reference/get_list_element.md)
+  : Return Particular Element from Each Element in a List
+- [`source_all()`](https://bcallaway11.github.io/BMisc/reference/source_all.md)
+  : source_all
+- [`TorF()`](https://bcallaway11.github.io/BMisc/reference/TorF.md) :
+  TorF
+- [`element_wise_mult()`](https://bcallaway11.github.io/BMisc/reference/element_wise_mult.md)
+  : element_wise_mult
+- [`mv_mult()`](https://bcallaway11.github.io/BMisc/reference/mv_mult.md)
+  : Matrix-Vector Multiplication
+- [`drop_collinear()`](https://bcallaway11.github.io/BMisc/reference/drop_collinear.md)
+  : drop_collinear
+- [`weighted_combine_list()`](https://bcallaway11.github.io/BMisc/reference/weighted_combine_list.md)
+  : weighted_combine_list
+
+## Package documentation
+
+- [`BMisc-package`](https://bcallaway11.github.io/BMisc/reference/BMisc.md)
+  [`BMisc`](https://bcallaway11.github.io/BMisc/reference/BMisc.md) :
+  BMisc
+

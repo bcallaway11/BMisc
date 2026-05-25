@@ -4,13 +4,18 @@
 
 # BMisc <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
-[![](http://cranlogs.r-pkg.org/badges/grand-total/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
-[![](http://cranlogs.r-pkg.org/badges/last-month/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
-[![](https://www.r-pkg.org/badges/version/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
-[![](https://img.shields.io/badge/devel%20version-1.4.8-blue.svg)](https://github.com/bcallaway11/BMisc)
+[![CRAN downloads
+(total)](http://cranlogs.r-pkg.org/badges/grand-total/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
+[![CRAN downloads
+(monthly)](http://cranlogs.r-pkg.org/badges/last-month/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
+[![CRAN
+version](https://www.r-pkg.org/badges/version/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
+[![Development
+version](https://img.shields.io/badge/devel%20version-1.4.8-blue.svg)](https://github.com/bcallaway11/BMisc)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
-[![](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)
+[![Last
+commit](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)
 
 BMisc includes miscellaneous functions useful for applied econometrics,
 with a focus on panel data and distributional analysis. Utilities cover
@@ -91,8 +96,8 @@ head(unique(dta[, c("id", "group")]))
 #> 5   2     0
 #> 9   3     2
 #> 13  4     2
-#> 17  5     2
-#> 21  6     3
+#> 17  5     0
+#> 21  6     0
 check_staggered(dta, idname = "id", treatname = "treat")
 #> [1] FALSE
 ```
@@ -110,10 +115,10 @@ rhs(ff)
 #> Use 'rhs_vars' instead.
 #> See help("Deprecated")
 #> ~x1 + x2 + x3
-#> <environment: 0x5ed2c2822c10>
+#> <environment: 0x5ff2c945c2e8>
 toformula("y", c("x1", "x2", "x3"))
 #> y ~ x1 + x2 + x3
-#> <environment: 0x5ed2beaa4910>
+#> <environment: 0x5ff2c94c6560>
 ```
 
 ## Example 5: Working with lists

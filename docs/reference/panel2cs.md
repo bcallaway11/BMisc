@@ -1,0 +1,47 @@
+# Panel Data to Repeated Cross Sections
+
+panel2cs takes a 2 period dataset and turns it into a cross sectional
+dataset. The data includes the change in time varying variables between
+the time periods. The default functionality is to keep all the variables
+from period 1 and add all the variables listed by name in timevars from
+period 2 to those.
+
+## Usage
+
+``` r
+panel2cs(data, timevars, idname, tname)
+```
+
+## Arguments
+
+- data:
+
+  data.frame used in function
+
+- timevars:
+
+  vector of names of variables to keep
+
+- idname:
+
+  unique id
+
+- tname:
+
+  time period name
+
+## Value
+
+data.frame
+
+## Examples
+
+``` r
+id <- rep(seq(1, 50), 2)
+t <- rep(seq(1, 2), each = 50)
+y <- rnorm(100)
+dta <- data.frame(id = id, t = t, y = y)
+out <- panel2cs(dta, timevars = "y", idname = "id", tname = "t")
+nrow(out)
+#> [1] 50
+```

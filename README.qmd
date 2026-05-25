@@ -11,15 +11,19 @@ knitr:
 
 # BMisc <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
-```{r echo=FALSE, results='asis', message=FALSE, warning=FALSE}
-cat(
-  badger::badge_cran_download("BMisc", "grand-total", "blue"),
-  badger::badge_cran_download("BMisc", "last-month", "blue"),
-  badger::badge_cran_release("BMisc", "blue"),
-  badger::badge_devel("bcallaway11/BMisc", "blue"),
-  badger::badge_cran_checks("BMisc"),
-  badger::badge_last_commit("bcallaway11/BMisc")
-)
+```{r}
+#| echo: false
+#| results: asis
+ver <- read.dcf("DESCRIPTION", fields = "Version")[1]
+cat(paste(
+  paste0("[![CRAN downloads (total)](http://cranlogs.r-pkg.org/badges/grand-total/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)"),
+  paste0("[![CRAN downloads (monthly)](http://cranlogs.r-pkg.org/badges/last-month/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)"),
+  paste0("[![CRAN version](https://www.r-pkg.org/badges/version/BMisc?color=blue)](https://cran.r-project.org/package=BMisc)"),
+  paste0("[![Development version](https://img.shields.io/badge/devel%20version-", ver, "-blue.svg)](https://github.com/bcallaway11/BMisc)"),
+  paste0("[![CRAN checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)"),
+  paste0("[![Last commit](https://img.shields.io/github/last-commit/bcallaway11/BMisc.svg)](https://github.com/bcallaway11/BMisc/commits/master)"),
+  sep = "\n"
+))
 ```
 
 BMisc includes miscellaneous functions useful for applied econometrics, with a
