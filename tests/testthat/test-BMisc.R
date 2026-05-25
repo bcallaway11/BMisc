@@ -5,21 +5,21 @@ test_that("TorF", {
   expect_error(TorF("BMisc"), "cond should be a logical vector")
 })
 
-test_that("makeBalancedPanel", {
-  id <- rep(seq(1,100,1),2) 
-  period <- rep(seq(1,2),100) 
-  y <- rnorm(200) 
-  data <- data.frame(id=id, period=period, y=y) 
-  data <- data[-1,] 
-  data <- makeBalancedPanel(data, idname="id", tname="period")
+test_that("make_balanced_panel drops unbalanced units", {
+  id <- rep(seq(1, 100, 1), 2)
+  period <- rep(seq(1, 2), 100)
+  y <- rnorm(200)
+  data <- data.frame(id = id, period = period, y = y)
+  data <- data[-1, ]
+  data <- make_balanced_panel(data, idname = "id", tname = "period")
 
   expect_false(1 %in% data$id)
   expect_equal(length(unique(data$id)), 99)
 
-  # check it works with tibble
+  # tibble input should also work
   data <- tibble::as_tibble(data)
-  data <- data[-1,]
-  data <- makeBalancedPanel(data, idname="id", tname="period")
+  data <- data[-1, ]
+  data <- make_balanced_panel(data, idname = "id", tname = "period")
 
   expect_false(2 %in% data$id)
   expect_equal(length(unique(data$id)), 98)
