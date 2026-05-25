@@ -24,3 +24,24 @@ test_that("make_balanced_panel drops unbalanced units", {
   expect_false(2 %in% data$id)
   expect_equal(length(unique(data$id)), 98)
 })
+
+test_that("panel2cs2 does not shift outcomes across ids in unbalanced panels", {
+  data <- data.frame(
+    id = c(1, 2, 2),
+    period = c(1, 1, 2),
+    y = c(10, 20, 25)
+  )
+
+  out <- panel2cs2(
+    data,
+    yname = "y",
+    idname = "id",
+    tname = "period",
+    balance_panel = FALSE
+  )
+
+  expect_equal(out$.y1[out$id == 1], NA_real_)
+  expect_equal(out$.dy[out$id == 1], NA_real_)
+  expect_equal(out$.y1[out$id == 2], 25)
+  expect_equal(out$.dy[out$id == 2], 5)
+})

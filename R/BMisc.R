@@ -156,9 +156,13 @@ panel2cs2 <- function(data, yname, idname, tname, balance_panel = TRUE) {
   data.table::setDT(data)
   data.table::setorderv(data, cols = c(idname, tname))
 
-  # Trick to speed up by specializing for task at hand
-  # relies on being sorted by tname above
-  data$.y1 <- data.table::shift(data[[yname]], -1)
+  # Fast global shift is valid for balanced two-period panels.  In unbalanced
+  # panels, shift within id to avoid borrowing outcomes from the next unit.
+  if (balance_panel) {
+    data$.y1 <- data.table::shift(data[[yname]], -1)
+  } else {
+    data[, c(".y1") := data.table::shift(get(yname), -1), by = idname]
+  }
   data$.y0 <- data[[yname]]
   data$.dy <- data$.y1 - data$.y0
 
