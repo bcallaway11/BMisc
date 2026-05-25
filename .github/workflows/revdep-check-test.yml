@@ -2,12 +2,36 @@ name: Reverse Dependency Check
 
 on:
   workflow_dispatch:
+    inputs:
+      source:
+        description: "Reverse dependency source to check"
+        required: true
+        type: choice
+        default: github
+        options:
+          - cran
+          - github
+          - both
+      github_repos:
+        description: "Comma-separated GitHub repos to check"
+        required: false
+        default: "bcallaway11/did,bcallaway11/qte,bcallaway11/cdid,bcallaway11/contdid,bcallaway11/ptetools,bcallaway11/triplediff"
+      cran_packages:
+        description: "Optional comma-separated CRAN package subset"
+        required: false
+        default: ""
 
 jobs:
   revdep_check:
     runs-on: ubuntu-latest
 
-    name: Reverse check ${{ inputs.which }} dependents
+    name: Lightweight revdep check (${{ inputs.source }})
+
+    env:
+      REVDEP_SOURCE: ${{ inputs.source }}
+      REVDEP_GITHUB_REPOS: ${{ inputs.github_repos }}
+      REVDEP_CRAN_PACKAGES: ${{ inputs.cran_packages }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -36,63 +60,19 @@ jobs:
             libblas-dev \
             liblapack-dev
 
-      - name: Install R dependencies
+      - name: Install R dependencies and local BMisc
         run: |
-          Rscript -e "install.packages(c('remotes', 'revdepcheck', 'testthat', 'rcmdcheck'))"
-          Rscript -e "remotes::install_deps(dependencies = TRUE)"
+          Rscript -e 'install.packages(c("remotes", "rcmdcheck"))'
+          Rscript -e 'remotes::install_deps(".", dependencies = TRUE, upgrade = "never")'
+          Rscript -e 'remotes::install_local(".", dependencies = FALSE, upgrade = "never", force = TRUE)'
 
-      - name: Setup Reverse Dependency Check
+      - name: Run lightweight reverse dependency checks
         run: |
-          Rscript -e "
-          rev_deps <- tools::package_dependencies(
-            packages = 'BMisc',
-            db = available.packages(),
-            reverse = TRUE
-          )
-          rev_deps <- rev_deps[['BMisc']]
-          cat('Testing the following reverse dependencies:', rev_deps, '\n')
-
-          for (pkg in rev_deps) {
-            cat('Installing package:', pkg, '\n')
-            install.packages(pkg, dependencies = TRUE)
-          }
-          "
-      - name: Reverse Dependency Check
-        run: |
-          Rscript -e "
-          rev_deps <- tools::package_dependencies(
-            packages = 'BMisc',
-            db = available.packages(),
-            reverse = TRUE
-          )
-          rev_deps <- rev_deps[['BMisc']]
-
-          dir.create('revdep_tarballs', showWarnings = FALSE)
-
-          for (pkg in rev_deps) {
-            cat('Checking package:', pkg, '\n')
-            # Download the source tarball
-            tarball <- tryCatch({
-              tarball_info <- download.packages(pkg, destdir = 'revdep_tarballs', type = 'source')
-              # Extract the correct tarball file path
-              tarball_path <- tarball_info[, 2]  # The second column contains the file path
-              tarball_path  # Return the correct path
-            }, error = function(e) {
-              cat('Error downloading source tarball for package:', pkg, '\n', conditionMessage(e), '\n')
-              next
-            })
-            pkg_path <- find.package(pkg, quiet = TRUE)
-            tryCatch({
-              rcmdcheck::rcmdcheck(tarball, error_on = 'never', args = '--no-manual')
-            }, error = function(e) {
-              cat('Error checking package:', pkg, '\n', conditionMessage(e), '\n')
-            })
-          }
-          "
+          Rscript .github/scripts/lightweight-revdep-check.R
 
       - name: Upload Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Reverse-Dependency-Check-Results
-          path: revdep/
+          path: revdep-results/
