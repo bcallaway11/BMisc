@@ -27,3 +27,12 @@ panel2cs takes a 2 period dataset and turns it
  and add all the variables listed by name in timevars
  from period 2 to those.
 }
+\examples{
+id <- rep(seq(1, 50), 2)
+t <- rep(seq(1, 2), 50)
+y <- rnorm(100)
+dta <- data.frame(id = id, t = t, y = y)
+out <- panel2cs(dta, timevars = "y", idname = "id", tname = "t")
+nrow(out)
+
+}

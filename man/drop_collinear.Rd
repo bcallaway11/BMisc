@@ -16,3 +16,12 @@ a matrix with collinear columns removed
 A function to check for multicollinearity and drop collinear terms
  from a matrix
 }
+\examples{
+\donttest{
+  if (requireNamespace("caret", quietly = TRUE)) {
+    X <- cbind(1:5, 2 * (1:5), rnorm(5))
+    colnames(X) <- c("x1", "x2", "x3")
+    drop_collinear(X) ## x2 dropped as collinear with x1
+  }
+}
+}

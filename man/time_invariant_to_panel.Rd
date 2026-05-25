@@ -24,3 +24,13 @@ a vector of length equal to the number of rows in df.
 This function takes a time-invariant variable and repeats it
  for each period in a panel data set.
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+dta <- data.frame(id = id, t = t)
+x_unit <- rnorm(n)
+x_panel <- time_invariant_to_panel(x_unit, dta, idname = "id")
+length(x_panel) ## n * 4
+
+}

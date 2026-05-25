@@ -19,3 +19,11 @@ A function to calculate the average outcome across all time
 periods separately for each unit in a panel data setting (this function can also
  be used to recover covariates, etc.).
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+y <- rnorm(n * 4)
+dta <- data.frame(id = id, t = t, y = y)
+dta$Yibar <- get_Yibar(dta, idname = "id", yname = "y")
+}

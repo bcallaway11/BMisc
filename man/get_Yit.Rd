@@ -28,3 +28,13 @@ A function to calculate outcomes for units in a particular
  time period `tp` in a panel data setting (this function can also
  be used to recover covariates, etc. in the first period).
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+y <- rnorm(n * 4)
+dta <- data.frame(id = id, t = t, y = y)
+Yit2 <- get_Yit(dta, tp = 2, idname = "id", yname = "y", tname = "t")
+length(Yit2) ## n * 4
+
+}

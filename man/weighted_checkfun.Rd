@@ -22,3 +22,8 @@ numeric
 \description{
 Weights the check function
 }
+\examples{
+x <- rnorm(100)
+weighted_checkfun(0, x, tau = 0.5, weights = rep(1, 100))
+
+}

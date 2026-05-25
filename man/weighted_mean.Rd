@@ -20,3 +20,9 @@ the weighted mean
 \description{
 Get the mean applying some weights
 }
+\examples{
+y <- rnorm(100)
+w <- runif(100)
+weighted_mean(y, weights = w)
+
+}

@@ -26,3 +26,13 @@ A function to calculate average outcomes for units in
  participate in the treatment (and therefore have group==0), the
  function calculates their overall average outcome.
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+y <- rnorm(n * 4)
+g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
+dta <- data.frame(id = id, t = t, y = y, group = g)
+dta$Yibarpre <- get_Yibar_pre(dta, idname = "id", yname = "y",
+                               tname = "t", gname = "group")
+}

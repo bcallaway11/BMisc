@@ -21,3 +21,10 @@ Turn repeated cross sections data into panel data by
  imposing rank invariance; does not require
  that the inputs have the same length
 }
+\examples{
+cs1 <- data.frame(y = rnorm(100))
+cs2 <- data.frame(y = rnorm(100, mean = 1))
+dy <- cs2panel(cs1, cs2, "y")
+mean(dy) ## approx 1
+
+}

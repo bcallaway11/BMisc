@@ -25,3 +25,8 @@ A function that takes in either a list of vectors or matrices
  and computes a weighted average of them, where the weights are applied to
  every element in the list.
 }
+\examples{
+l <- list(c(1, 2, 3), c(4, 5, 6))
+weighted_combine_list(l, w = c(0.5, 0.5)) ## returns c(2.5, 3.5, 4.5)
+
+}

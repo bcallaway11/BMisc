@@ -16,3 +16,10 @@ stepfun object that contains the quantiles of the df
 take an ecdf object and invert it to get a step-quantile
  function
 }
+\examples{
+y <- rnorm(100)
+F <- ecdf(y)
+Finv <- invert_ecdf(F)
+Finv(0.5) ## approximate median
+
+}

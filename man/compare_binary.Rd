@@ -31,3 +31,8 @@ matrix of results
 \code{compare_binary} takes in a variable e.g. union
 and runs bivariate regression of x on treatment (for summary statistics)
 }
+\examples{
+dta <- data.frame(x = rnorm(100), treat = rep(c(0, 1), 50))
+compare_binary("x", "treat", dta, report = "diff")
+
+}

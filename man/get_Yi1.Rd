@@ -23,3 +23,12 @@ A function to calculate outcomes for units in the first time
  period that is available in a panel data setting (this function can also
  be used to recover covariates, etc. in the first period).
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+y <- rnorm(n * 4)
+g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
+dta <- data.frame(id = id, t = t, y = y, group = g)
+dta$Yi1 <- get_Yi1(dta, idname = "id", yname = "y", tname = "t", gname = "group")
+}

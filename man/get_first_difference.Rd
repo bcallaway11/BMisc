@@ -22,3 +22,11 @@ A function that calculates the first difference in a panel data
  vector will also have nxT elements with one element for each unit set to be
  NA.
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+y <- rnorm(n * 4)
+dta <- data.frame(id = id, t = t, y = y)
+dy <- get_first_difference(dta, idname = "id", yname = "y", tname = "t")
+}

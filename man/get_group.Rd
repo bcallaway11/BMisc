@@ -20,3 +20,13 @@ A function to calculate a unit's group in a panel data setting
  with a binary treatment and staggered treatment adoption and where
  there is a column in the data indicating whether or not a unit is treated
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
+treat <- as.integer(t >= g & g > 0)
+dta <- data.frame(id = id, t = t, treat = treat)
+dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
+head(unique(dta[, c("id", "group")]))
+}

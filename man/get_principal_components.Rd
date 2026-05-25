@@ -39,3 +39,13 @@ a data.frame containing the original data with the principal components appended
 \description{
 A function to calculate unit-specific principal components, given panel data
 }
+\examples{
+n <- 20
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+x1 <- rnorm(n * 4)
+dta <- data.frame(id = id, t = t, x1 = x1)
+pcs <- get_principal_components(~x1, dta, idname = "id", tname = "t")
+dim(pcs)
+
+}

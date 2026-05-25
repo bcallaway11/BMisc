@@ -24,3 +24,10 @@ ecdf
 Get a distribution function from a vector of values
  after applying some weights
 }
+\examples{
+y <- rnorm(100)
+w <- runif(100)
+F <- weighted_ecdf(y, weights = w)
+F(0) ## approx 0.5
+
+}

@@ -20,3 +20,8 @@ A helper function to switch from "new" t values to
 original t values.  This allows for periods not being exactly spaced
 apart by 1.
 }
+\examples{
+original_time.periods <- c(2001, 2003, 2005, 2007)
+t2orig(1:4, original_time.periods) ## returns c(2001, 2003, 2005, 2007)
+
+}

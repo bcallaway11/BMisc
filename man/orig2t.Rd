@@ -20,3 +20,8 @@ A helper function to switch from original time periods to
  number of available periods).  This allows for periods not being
  exactly spaced apart by 1.
 }
+\examples{
+original_time.periods <- c(2001, 2003, 2005, 2007)
+orig2t(c(2001, 2005), original_time.periods) ## returns c(1, 3)
+
+}

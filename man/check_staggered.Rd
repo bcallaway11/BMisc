@@ -19,3 +19,13 @@ a logical indicating whether treatment is staggered
 \description{
 A function to check if treatment is staggered in a panel data set.
 }
+\examples{
+n <- 50
+id <- rep(seq_len(n), each = 4)
+t <- rep(1:4, n)
+g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
+treat <- as.integer(t >= g & g > 0)
+dta <- data.frame(id = id, t = t, treat = treat)
+check_staggered(dta, idname = "id", treatname = "treat")
+
+}

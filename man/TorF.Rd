@@ -18,3 +18,7 @@ logical vector
 \description{
 A function to replace NA's with FALSE in vector of logicals
 }
+\examples{
+TorF(c(TRUE, NA, FALSE)) ## NA becomes FALSE
+
+}

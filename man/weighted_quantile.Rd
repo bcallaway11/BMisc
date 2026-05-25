@@ -23,3 +23,9 @@ vector of quantiles
 \description{
 function to recover quantiles of a vector with weights
 }
+\examples{
+y <- rnorm(100)
+w <- runif(100)
+weighted_quantile(c(0.25, 0.5, 0.75), y, weights = w)
+
+}
