@@ -4,15 +4,21 @@
 \alias{check_staggered_inner}
 \title{check_staggered_inner}
 \usage{
-check_staggered_inner(this_df, treatname)
+check_staggered_inner(this_df, treatname, tname = NULL)
 }
 \arguments{
 \item{this_df}{a data.frame, for this function it should be specific to
 a particular unit}
 
 \item{treatname}{name of column with the treatment indicator}
+
+\item{tname}{name of column that holds the time period.  If supplied, the
+unit's rows are sorted by it before checking.  If `NULL` (the default),
+the rows are assumed to already be in time order.}
 }
 \description{
-A helper function to check if treatment is staggered in a panel data set.
+A helper function to check whether treatment is absorbing for
+ a single unit; that is, whether the unit never reverts from treated back
+ to untreated.
 }
 \keyword{internal}

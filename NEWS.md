@@ -12,6 +12,20 @@
     functions are unchanged and remain exported for use on a single unit's
     data.
 
+  * Fixed `check_staggered()`, which returned `FALSE` for every panel that
+    had any treatment adoption in it, and `TRUE` only when no unit ever
+    changed treatment status. `check_staggered_inner()` rejected a unit
+    whenever `length(unique(treat)) > 1`, which is the case for any unit that
+    ever becomes treated. That test masked the check immediately below it,
+    which is the intended one: treatment is staggered when it is absorbing,
+    so that no unit reverts from treated back to untreated.
+
+  * `check_staggered()` and `check_staggered_inner()` gain an optional
+    `tname` argument. The absorbing check compares consecutive rows, so it
+    is only meaningful when a unit's rows are in time order; supplying
+    `tname` sorts them first. The default (`NULL`) keeps the previous
+    assumption that the data is already ordered.
+
   * `get_Yit()` now returns `NA` for units that are not observed in period
     `tp`. Previously such units contributed nothing to the result, so the
     returned vector was shorter than the number of rows in the data.

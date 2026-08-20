@@ -4,7 +4,7 @@
 \alias{check_staggered}
 \title{check_staggered}
 \usage{
-check_staggered(df, idname, treatname)
+check_staggered(df, idname, treatname, tname = NULL)
 }
 \arguments{
 \item{df}{the data.frame used in the function}
@@ -12,12 +12,18 @@ check_staggered(df, idname, treatname)
 \item{idname}{name of column that holds the unit id}
 
 \item{treatname}{name of column with the treatment indicator}
+
+\item{tname}{name of column that holds the time period.  If supplied, each
+unit's rows are sorted by it before checking.  If `NULL` (the default),
+the rows are assumed to already be in time order.}
 }
 \value{
 a logical indicating whether treatment is staggered
 }
 \description{
-A function to check if treatment is staggered in a panel data set.
+A function to check whether treatment is staggered in a panel
+ data set; that is, whether treatment is absorbing, so that no unit ever
+ reverts from treated back to untreated.
 }
 \examples{
 n <- 50
@@ -27,5 +33,11 @@ g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
 treat <- as.integer(t >= g & g > 0)
 dta <- data.frame(id = id, t = t, treat = treat)
 check_staggered(dta, idname = "id", treatname = "treat")
+
+## treatment that switches back off is not staggered
+dta_rev <- data.frame(
+  id = c(1, 1, 2, 2), t = c(1, 2, 1, 2), treat = c(0, 1, 1, 0)
+)
+check_staggered(dta_rev, idname = "id", treatname = "treat")
 
 }

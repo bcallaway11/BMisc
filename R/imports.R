@@ -11,5 +11,5 @@
 
 utils::globalVariables(c(
   ".id", ".t", ".tn", ".y", ".g", ".tr", ".n", ".time",
-  ".out", ".maxt", ".npre", ".pre", ".premean", ".allmean", ".nonzero", ".nz", ".mn", ".mx"
+  ".out", ".maxt", ".npre", ".pre", ".premean", ".allmean", ".nonzero", ".nz"
 ))

@@ -184,3 +184,37 @@ test_that("get_Yit returns NA for units not observed in period tp", {
   dta <- data.frame(id = c(1, 1, 2), t = c(1, 2, 1), y = c(10, 20, 30))
   expect_equal(get_Yit(dta, 2, "id", "y", "t"), c(20, 20, NA))
 })
+
+# check_staggered asks whether treatment is absorbing: units may switch on at
+# different times, but no unit may ever switch back off
+test_that("check_staggered identifies absorbing treatment", {
+  panel <- function(treat) {
+    data.frame(id = rep(1:2, each = 4), t = rep(1:4, 2), treat = treat)
+  }
+  # units adopting in different periods is the canonical staggered design
+  expect_true(check_staggered(panel(c(0, 1, 1, 1, 0, 0, 1, 1)), "id", "treat"))
+  # common adoption timing is still absorbing
+  expect_true(check_staggered(panel(c(0, 1, 1, 1, 0, 1, 1, 1)), "id", "treat"))
+  # so are always-treated and never-treated units
+  expect_true(check_staggered(panel(c(1, 1, 1, 1, 0, 0, 0, 0)), "id", "treat"))
+  # a single unit switching back off is enough to fail
+  expect_false(check_staggered(panel(c(0, 1, 0, 1, 0, 0, 1, 1)), "id", "treat"))
+  expect_false(check_staggered(panel(c(0, 1, 1, 1, 0, 1, 1, 0)), "id", "treat"))
+})
+
+# without tname the rows are assumed to be in time order; with it they are
+# sorted first, so a scrambled panel is still read correctly
+test_that("check_staggered sorts by tname when it is supplied", {
+  dta <- data.frame(id = rep(1:2, each = 3), t = rep(1:3, 2),
+                    treat = c(0, 0, 1, 0, 1, 1))
+  scrambled <- dta[c(3, 1, 2, 5, 6, 4), ]
+
+  expect_true(check_staggered(dta, "id", "treat"))
+  expect_true(check_staggered(scrambled, "id", "treat", tname = "t"))
+  # rows out of time order look like a reversal if tname is not given
+  expect_false(check_staggered(scrambled, "id", "treat"))
+  # the inner function behaves the same way on a single unit
+  one <- scrambled[scrambled$id == 1, ]
+  expect_true(check_staggered_inner(one, "treat", tname = "t"))
+  expect_false(check_staggered_inner(one, "treat"))
+})

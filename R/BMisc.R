@@ -1486,25 +1486,38 @@ time_invariant_to_panel <- function(x, df, idname, balanced_panel = TRUE) {
 
 #' @title check_staggered_inner
 #'
-#' @description A helper function to check if treatment is staggered in a panel data set.
+#' @description A helper function to check whether treatment is absorbing for
+#'  a single unit; that is, whether the unit never reverts from treated back
+#'  to untreated.
 #'
 #' @inheritParams get_group_inner
+#' @param tname name of column that holds the time period.  If supplied, the
+#'  unit's rows are sorted by it before checking.  If `NULL` (the default),
+#'  the rows are assumed to already be in time order.
 #'
 #' @keywords internal
 #' @export
-check_staggered_inner <- function(this_df, treatname) {
+check_staggered_inner <- function(this_df, treatname, tname = NULL) {
   this_df <- as.data.frame(this_df)
-  is_staggered <- TRUE
-  if (length(unique(this_df[, treatname])) > 1) is_staggered <- FALSE
-  if (any(diff(this_df[, treatname]) < 0)) is_staggered <- FALSE
-  is_staggered
+  treat <- this_df[, treatname]
+  if (!is.null(tname)) {
+    treat <- treat[order(this_df[, tname])]
+  }
+  # treatment is staggered as long as it is absorbing, i.e. as long as it
+  # never switches back off from one period to the next
+  !any(diff(treat) < 0, na.rm = TRUE)
 }
 
 #' @title check_staggered
 #'
-#' @description A function to check if treatment is staggered in a panel data set.
+#' @description A function to check whether treatment is staggered in a panel
+#'  data set; that is, whether treatment is absorbing, so that no unit ever
+#'  reverts from treated back to untreated.
 #'
 #' @inheritParams get_group
+#' @param tname name of column that holds the time period.  If supplied, each
+#'  unit's rows are sorted by it before checking.  If `NULL` (the default),
+#'  the rows are assumed to already be in time order.
 #'
 #' @examples
 #' n <- 50
@@ -1515,14 +1528,30 @@ check_staggered_inner <- function(this_df, treatname) {
 #' dta <- data.frame(id = id, t = t, treat = treat)
 #' check_staggered(dta, idname = "id", treatname = "treat")
 #'
+#' ## treatment that switches back off is not staggered
+#' dta_rev <- data.frame(
+#'   id = c(1, 1, 2, 2), t = c(1, 2, 1, 2), treat = c(0, 1, 1, 0)
+#' )
+#' check_staggered(dta_rev, idname = "id", treatname = "treat")
+#'
 #' @return a logical indicating whether treatment is staggered
 #' @export
-check_staggered <- function(df, idname, treatname) {
-  dt <- data.table::data.table(.id = df[[idname]], .tr = df[[treatname]])
-  # mirrors check_staggered_inner(): a unit only counts as staggered if its
-  # treatment status is constant over the periods it is observed
-  units <- dt[, list(.mn = min(.tr), .mx = max(.tr)), keyby = ".id"]
-  all(units$.mn == units$.mx)
+check_staggered <- function(df, idname, treatname, tname = NULL) {
+  id <- df[[idname]]
+  treat <- df[[treatname]]
+  if (length(treat) < 2L) {
+    return(TRUE)
+  }
+  # bring each unit's rows together, in time order when tname is supplied.
+  # order() is stable, so rows otherwise keep the order they came in.
+  ord <- if (is.null(tname)) order(id) else order(id, df[[tname]])
+  id <- id[ord]
+  treat <- treat[ord]
+  # mirrors check_staggered_inner(): within a unit, treatment must never fall
+  # from one period to the next
+  fell <- treat < data.table::shift(treat)
+  first_of_unit <- c(TRUE, id[-1L] != id[-length(id)])
+  !any(fell & !first_of_unit, na.rm = TRUE)
 }
 
 #' Matrix-Vector Multiplication
