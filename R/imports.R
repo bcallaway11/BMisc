@@ -6,9 +6,10 @@
 #' @importFrom Rcpp sourceCpp
 #' @import graphics
 #' @import stats
-#' @importFrom dplyr group_by mutate %>% group_map select starts_with
-#' @importFrom tidyr pivot_wider
 #' @importFrom data.table .N .SD
 "_PACKAGE"
 
-utils::globalVariables(c(".data", ".time"))
+utils::globalVariables(c(
+  ".id", ".t", ".tn", ".y", ".g", ".tr", ".n", ".time",
+  ".out", ".maxt", ".npre", ".pre", ".premean", ".allmean", ".nonzero", ".nz", ".mn", ".mx"
+))

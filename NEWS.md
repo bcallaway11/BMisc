@@ -1,3 +1,29 @@
+# BMisc (development version)
+
+  * Removed the `dplyr` and `tidyr` dependencies. The affected functions are
+    now implemented with `data.table`, which was already a dependency.
+
+  * The panel data getters (`get_group()`, `get_Yi1()`, `get_Yit()`,
+    `get_Yibar()`, `get_Yibar_pre()`, `get_YiGmin1()`, `get_lagYi()`,
+    `get_first_difference()` and `check_staggered()`) no longer split the data
+    and call their `*_inner` counterpart once per unit; they are vectorised
+    instead. On a 200,000 row / 20,000 unit panel this is roughly 25-190x
+    faster and allocates an order of magnitude less memory. The `*_inner`
+    functions are unchanged and remain exported for use on a single unit's
+    data.
+
+  * `get_Yit()` now returns `NA` for units that are not observed in period
+    `tp`. Previously such units contributed nothing to the result, so the
+    returned vector was shorter than the number of rows in the data.
+
+  * `get_principal_components()` now returns units in sorted id order. This is
+    only a change for data that is not already sorted by id, where it
+    previously used order of first appearance, and it makes the function
+    consistent with the other panel data getters.
+
+  * `get_first_difference()` no longer adds a temporary `.lag` column to a copy
+    of the input data, and now works when passed a `data.table`.
+
 # BMisc 1.4.9
 
   * Added `.Deprecated()` wrappers to 13 legacy function names (e.g.,

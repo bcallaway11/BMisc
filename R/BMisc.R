@@ -1123,6 +1123,12 @@ TorF <- function(cond, use_isTRUE = FALSE) { # nolint: object_name_linter. mixed
 }
 
 
+# The unit-level getters below all follow the same shape: aggregate `df` down
+# to one row per unit (in sorted id order, which is what the previous
+# dplyr::group_by() code produced), then `rep()` each unit's value back out
+# over its rows.  They are vectorised equivalents of the exported `*_inner`
+# functions, which remain available for operating on a single unit's data.
+
 #' @title get_group_inner
 #' @description Calculates the group for a particular unit
 #' @param this_df a data.frame, for this function it should be specific to
@@ -1131,6 +1137,7 @@ TorF <- function(cond, use_isTRUE = FALSE) { # nolint: object_name_linter. mixed
 #' @keywords internal
 #' @export
 get_group_inner <- function(this_df, tname, treatname) {
+  this_df <- as.data.frame(this_df)
   if (all(this_df[, treatname] == 0)) {
     return(0)
   }
@@ -1157,11 +1164,17 @@ get_group_inner <- function(this_df, tname, treatname) {
 #' head(unique(dta[, c("id", "group")]))
 #' @export
 get_group <- function(df, idname, tname, treatname) {
-  group_vec <- df |>
-    group_by(.data[[idname]]) |>
-    group_map(~ rep(get_group_inner(.x, tname, treatname), nrow(.x))) |>
-    unlist()
-  group_vec
+  dt <- data.table::data.table(
+    .id = df[[idname]], .t = df[[tname]], .tr = df[[treatname]]
+  )
+  dt[, .nz := .tr != 0]
+  units <- dt[, list(.n = .N, .nonzero = sum(.nz)), keyby = ".id"]
+  # a unit's group is the first period in which it is observed as treated
+  first_treated <- unique(dt[.tr > 0], by = ".id")
+  out <- as.numeric(first_treated$.t[match(units$.id, first_treated$.id)])
+  # units that are untreated in every period belong to group 0
+  out[units$.nonzero == 0] <- 0
+  rep(out, units$.n)
 }
 
 #' @title get_YiGmin1_inner
@@ -1208,11 +1221,16 @@ get_YiGmin1_inner <- function(this_df, yname, tname, gname) {
 #' head(unique(dta[, c("id", "group", "YiGmin1")]))
 #' @export
 get_YiGmin1 <- function(df, idname, yname, tname, gname) {
-  YiGmin1_vec <- df |>
-    group_by(.data[[idname]]) |>
-    group_map(~ rep(get_YiGmin1_inner(.x, yname, tname, gname), nrow(.x))) |>
-    unlist()
-  YiGmin1_vec
+  dt <- data.table::data.table(
+    .id = df[[idname]], .y = df[[yname]],
+    .tn = as.numeric(df[[tname]]), .g = df[[gname]]
+  )
+  # NB the j expression is kept in a form data.table can optimise with GForce
+  units <- dt[, list(.n = .N, .maxt = max(.tn), .g = .g[1L]), keyby = ".id"]
+  # never-treated units (group 0) fall back to their last period
+  units[, .tn := data.table::fifelse(.g == 0, .maxt, as.numeric(.g) - 1)]
+  vals <- dt[units[, list(.id, .tn)], on = c(".id", ".tn"), mult = "first"]$.y
+  rep(vals, units$.n)
 }
 
 #' @title get_Yi1_inner
@@ -1244,11 +1262,11 @@ get_Yi1_inner <- function(this_df, yname, tname, gname) {
 #' dta$Yi1 <- get_Yi1(dta, idname = "id", yname = "y", tname = "t", gname = "group")
 #' @export
 get_Yi1 <- function(df, idname, yname, tname, gname) {
-  Yi1_vec <- df |>
-    group_by(.data[[idname]]) |>
-    group_map(~ rep(get_Yi1_inner(.x, yname, tname, gname), nrow(.x))) |>
-    unlist()
-  Yi1_vec
+  dt <- data.table::data.table(.id = df[[idname]], .y = df[[yname]], .t = df[[tname]])
+  units <- dt[, list(.n = .N), keyby = ".id"]
+  # sorting by (id, time) puts each unit's earliest period in its first row
+  firsts <- unique(dt[order(.id, .t)], by = ".id")
+  rep(firsts$.y[match(units$.id, firsts$.id)], units$.n)
 }
 
 #' @title get_Yit_inner
@@ -1285,11 +1303,11 @@ get_Yit_inner <- function(this_df, tp, yname, tname) {
 #'  each element in the panel, not for a particular period)
 #' @export
 get_Yit <- function(df, tp, idname, yname, tname) {
-  Yit_vec <- df |>
-    group_by(.data[[idname]]) |>
-    group_map(~ rep(get_Yit_inner(.x, tp, yname, tname), nrow(.x))) |>
-    unlist()
-  Yit_vec
+  dt <- data.table::data.table(.id = df[[idname]], .y = df[[yname]], .t = df[[tname]])
+  units <- dt[, list(.n = .N), keyby = ".id"]
+  at_tp <- unique(dt[.t == tp], by = ".id")
+  # units that are not observed in period tp get NA
+  rep(at_tp$.y[match(units$.id, at_tp$.id)], units$.n)
 }
 
 #' @title get_Yibar_inner
@@ -1318,11 +1336,9 @@ get_Yibar_inner <- function(this_df, yname) {
 #' dta$Yibar <- get_Yibar(dta, idname = "id", yname = "y")
 #' @export
 get_Yibar <- function(df, idname, yname) {
-  Yibar_vec <- df |>
-    group_by(.data[[idname]]) |>
-    group_map(~ rep(get_Yibar_inner(.x, yname), nrow(.x))) |>
-    unlist()
-  Yibar_vec
+  dt <- data.table::data.table(.id = df[[idname]], .y = df[[yname]])
+  units <- dt[, list(.n = .N, .out = mean(.y)), keyby = ".id"]
+  rep(units$.out, units$.n)
 }
 
 #' @title get_Yibar_pre_inner
@@ -1367,11 +1383,21 @@ get_Yibar_pre_inner <- function(this_df, yname, tname, gname) {
 #'                                tname = "t", gname = "group")
 #' @export
 get_Yibar_pre <- function(df, idname, yname, tname, gname) {
-  YiGmin1_vec <- df |>
-    group_by(.data[[idname]]) |>
-    group_map(~ rep(get_Yibar_pre_inner(.x, yname, tname, gname), nrow(.x))) |>
-    unlist()
-  YiGmin1_vec
+  dt <- data.table::data.table(
+    .id = df[[idname]], .y = df[[yname]], .t = df[[tname]], .g = df[[gname]]
+  )
+  dt[, .pre := .t < .g]
+  units <- dt[, list(
+    .n = .N, .g = .g[1L], .allmean = mean(.y), .npre = sum(.pre)
+  ), keyby = ".id"]
+  pre <- dt[(.pre), list(.premean = mean(.y)), keyby = ".id"]
+  out <- pre$.premean[match(units$.id, pre$.id)]
+  # treated units with no pre-treatment periods average over nothing
+  out[units$.npre == 0] <- NaN
+  # never-treated units (group 0) average over all of their periods
+  never_treated <- units$.g == 0
+  out[never_treated] <- units$.allmean[never_treated]
+  rep(out, units$.n)
 }
 
 #' @title get_lagYi
@@ -1390,10 +1416,13 @@ get_Yibar_pre <- function(df, idname, yname, tname, gname) {
 #' dta$lag_y <- get_lagYi(dta, idname = "id", yname = "y", tname = "t")
 #' @export
 get_lagYi <- function(df, idname, yname, tname, nlags = 1) {
-  df <- df |>
-    dplyr::group_by(.data[[idname]]) |>
-    dplyr::mutate(.lag = dplyr::lag(.data[[yname]], nlags, order_by = .data[[tname]]))
-  df$.lag
+  y <- df[[yname]]
+  # Sort once by (id, time), shift within unit, then scatter the result back
+  # into the original row order.
+  ord <- order(df[[idname]], df[[tname]])
+  sorted <- data.table::data.table(.id = df[[idname]][ord], .y = y[ord])
+  y[ord] <- sorted[, data.table::shift(.y, n = nlags), by = ".id"]$V1
+  y
 }
 
 #' @title get_first_difference
@@ -1411,8 +1440,7 @@ get_lagYi <- function(df, idname, yname, tname, nlags = 1) {
 #' dy <- get_first_difference(dta, idname = "id", yname = "y", tname = "t")
 #' @export
 get_first_difference <- function(df, idname, yname, tname) {
-  df$.lag <- get_lagYi(df, idname, yname, tname)
-  df[, yname] - df$.lag
+  df[[yname]] - get_lagYi(df, idname, yname, tname)
 }
 
 #' @title time_invariant_to_panel
@@ -1490,11 +1518,11 @@ check_staggered_inner <- function(this_df, treatname) {
 #' @return a logical indicating whether treatment is staggered
 #' @export
 check_staggered <- function(df, idname, treatname) {
-  this_staggered <- df |>
-    group_by(.data[[idname]]) |>
-    group_map(~ check_staggered_inner(.x, treatname)) |>
-    unlist()
-  all(this_staggered)
+  dt <- data.table::data.table(.id = df[[idname]], .tr = df[[treatname]])
+  # mirrors check_staggered_inner(): a unit only counts as staggered if its
+  # treatment status is constant over the periods it is observed
+  units <- dt[, list(.mn = min(.tr), .mx = max(.tr)), keyby = ".id"]
+  all(units$.mn == units$.mx)
 }
 
 #' Matrix-Vector Multiplication
@@ -1672,12 +1700,13 @@ get_principal_components <- function(
   for (i in seq_len(ncol(X))) {
     this_x_name <- colnames(X)[i]
     x <- X[, i]
-    df <- data.frame(.id = data[[idname]], .time = data[[tname]], x)
-    wide_data <- df |> pivot_wider(id_cols = .id, names_from = .time, names_prefix = "_x_", values_from = x)
-    .id <- wide_data$.id # nolint: object_name_linter. dot-prefix col name from pivot_wider
-    pca_inner <- wide_data |>
-      select(starts_with("_x_")) |>
-      prcomp(center = FALSE, scale. = FALSE)
+    df <- data.table::data.table(.id = data[[idname]], .time = data[[tname]], x = x)
+    wide_data <- data.table::dcast(df, .id ~ .time, value.var = "x")
+    .id <- wide_data$.id # nolint: object_name_linter. dot-prefix col name from dcast
+    pca_inner <- prcomp(
+      as.matrix(wide_data[, !".id"]),
+      center = FALSE, scale. = FALSE
+    )
     princ_comp <- pca_inner$x[, 1:n_components]
     colnames(princ_comp) <- paste0(this_x_name, "_", colnames(princ_comp))
     pc_list[[i]] <- princ_comp
