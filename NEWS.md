@@ -1,42 +1,44 @@
 # BMisc (development version)
 
-  * Removed the `dplyr` and `tidyr` dependencies. The affected functions are
-    now implemented with `data.table`, which was already a dependency.
+  * Smaller footprint and improved performance.
 
-  * The panel data getters (`get_group()`, `get_Yi1()`, `get_Yit()`,
-    `get_Yibar()`, `get_Yibar_pre()`, `get_YiGmin1()`, `get_lagYi()`,
-    `get_first_difference()` and `check_staggered()`) no longer split the data
-    and call their `*_inner` counterpart once per unit; they are vectorised
-    instead. On a 200,000 row / 20,000 unit panel this is roughly 25-190x
-    faster and allocates an order of magnitude less memory. The `*_inner`
-    functions are unchanged and remain exported for use on a single unit's
-    data.
+    - Removed the `dplyr` and `tidyr` dependencies. The affected functions are
+      now implemented with `data.table`, which was already a dependency, leading
+      to a total reduction of ~20 packages (incl. strong recursive deps).
 
-  * Fixed `check_staggered()`, which returned `FALSE` for every panel that
-    had any treatment adoption in it, and `TRUE` only when no unit ever
-    changed treatment status. `check_staggered_inner()` rejected a unit
-    whenever `length(unique(treat)) > 1`, which is the case for any unit that
-    ever becomes treated. That test masked the check immediately below it,
-    which is the intended one: treatment is staggered when it is absorbing,
-    so that no unit reverts from treated back to untreated.
+    - The workhorse panel "getter" functions (`get_group()`, `get_Yit()`,
+      `check_staggered()`, etc.) have also been vectorized, yielding
+      substantial performance improvements. On a simulated 200k row / 20k unit
+      panel dataset, we observe 150-1400x speed gains, combined with an order of
+      magnitude smaller memory allocation(s).
 
-  * `check_staggered()` and `check_staggered_inner()` gain an optional
-    `tname` argument. The absorbing check compares consecutive rows, so it
-    is only meaningful when a unit's rows are in time order; supplying
-    `tname` sorts them first. The default (`NULL`) keeps the previous
-    assumption that the data is already ordered.
+  * Bug fixes:
 
-  * `get_Yit()` now returns `NA` for units that are not observed in period
-    `tp`. Previously such units contributed nothing to the result, so the
-    returned vector was shorter than the number of rows in the data.
+    - `check_staggered()` no longer (automatically) returns `FALSE` for panels
+      with any treatment adoption. Previously, this function only returned
+      `TRUE` when no unit ever changed treatment status.
 
-  * `get_principal_components()` now returns units in sorted id order. This is
-    only a change for data that is not already sorted by id, where it
-    previously used order of first appearance, and it makes the function
-    consistent with the other panel data getters.
+    - `get_Yit()` now returns `NA` for units that are not observed in period
+      `tp`. Previously such units contributed nothing to the result, so the
+      returned vector was shorter than the number of rows in the data.
 
-  * `get_first_difference()` no longer adds a temporary `.lag` column to a copy
-    of the input data, and now works when passed a `data.table`.
+  * New features:
+
+    - `check_staggered()` and `check_staggered_inner()` gain an optional
+      `tname` argument. The check compares consecutive rows, so it is only
+      meaningful when a unit's rows are in time order; supplying `tname` sorts
+      them first. The default (`NULL`) keeps the previous assumption that the
+      data is already ordered.
+
+  * Other changes:
+
+    - `get_principal_components()` now returns units in sorted id order. This is
+      only a change for data that is not already sorted by id, where it
+      previously used order of first appearance, and it makes the function
+      consistent with the other panel data getters.
+
+    - `get_first_difference()` no longer adds a temporary `.lag` column to a
+      copy of the input data, and now works when passed a `data.table`.
 
 # BMisc 1.4.9
 
