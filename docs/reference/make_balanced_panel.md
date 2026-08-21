@@ -1,19 +1,22 @@
 # Balance a Panel Data Set
 
 This function drops observations from data.frame that are not part of
-balanced panel data set.
+balanced panel data set. \`data\` is copied before dropping any rows, so
+the object passed in is left unmodified; see
+[`set_balanced_panel`](https://bcallaway11.github.io/BMisc/reference/set_balanced_panel.md)
+for an in-place alternative that avoids copying large inputs.
 
 ## Usage
 
 ``` r
-make_balanced_panel(data, idname, tname, return_data.table = FALSE)
+make_balanced_panel(data, idname, tname)
 ```
 
 ## Arguments
 
 - data:
 
-  data.frame used in function
+  data.frame (or data.table) used in function
 
 - idname:
 
@@ -23,14 +26,10 @@ make_balanced_panel(data, idname, tname, return_data.table = FALSE)
 
   time period name
 
-- return_data.table:
-
-  if TRUE, make_balanced_panel will return a data.table rather than a
-  data.frame. Default is FALSE.
-
 ## Value
 
-data.frame that is a balanced panel
+a balanced panel, with the same class (\`data.frame\` or \`data.table\`)
+as \`data\`
 
 ## Examples
 

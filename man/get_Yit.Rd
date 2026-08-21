@@ -21,7 +21,8 @@ for which to calculate its outcome in the immediate pre-treatment period}
 \value{
 a vector of outcomes in period t, the vector
  will have the length nT (i.e., this is returned for
- each element in the panel, not for a particular period)
+ each element in the panel, not for a particular period);
+ `NA` for units not observed in period `tp`
 }
 \description{
 A function to calculate outcomes for units in a particular

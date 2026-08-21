@@ -40,5 +40,5 @@ y <- rnorm(100)
 w <- runif(100)
 F <- weighted_ecdf(y, weights = w)
 F(0) ## approx 0.5
-#> [1] 0.5370237
+#> [1] 0.4423139
 ```

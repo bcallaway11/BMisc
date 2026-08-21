@@ -24,5 +24,10 @@ Authors:
   \item Brantly Callaway \email{brantly.callaway@uga.edu}
 }
 
+Other contributors:
+\itemize{
+  \item Grant McDermott \email{contact@grantmcdermott.com} [contributor]
+}
+
 }
 \keyword{internal}

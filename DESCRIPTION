@@ -1,6 +1,6 @@
 Package: BMisc
 Title: Miscellaneous Functions for Panel Data, Quantiles, and Printing Results
-Version: 1.4.9
+Version: 1.4.10
 Authors@R: c(
     person("Brantly", "Callaway", email = "brantly.callaway@uga.edu", role = c("aut", "cre")),
     person("Grant", "McDermott", role = "ctb", email = "contact@grantmcdermott.com")
@@ -23,4 +23,4 @@ LinkingTo:
     RcppArmadillo
 URL: https://bcallaway11.github.io/BMisc/
 BugReports: https://github.com/bcallaway11/BMisc/issues
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

@@ -40,16 +40,12 @@ a data.frame that contains a subsample of `dta`
 ## Examples
 
 ``` r
-#> Loading required namespace: plm
-#> Error in DONTSHOW({    if (!requireNamespace("plm")) {        if (interactive() || is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_",             NA))) {            stop("package 'plm' is required for this example")        }        else {            q()        }    }}): package 'plm' is required for this example
 data("LaborSupply", package = "plm")
-#> Error in find.package(package, lib.loc, verbose = verbose): there is no package called ‘plm’
 nrow(LaborSupply)
-#> Error: object 'LaborSupply' not found
+#> [1] 5320
 unique(LaborSupply$year)
-#> Error: object 'LaborSupply' not found
+#>  [1] 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988
 ss <- subsample(LaborSupply, "id", "year", nkeep = 100)
-#> Error: object 'LaborSupply' not found
 nrow(ss)
-#> Error: object 'ss' not found
+#> [1] 1000
 ```

@@ -8,6 +8,8 @@ reference:
   - title: Funtions for working with panel data
     contents:
       - make_balanced_panel
+      - set_balanced_panel
+      - sort_panel
       - panel2cs
       - panel2cs2
       - ids2rownum

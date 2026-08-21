@@ -126,11 +126,34 @@ test_that("get_principal_components returns the expected shape", {
   expect_equal(names(two), c(paste0("x1_PC", 1:2), paste0("x2_PC", 1:2)))
 })
 
+# dcast() (used internally) sorts rows by id, which can differ from the order
+# units first appear in the data; the long-format output must realign to each
+# row's own unit rather than assume that order, or units' PCs get swapped.
+test_that("get_principal_components long format aligns by id when units are unsorted", {
+  set.seed(7)
+  n <- 6
+  nperiods <- 3
+  dta <- data.frame(
+    id = rep(sample(seq_len(n)), each = nperiods),
+    t = rep(seq_len(nperiods), n),
+    x1 = rnorm(n * nperiods)
+  )
+
+  wide <- get_principal_components(~x1, dta, "id", "t", ret_wide = TRUE, ret_id = TRUE)
+  long <- get_principal_components(~x1, dta, "id", "t")
+
+  expected <- wide$x1_PC1[match(dta$id, wide$.id)]
+  expect_equal(long$x1_PC1, expected)
+})
+
 # The vectorised getters must stay in step with the exported *_inner functions,
-# which remain the reference definition of what each one computes.
+# which remain the reference definition of what each one computes. Units are
+# deliberately left in an unsorted, first-appearance row order (not sorted by
+# id) so this also catches getters that silently assume sorted input.
 test_that("vectorised getters agree with the *_inner functions", {
   by_unit <- function(df, fun) {
-    unlist(lapply(split(df, df$id), function(d) rep(fun(d), nrow(d))), use.names = FALSE)
+    vals <- sapply(split(df, df$id), fun)
+    unname(vals[as.character(df$id)])
   }
 
   set.seed(11)
@@ -139,7 +162,6 @@ test_that("vectorised getters agree with the *_inner functions", {
     nper <- sample(2:5, 1)
     ids <- sample(seq_len(3 * n), n)
     dta <- expand.grid(t = seq_len(nper), id = ids)[, c("id", "t")]
-    dta <- dta[order(dta$id), ]
     dta$y <- round(rnorm(nrow(dta)), 3)
     # groups include 0 (never treated) and 1 (treated from the first period,
     # so no pre-treatment periods at all)

@@ -6,14 +6,14 @@ going forward, though this will still work for now.
 ## Usage
 
 ``` r
-makeBalancedPanel(data, idname, tname, return_data.table = FALSE)
+makeBalancedPanel(data, idname, tname)
 ```
 
 ## Arguments
 
 - data:
 
-  data.frame used in function
+  data.frame (or data.table) used in function
 
 - idname:
 
@@ -22,8 +22,3 @@ makeBalancedPanel(data, idname, tname, return_data.table = FALSE)
 - tname:
 
   time period name
-
-- return_data.table:
-
-  if TRUE, make_balanced_panel will return a data.table rather than a
-  data.frame. Default is FALSE.

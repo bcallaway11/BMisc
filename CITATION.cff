@@ -6,9 +6,9 @@
 cff-version: 1.2.0
 message: 'To cite package "BMisc" in publications use:'
 type: software
-license: GPL-2.0-only
+license: GPL-3.0-only
 title: 'BMisc: Miscellaneous Functions for Panel Data, Quantiles, and Printing Results'
-version: 1.4.9
+version: 1.4.10
 identifiers:
 - type: doi
   value: 10.32614/CRAN.package.BMisc
@@ -35,8 +35,8 @@ preferred-citation:
   - family-names: Callaway
     given-names: Brantly
     email: brantly.callaway@uga.edu
-  year: '2025'
-  notes: R package version 1.4.9
+  year: '2026'
+  notes: R package version 1.4.10
   url: https://bcallaway11.github.io/BMisc/
 repository: https://CRAN.R-project.org/package=BMisc
 repository-code: https://github.com/bcallaway11/BMisc

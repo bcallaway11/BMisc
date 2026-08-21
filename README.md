@@ -11,7 +11,7 @@
 [![CRAN
 version](https://www.r-pkg.org/badges/version/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
 [![Development
-version](https://img.shields.io/badge/devel%20version-1.4.9-blue.svg)](https://github.com/bcallaway11/BMisc)
+version](https://img.shields.io/badge/devel%20version-1.4.10-blue.svg)](https://github.com/bcallaway11/BMisc)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
 [![Last
@@ -92,14 +92,14 @@ dta <- data.frame(id = id, t = t, treat = treat)
 dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
 head(unique(dta[, c("id", "group")]))
 #>    id group
-#> 1   1     3
+#> 1   1     2
 #> 5   2     3
 #> 9   3     2
 #> 13  4     0
-#> 17  5     3
+#> 17  5     0
 #> 21  6     2
 check_staggered(dta, idname = "id", treatname = "treat")
-#> [1] FALSE
+#> [1] TRUE
 ```
 
 ## Example 4: Formula utilities
@@ -112,10 +112,10 @@ programmatically.
 ff <- y ~ x1 + x2 + x3
 rhs(ff)
 #> ~x1 + x2 + x3
-#> <environment: 0x5823b0801128>
+#> <environment: 0x651fca30df70>
 toformula("y", c("x1", "x2", "x3"))
 #> y ~ x1 + x2 + x3
-#> <environment: 0x5823b0847790>
+#> <environment: 0x651fca396268>
 ```
 
 ## Example 5: Working with lists

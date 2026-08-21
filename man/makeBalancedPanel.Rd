@@ -4,18 +4,14 @@
 \alias{makeBalancedPanel}
 \title{makeBalancedPanel}
 \usage{
-makeBalancedPanel(data, idname, tname, return_data.table = FALSE)
+makeBalancedPanel(data, idname, tname)
 }
 \arguments{
-\item{data}{data.frame used in function}
+\item{data}{data.frame (or data.table) used in function}
 
 \item{idname}{unique id}
 
 \item{tname}{time period name}
-
-\item{return_data.table}{if TRUE, make_balanced_panel will
-return a data.table rather than a data.frame.  Default
-is FALSE.}
 }
 \description{
 Legacy version of `make_balanced_panel`,

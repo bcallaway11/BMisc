@@ -4,25 +4,25 @@
 \alias{make_balanced_panel}
 \title{Balance a Panel Data Set}
 \usage{
-make_balanced_panel(data, idname, tname, return_data.table = FALSE)
+make_balanced_panel(data, idname, tname)
 }
 \arguments{
-\item{data}{data.frame used in function}
+\item{data}{data.frame (or data.table) used in function}
 
 \item{idname}{unique id}
 
 \item{tname}{time period name}
-
-\item{return_data.table}{if TRUE, make_balanced_panel will
-return a data.table rather than a data.frame.  Default
-is FALSE.}
 }
 \value{
-data.frame that is a balanced panel
+a balanced panel, with the same class (`data.frame` or
+ `data.table`) as `data`
 }
 \description{
 This function drops observations from data.frame
- that are not part of balanced panel data set.
+ that are not part of balanced panel data set. `data` is copied
+ before dropping any rows, so the object passed in is left
+ unmodified; see \code{\link{set_balanced_panel}} for an in-place
+ alternative that avoids copying large inputs.
 }
 \examples{
 id <- rep(seq(1, 100), each = 2) # individual ids for setting up a two period panel

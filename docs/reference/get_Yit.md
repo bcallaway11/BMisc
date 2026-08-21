@@ -37,7 +37,7 @@ get_Yit(df, tp, idname, yname, tname)
 
 a vector of outcomes in period t, the vector will have the length nT
 (i.e., this is returned for each element in the panel, not for a
-particular period)
+particular period); \`NA\` for units not observed in period \`tp\`
 
 ## Examples
 

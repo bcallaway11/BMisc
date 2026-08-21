@@ -25,5 +25,5 @@ y <- rnorm(100)
 F <- ecdf(y)
 Finv <- invert_ecdf(F)
 Finv(0.5) ## approximate median
-#> [1] -0.002079741
+#> [1] -0.06007258
 ```

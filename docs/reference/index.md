@@ -4,6 +4,10 @@
 
 - [`make_balanced_panel()`](https://bcallaway11.github.io/BMisc/reference/make_balanced_panel.md)
   : Balance a Panel Data Set
+- [`set_balanced_panel()`](https://bcallaway11.github.io/BMisc/reference/set_balanced_panel.md)
+  : set_balanced_panel
+- [`sort_panel()`](https://bcallaway11.github.io/BMisc/reference/sort_panel.md)
+  : sort_panel
 - [`panel2cs()`](https://bcallaway11.github.io/BMisc/reference/panel2cs.md)
   : Panel Data to Repeated Cross Sections
 - [`panel2cs2()`](https://bcallaway11.github.io/BMisc/reference/panel2cs2.md)

@@ -9,9 +9,9 @@ bibentry(
 
   author = person("Brantly", "Callaway", email = "brantly.callaway@uga.edu", role = c("aut", "cre")),
 
-  year = "2025",
+  year = "2026",
 
-  note = "R package version 1.4.9",
+  note = "R package version 1.4.10",
 
   url = "https://bcallaway11.github.io/BMisc/"
 )

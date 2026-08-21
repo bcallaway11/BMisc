@@ -29,10 +29,10 @@ formula
 ff <- y ~ x
 add_cov_to_formula(list("w", "z"), ff)
 #> y ~ x + w + z
-#> <environment: 0x6519ebfbb3e0>
+#> <environment: 0x5657c21d0598>
 
 ff <- ~x
 add_cov_to_formula("z", ff)
 #> ~x + z
-#> <environment: 0x6519ec0898a8>
+#> <environment: 0x5657c22ee830>
 ```

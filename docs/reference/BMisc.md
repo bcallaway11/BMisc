@@ -17,3 +17,7 @@ Useful links:
 Authors:
 
 - Brantly Callaway <brantly.callaway@uga.edu>
+
+Other contributors:
+
+- Grant McDermott <contact@grantmcdermott.com> \[contributor\]

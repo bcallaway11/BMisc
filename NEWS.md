@@ -40,6 +40,12 @@
     - `get_first_difference()` no longer adds a temporary `.lag` column to a
       copy of the input data, and now works when passed a `data.table`.
 
+  * Fixed silent row misalignment in several vectorized panel getters
+    (`get_group()`, `get_Yit()`, `get_principal_components()`, etc.) when
+    units were not sorted by id; added `sort_panel()` and
+    `set_balanced_panel()`, and `make_balanced_panel()` now preserves its
+    input's class instead of taking a `return_data.table` argument.
+
 # BMisc 1.4.9
 
   * Added `.Deprecated()` wrappers to 13 legacy function names (e.g.,

@@ -1,6 +1,73 @@
 # Changelog
 
+## BMisc (development version)
+
+- Smaller footprint and improved performance.
+
+  - Removed the `dplyr` and `tidyr` dependencies. The affected functions
+    are now implemented with `data.table`, which was already a
+    dependency, leading to a total reduction of ~20 packages
+    (incl. strong recursive deps).
+
+  - The workhorse panel “getter” functions
+    ([`get_group()`](https://bcallaway11.github.io/BMisc/reference/get_group.md),
+    [`get_Yit()`](https://bcallaway11.github.io/BMisc/reference/get_Yit.md),
+    [`check_staggered()`](https://bcallaway11.github.io/BMisc/reference/check_staggered.md),
+    etc.) have also been vectorized, yielding substantial performance
+    improvements. On a simulated 200k row / 20k unit panel dataset, we
+    observe 150-1400x speed gains, combined with an order of magnitude
+    smaller memory allocation(s).
+
+- Bug fixes:
+
+  - [`check_staggered()`](https://bcallaway11.github.io/BMisc/reference/check_staggered.md)
+    no longer (automatically) returns `FALSE` for panels with any
+    treatment adoption. Previously, this function only returned `TRUE`
+    when no unit ever changed treatment status.
+
+  - [`get_Yit()`](https://bcallaway11.github.io/BMisc/reference/get_Yit.md)
+    now returns `NA` for units that are not observed in period `tp`.
+    Previously such units contributed nothing to the result, so the
+    returned vector was shorter than the number of rows in the data.
+
+- New features:
+
+  - [`check_staggered()`](https://bcallaway11.github.io/BMisc/reference/check_staggered.md)
+    and
+    [`check_staggered_inner()`](https://bcallaway11.github.io/BMisc/reference/check_staggered_inner.md)
+    gain an optional `tname` argument. The check compares consecutive
+    rows, so it is only meaningful when a unit’s rows are in time order;
+    supplying `tname` sorts them first. The default (`NULL`) keeps the
+    previous assumption that the data is already ordered.
+
+- Other changes:
+
+  - [`get_principal_components()`](https://bcallaway11.github.io/BMisc/reference/get_principal_components.md)
+    now returns units in sorted id order. This is only a change for data
+    that is not already sorted by id, where it previously used order of
+    first appearance, and it makes the function consistent with the
+    other panel data getters.
+
+  - [`get_first_difference()`](https://bcallaway11.github.io/BMisc/reference/get_first_difference.md)
+    no longer adds a temporary `.lag` column to a copy of the input
+    data, and now works when passed a `data.table`.
+
+- Fixed silent row misalignment in several vectorized panel getters
+  ([`get_group()`](https://bcallaway11.github.io/BMisc/reference/get_group.md),
+  [`get_Yit()`](https://bcallaway11.github.io/BMisc/reference/get_Yit.md),
+  [`get_principal_components()`](https://bcallaway11.github.io/BMisc/reference/get_principal_components.md),
+  etc.) when units were not sorted by id; added
+  [`sort_panel()`](https://bcallaway11.github.io/BMisc/reference/sort_panel.md)
+  and
+  [`set_balanced_panel()`](https://bcallaway11.github.io/BMisc/reference/set_balanced_panel.md),
+  and
+  [`make_balanced_panel()`](https://bcallaway11.github.io/BMisc/reference/make_balanced_panel.md)
+  now preserves its input’s class instead of taking a
+  `return_data.table` argument.
+
 ## BMisc 1.4.9
+
+CRAN release: 2026-06-11
 
 - Added [`.Deprecated()`](https://rdrr.io/r/base/Deprecated.html)
   wrappers to 13 legacy function names (e.g., `makeBalancedPanel`,

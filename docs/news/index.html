@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BMisc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,31 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.4.9" id="bmisc-149">BMisc 1.4.9<a class="anchor" aria-label="anchor" href="#bmisc-149"></a></h2>
+<h2 class="pkg-version" data-toc-text="development version" id="bmisc-development-version">BMisc (development version)<a class="anchor" aria-label="anchor" href="#bmisc-development-version"></a></h2>
+<ul><li>
+<p>Smaller footprint and improved performance.</p>
+<ul><li><p>Removed the <code>dplyr</code> and <code>tidyr</code> dependencies. The affected functions are now implemented with <code>data.table</code>, which was already a dependency, leading to a total reduction of ~20 packages (incl. strong recursive deps).</p></li>
+<li><p>The workhorse panel “getter” functions (<code><a href="../reference/get_group.html">get_group()</a></code>, <code><a href="../reference/get_Yit.html">get_Yit()</a></code>, <code><a href="../reference/check_staggered.html">check_staggered()</a></code>, etc.) have also been vectorized, yielding substantial performance improvements. On a simulated 200k row / 20k unit panel dataset, we observe 150-1400x speed gains, combined with an order of magnitude smaller memory allocation(s).</p></li>
+</ul></li>
+<li>
+<p>Bug fixes:</p>
+<ul><li><p><code><a href="../reference/check_staggered.html">check_staggered()</a></code> no longer (automatically) returns <code>FALSE</code> for panels with any treatment adoption. Previously, this function only returned <code>TRUE</code> when no unit ever changed treatment status.</p></li>
+<li><p><code><a href="../reference/get_Yit.html">get_Yit()</a></code> now returns <code>NA</code> for units that are not observed in period <code>tp</code>. Previously such units contributed nothing to the result, so the returned vector was shorter than the number of rows in the data.</p></li>
+</ul></li>
+<li>
+<p>New features:</p>
+<ul><li>
+<code><a href="../reference/check_staggered.html">check_staggered()</a></code> and <code><a href="../reference/check_staggered_inner.html">check_staggered_inner()</a></code> gain an optional <code>tname</code> argument. The check compares consecutive rows, so it is only meaningful when a unit’s rows are in time order; supplying <code>tname</code> sorts them first. The default (<code>NULL</code>) keeps the previous assumption that the data is already ordered.</li>
+</ul></li>
+<li>
+<p>Other changes:</p>
+<ul><li><p><code><a href="../reference/get_principal_components.html">get_principal_components()</a></code> now returns units in sorted id order. This is only a change for data that is not already sorted by id, where it previously used order of first appearance, and it makes the function consistent with the other panel data getters.</p></li>
+<li><p><code><a href="../reference/get_first_difference.html">get_first_difference()</a></code> no longer adds a temporary <code>.lag</code> column to a copy of the input data, and now works when passed a <code>data.table</code>.</p></li>
+</ul></li>
+<li><p>Fixed silent row misalignment in several vectorized panel getters (<code><a href="../reference/get_group.html">get_group()</a></code>, <code><a href="../reference/get_Yit.html">get_Yit()</a></code>, <code><a href="../reference/get_principal_components.html">get_principal_components()</a></code>, etc.) when units were not sorted by id; added <code><a href="../reference/sort_panel.html">sort_panel()</a></code> and <code><a href="../reference/set_balanced_panel.html">set_balanced_panel()</a></code>, and <code><a href="../reference/make_balanced_panel.html">make_balanced_panel()</a></code> now preserves its input’s class instead of taking a <code>return_data.table</code> argument.</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4.9" id="bmisc-149">BMisc 1.4.9<a class="anchor" aria-label="anchor" href="#bmisc-149"></a></h2><p class="text-muted">CRAN release: 2026-06-11</p>
 <ul><li><p>Added <code><a href="https://rdrr.io/r/base/Deprecated.html" class="external-link">.Deprecated()</a></code> wrappers to 13 legacy function names (e.g., <code>makeBalancedPanel</code>, <code>rhs.vars</code>). The old names remain fully functional but now emit deprecation warnings; removal is planned for a future version.</p></li>
 <li><p>Fixed bug in <code><a href="../reference/rhs.html">rhs()</a></code> where it was internally calling the deprecated <code><a href="../reference/rhs.vars.html">rhs.vars()</a></code> instead of <code><a href="../reference/rhs_vars.html">rhs_vars()</a></code>, causing spurious deprecation warnings</p></li>
 <li><p>Fixed bug in <code><a href="../reference/panel2cs2.html">panel2cs2()</a></code> where outcomes could shift across unit boundaries in unbalanced panels when <code>balance_panel = FALSE</code></p></li>
@@ -125,7 +149,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

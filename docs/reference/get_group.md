@@ -40,10 +40,10 @@ dta <- data.frame(id = id, t = t, treat = treat)
 dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
 head(unique(dta[, c("id", "group")]))
 #>    id group
-#> 1   1     2
-#> 5   2     2
+#> 1   1     0
+#> 5   2     3
 #> 9   3     2
-#> 13  4     2
-#> 17  5     0
+#> 13  4     0
+#> 17  5     3
 #> 21  6     2
 ```

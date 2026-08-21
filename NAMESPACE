@@ -57,6 +57,8 @@ export(panel2cs2)
 export(rhs)
 export(rhs.vars)
 export(rhs_vars)
+export(set_balanced_panel)
+export(sort_panel)
 export(source_all)
 export(subsample)
 export(t2orig)
@@ -73,7 +75,9 @@ export(weighted_quantile_inner)
 import(graphics)
 import(stats)
 importFrom(Rcpp,sourceCpp)
-importFrom(data.table,":=")
-importFrom(data.table,.N)
-importFrom(data.table,.SD)
+importFrom(data.table,
+  ":=",
+  .N,
+  .SD
+)
 useDynLib(BMisc)
