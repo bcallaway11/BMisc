@@ -1,4 +1,4 @@
-# BMisc (development version)
+# BMisc 1.4.10
 
   * Smaller footprint and improved performance.
 
