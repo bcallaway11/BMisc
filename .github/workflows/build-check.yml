@@ -30,10 +30,17 @@ jobs:
         run: devtools::install(dependencies = FALSE, quiet = TRUE)
         shell: Rscript {0}
 
+      - uses: quarto-dev/quarto-actions/setup@v2
+        if: hashFiles('README.qmd') != ''
+
       - name: Build README
         if: hashFiles('README.Rmd') != ''
         run: devtools::build_readme()
         shell: Rscript {0}
+
+      - name: Build README (Quarto)
+        if: hashFiles('README.qmd') != ''
+        run: quarto render README.qmd
 
       - name: Build pkgdown site
         run: pkgdown::build_site(preview = FALSE, install = FALSE)
