@@ -1,4 +1,5 @@
 #include <RcppArmadillo.h>
+#include <cstdint>
 using namespace Rcpp;
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -53,21 +54,22 @@ arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 
 // In-place sample iid Rademacher weights.
 inline void fill_rademacher_mat(arma::mat &U) {
-  int n = U.n_rows * U.n_cols;
+  arma::uword n = U.n_elem;
   double *p = U.memptr();
 
-  int full = n / 32;
-  for (int i = 0; i < full; ++i) {
-    double bits = R::unif_rand() * 4294967296.0;
+  arma::uword full = n / 32;
+  for (arma::uword i = 0; i < full; ++i) {
+    uint32_t bits = static_cast<uint32_t>(R::unif_rand() * 4294967296.0);
     for (int j = 0; j < 32; ++j, ++p) {
-      *p = static_cast<double>((bits >> j) & 1) * 2.0 - 1.0;
+      *p = static_cast<double>((bits >> j) & 1u) * 2.0 - 1.0;
     }
   }
 
-  if (n % 32 > 0) {
-    double bits = R::unif_rand() * 4294967296.0;
-    for (int j = 0; j < n % 32; ++j, ++p) {
-      *p = static_cast<double>((bits >> j) & 1) * 2.0 - 1.0;
+  arma::uword rem = n % 32;
+  if (rem > 0) {
+    uint32_t bits = static_cast<uint32_t>(R::unif_rand() * 4294967296.0);
+    for (arma::uword j = 0; j < rem; ++j, ++p) {
+      *p = static_cast<double>((bits >> j) & 1u) * 2.0 - 1.0;
     }
   }
 }
