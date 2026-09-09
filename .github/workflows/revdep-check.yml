@@ -33,7 +33,10 @@ jobs:
             gfortran libblas-dev liblapack-dev
 
       - name: Install revdepcheck and remotes
-        run: install.packages(c("remotes", "revdepcheck"))
+        run: |
+          install.packages("remotes")
+          remotes::install_github("r-lib/revdepcheck")
+          stopifnot(requireNamespace("revdepcheck", quietly = TRUE))
         shell: Rscript {0}
 
       - name: Install package dependencies

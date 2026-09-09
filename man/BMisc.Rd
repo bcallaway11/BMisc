@@ -19,14 +19,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Brantly Callaway \email{brantly.callaway@uga.edu}
 
-Authors:
-\itemize{
-  \item Brantly Callaway \email{brantly.callaway@uga.edu}
-}
-
 Other contributors:
 \itemize{
   \item Grant McDermott \email{contact@grantmcdermott.com} [contributor]
+  \item Kyle Butts \email{buttskyle96@gmail.com} [contributor]
 }
 
 }
