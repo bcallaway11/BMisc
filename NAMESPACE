@@ -75,9 +75,7 @@ export(weighted_quantile_inner)
 import(graphics)
 import(stats)
 importFrom(Rcpp,sourceCpp)
-importFrom(data.table,
-  ":=",
-  .N,
-  .SD
-)
+importFrom(data.table,":=")
+importFrom(data.table,.N)
+importFrom(data.table,.SD)
 useDynLib(BMisc)
