@@ -1,6 +1,6 @@
 Package: BMisc
 Title: Miscellaneous Functions for Panel Data, Quantiles, and Printing Results
-Version: 1.4.10
+Version: 1.4.11
 Authors@R: c(
     person("Brantly", "Callaway", email = "brantly.callaway@uga.edu", role = c("aut", "cre")),
     person("Grant", "McDermott", role = "ctb", email = "contact@grantmcdermott.com")

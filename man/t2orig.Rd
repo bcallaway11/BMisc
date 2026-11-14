@@ -13,7 +13,8 @@ periods.}
 \item{original_time.periods}{vector containing all original time periods.}
 }
 \value{
-original time period converted from new time period
+original time period converted from new time period; \code{NA}
+ for values of \code{t} that do not correspond to a time period.
 }
 \description{
 A helper function to switch from "new" t values to

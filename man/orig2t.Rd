@@ -12,7 +12,9 @@ orig2t(orig, original_time.periods)
 \item{original_time.periods}{vector containing all original time periods.}
 }
 \value{
-new time period converted from original time period
+new time period converted from original time period; \code{NA}
+ for values of \code{orig} that are not among \code{original_time.periods}
+ (or 0).
 }
 \description{
 A helper function to switch from original time periods to

@@ -1,3 +1,13 @@
+# =============================================================================
+# Title: BMisc main functions
+# Description: Panel-data helpers (balancing, block bootstrap, getters),
+#   distribution helpers (weighted ECDFs, quantiles, combining ECDFs), time
+#   recoding (orig2t/t2orig), and formula utilities.
+# Author: Brant Callaway
+# Last update: 2026-11-14
+# Date created: 2017-02-07
+# =============================================================================
+
 #' @title Balance a Panel Data Set
 #'
 #' @description This function drops observations from data.frame
@@ -302,14 +312,16 @@ id2rownum <- function(id, data, idname) {
 #'
 #' @export
 block_boot_sample <- function(data, idname) {
-  ids <- sample(unique(data[, idname]), replace = TRUE)
-  newid <- seq_along(ids)
-  b1 <- lapply(seq_along(ids), function(i) {
-    bd <- data[data[, idname] == ids[i], ]
-    bd[, idname] <- newid[i]
-    bd
-  })
-  do.call(rbind, b1)
+  uid <- unique(data[, idname])
+  ids <- sample(uid, replace = TRUE)
+  # Group row indices by id once and stack the sampled groups, instead of
+  # scanning every row for each sampled id (O(n_ids x n_rows)). Rows, their
+  # order, and the new ids are the same as stacking the per-id subsets.
+  rows <- split(seq_len(nrow(data)), factor(data[, idname], levels = uid))
+  pos <- match(ids, uid)
+  out <- data[unlist(rows[pos], use.names = FALSE), , drop = FALSE]
+  out[, idname] <- rep(seq_along(ids), lengths(rows)[pos])
+  out
 }
 
 #' @title blockBootSample
@@ -660,9 +672,19 @@ weighted_ecdf <- function(y, y.seq = NULL, weights = NULL, norm = TRUE) {
     y.seq <- unique(y)
     y.seq <- y.seq[order(y.seq)]
   }
-  dvals <- vapply(y.seq, FUN = function(x) {
-    mean(weights * (y <= x))
-  }, 1.0)
+  weights <- rep_len(weights, length(y))
+  if (anyNA(y) || anyNA(weights) || anyNA(y.seq)) {
+    # missing values propagate as before; findInterval() needs non-NA input
+    dvals <- vapply(y.seq, FUN = function(x) {
+      mean(weights * (y <= x))
+    }, 1.0)
+  } else {
+    # F(x) = mean(w * 1{y <= x}): sort once and read cumulative weights at
+    # each x, instead of a pass over y for every x (O(n log n), not O(n^2)).
+    o <- order(y)
+    cw <- c(0, cumsum(weights[o]))
+    dvals <- cw[findInterval(y.seq, y[o]) + 1L] / length(y)
+  }
   make_dist(y.seq, dvals)
 }
 
@@ -1692,7 +1714,8 @@ orig2t_inner <- function(orig, original_time.periods) {
 #' original_time.periods <- c(2001, 2003, 2005, 2007)
 #' t2orig(1:4, original_time.periods) ## returns c(2001, 2003, 2005, 2007)
 #'
-#' @return original time period converted from new time period
+#' @return original time period converted from new time period; \code{NA}
+#'  for values of \code{t} that do not correspond to a time period.
 #'
 #' @export
 t2orig <- function(t, original_time.periods) {
@@ -1700,7 +1723,10 @@ t2orig <- function(t, original_time.periods) {
   if (length(unique(diff(original_time.periods))) > 1) {
     warning("original_time.periods are unequally spaced, some downstream functions may not work as expected.")
   }
-  sapply(t, t2orig_inner, original_time.periods = original_time.periods)
+  # vectorized t2orig_inner(): new period k maps to the k-th unique original
+  # period, and 0 (never treated) maps to 0
+  new_time.periods <- c(seq_along(unique(original_time.periods)), 0)
+  unique(c(original_time.periods, 0))[match(t, new_time.periods)]
 }
 
 #' @title orig2t
@@ -1717,7 +1743,9 @@ t2orig <- function(t, original_time.periods) {
 #' original_time.periods <- c(2001, 2003, 2005, 2007)
 #' orig2t(c(2001, 2005), original_time.periods) ## returns c(1, 3)
 #'
-#' @return new time period converted from original time period
+#' @return new time period converted from original time period; \code{NA}
+#'  for values of \code{orig} that are not among \code{original_time.periods}
+#'  (or 0).
 #'
 #' @export
 orig2t <- function(orig, original_time.periods) {
@@ -1725,7 +1753,10 @@ orig2t <- function(orig, original_time.periods) {
   if (length(unique(diff(original_time.periods))) > 1) {
     warning("original_time.periods are unequally spaced, some downstream functions may not work as expected.")
   }
-  sapply(orig, orig2t_inner, original_time.periods = original_time.periods)
+  # vectorized orig2t_inner(): the k-th unique original period maps to k,
+  # and 0 (never treated) maps to 0
+  new_time.periods <- c(seq_along(unique(original_time.periods)), 0)
+  new_time.periods[match(orig, unique(c(original_time.periods, 0)))]
 }
 
 #' @title drop_collinear

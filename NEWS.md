@@ -1,3 +1,14 @@
+# BMisc 1.4.11
+
+  * Faster `block_boot_sample()`, `orig2t()`, `t2orig()` and `weighted_ecdf()`,
+    with the same results. On a 3,000-unit, 30-period panel,
+    `block_boot_sample()` takes 0.03 s instead of 10 s.
+    `weighted_ecdf()` agrees with the previous version to floating-point
+    precision.
+
+  * `orig2t()` and `t2orig()` now return `NA` for values that are not time
+    periods. Previously they returned a list.
+
 # BMisc 1.4.10
 
   * Smaller footprint and improved performance.

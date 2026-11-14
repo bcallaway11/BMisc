@@ -12,6 +12,35 @@ test_that("mv_mult, t2orig, orig2t, and weighted_combine_list return correct val
   expect_equal(weighted_combine_list(l, w = c(0.5, 0.5)), c(2.5, 3.5, 4.5))
 })
 
+# vectorized orig2t/t2orig, block_boot_sample and weighted_ecdf must match
+# the original per-element implementations
+test_that("vectorized helpers match their element-wise definitions", {
+  otp <- c(2001, 2003, 2005, 2007)
+  x <- c(2005, 0, 2001, 2007, 2005)
+  expect_identical(orig2t(x, otp), sapply(x, orig2t_inner, original_time.periods = otp))
+  expect_identical(t2orig(c(3, 0, 1), otp), sapply(c(3, 0, 1), t2orig_inner, original_time.periods = otp))
+  expect_true(is.na(orig2t(2002, otp)))
+
+  set.seed(3)
+  dat <- data.frame(id = rep(c(5, 2, 9), each = 2), t = 1:2, y = rnorm(6))
+  set.seed(1)
+  bb <- block_boot_sample(dat, "id")
+  set.seed(1)
+  ids <- sample(unique(dat$id), replace = TRUE)
+  ref <- do.call(rbind, lapply(seq_along(ids), function(i) {
+    bd <- dat[dat$id == ids[i], ]
+    bd$id <- i
+    bd
+  }))
+  expect_equal(bb, ref, ignore_attr = TRUE)
+
+  y <- round(rnorm(500), 1)
+  w <- runif(500)
+  ys <- sort(unique(y))
+  expect_equal(weighted_ecdf(y, weights = w)(ys),
+               vapply(ys, function(v) mean(w / mean(w) * (y <= v)), 1.0))
+})
+
 # element_wise_mult and multiplier_bootstrap: Rcpp output shape and type
 test_that("Rcpp functions return matrices of correct dimensions", {
   set.seed(42)
