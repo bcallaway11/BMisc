@@ -1,3 +1,12 @@
+# =============================================================================
+# Title: Tests for distribution functions
+# Description: make_dist(), invert_ecdf(), quantile(), combine_ecdfs()
+#   (including the exact mixture) and weighted statistics.
+# Author: Brant Callaway
+# Last update: 2026-11-19
+# Date created: 2026-11-19
+# =============================================================================
+
 # Tests for distribution function and weighted statistics utilities
 
 # make_dist and invert_ecdf: class and stability checks
@@ -27,6 +36,57 @@ test_that("combine_ecdfs returns a valid mixture distribution", {
   # mixture CDF at 0 should be between the two individual CDFs
   expect_true(both(0) > Fx(0) * 0.5)
   expect_equal(both(0), 0.315, tolerance = 1e-4)
+})
+
+# combine_ecdfs() without y.seq: the exact mixture, from every support point
+test_that("combine_ecdfs() mixes exactly without y.seq", {
+  set.seed(1)
+  x <- rnorm(100)
+  y <- round(rnorm(100, 1), 1) # ties, and points shared with x
+  x[1:5] <- y[1:5]
+  # equal-size ECDFs with equal weights: the ECDF of the pooled sample
+  both <- combine_ecdfs(ecdflist = list(ecdf(x), ecdf(y)))
+  pooled <- ecdf(c(x, y))
+  pts <- sort(unique(c(x, y)))
+  expect_equal(both(pts), pooled(pts))
+  expect_s3_class(both, "BMisc_dist")
+  probs <- c(0, 0.01, seq(0.05, 0.95, 0.05), 0.99, 1)
+  # type-1 quantile: the ceiling(n * p)-th order statistic, with n * p
+  # rounded first (quantile(type = 1) computes 200 * 0.15 as
+  # 30.000000000000004 and so returns the 31st, not the 30th)
+  s <- sort(c(x, y))
+  expect_equal(unname(quantile(both, probs)),
+               s[pmax(1, ceiling(round(200 * probs, 8)))])
+
+  # unequal weights and weighted ECDFs: brute force at every pooled point
+  fx <- weighted_ecdf(x, weights = runif(100))
+  fy <- weighted_ecdf(y, weights = runif(100))
+  w <- c(0.3, 0.7)
+  mix <- combine_ecdfs(ecdflist = list(fx, fy), weights = w)
+  expect_equal(mix(pts), w[1] * fx(pts) + w[2] * fy(pts))
+  # the grid version agrees at its own points
+  grid <- seq(-2, 3, 0.25)
+  expect_equal(mix(grid), combine_ecdfs(grid, list(fx, fy), w)(grid))
+
+  # zero weights are skipped
+  expect_equal(combine_ecdfs(ecdflist = list(fx, fy), weights = c(1, 0))(pts),
+               fx(pts))
+
+  # integer weights give the same quantiles as replicated data
+  k <- sample(1:3, 100, replace = TRUE)
+  fw <- combine_ecdfs(ecdflist = list(weighted_ecdf(x, weights = k),
+                                      ecdf(y)), weights = c(0.5, 0.5))
+  fr <- combine_ecdfs(ecdflist = list(ecdf(rep(x, k)), ecdf(y)),
+                      weights = c(0.5, 0.5))
+  expect_equal(quantile(fw, probs), quantile(fr, probs))
+
+  # errors
+  lin <- make_dist(sort(x), seq(0.01, 1, 0.01), method = "linear")
+  expect_error(combine_ecdfs(ecdflist = list(lin, fy)), "step functions")
+  expect_error(combine_ecdfs(ecdflist = list(fx, fy), weights = 1),
+               "one value per element")
+  expect_error(combine_ecdfs(ecdflist = list(fx, fy), weights = c(0, 0)),
+               "all weights are 0")
 })
 
 # weighted_mean, weighted_quantile, weighted_ecdf: numerical stability

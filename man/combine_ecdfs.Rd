@@ -2,35 +2,55 @@
 % Please edit documentation in R/BMisc.R
 \name{combine_ecdfs}
 \alias{combine_ecdfs}
-\title{Combine Two Distribution Functions}
+\title{Combine Distribution Functions}
 \usage{
-combine_ecdfs(y.seq, ecdflist, weights = NULL, ...)
+combine_ecdfs(y.seq = NULL, ecdflist, weights = NULL, ...)
 }
 \arguments{
-\item{y.seq}{sequence of possible y values}
+\item{y.seq}{`NULL` (the default) for the exact mixture, or a sequence of
+y values at which to evaluate it}
 
 \item{ecdflist}{list of ecdf objects (distribution functions) to combine}
 
-\item{weights}{a vector of weights to put on each distribution function;
-if weights are not provided then equal weight is given to each
-distribution function}
+\item{weights}{a vector of weights to put on each distribution function,
+which should sum to 1; if weights are not provided then equal weight is
+given to each distribution function. Distribution functions with weight
+0 are skipped in the exact mixture.}
 
 \item{...}{additional arguments that can be past to BMisc::make_dist}
 }
 \value{
-ecdf
+ecdf (a `BMisc_dist` object, see [make_dist()])
 }
 \description{
-Combines two distribution functions with given weights by `weights`
+Combines distribution functions into their mixture
+ \eqn{F(y) = \sum_c w_c F_c(y)}, with weights given by `weights`.
+
+ By default (`y.seq = NULL`) the mixture is exact: when every
+ distribution function is a step function (as from [stats::ecdf()],
+ [weighted_ecdf()] or [make_dist()]), so is the mixture, with a jump at
+ each support point \eqn{y_{cj}} of each \eqn{F_c} equal to
+ \eqn{w_c} times the jump of \eqn{F_c} there. These are stacked and
+ sorted, and their cumulative sums give the mixture at every support
+ point. `quantile()` of the result is then exact as well.
+
+ With `y.seq`, the mixture is instead evaluated only at the points
+ `y.seq` (as in BMisc 1.4.10 and earlier), and its quantiles are rounded
+ to those points; this also works for distribution functions that are
+ not step functions.
 }
 \examples{
 x <- rnorm(100)
 y <- rnorm(100, 1, 1)
 Fx <- ecdf(x)
 Fy <- ecdf(y)
-both <- combine_ecdfs(seq(-2, 3, 0.1), list(Fx, Fy))
+both <- combine_ecdfs(ecdflist = list(Fx, Fy))
+quantile(both, 0.5) # exact median of the mixture
 plot(Fx, col = "green")
 plot(Fy, col = "blue", add = TRUE)
 plot(both, add = TRUE)
+
+# evaluated on a grid only
+both_grid <- combine_ecdfs(seq(-2, 3, 0.1), list(Fx, Fy))
 
 }

@@ -1,5 +1,12 @@
 # BMisc 1.4.11
 
+  * `combine_ecdfs()` now computes the mixture exactly when `y.seq` is
+    omitted (its new default): the mixture of step functions is a step
+    function with a jump at every support point of every component, which
+    are stacked, sorted and summed, at the cost of one sort. Quantiles of
+    the result are then exact; on a grid `y.seq` they were rounded to the
+    grid. Supplying `y.seq` gives the previous behavior.
+
   * `quantile()` now gives correct results for distribution functions made
     by `make_dist()`, `weighted_ecdf()` and `combine_ecdfs()` (#10). These
     objects have a new class, `BMisc_dist` (they are still `ecdf` objects),

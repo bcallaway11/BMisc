@@ -1085,14 +1085,31 @@ dropCovFromFormla <- function(covs, formla) {
   drop_cov_from_formula(covs = covs, formula = formla)
 }
 
-#' @title Combine Two Distribution Functions
+#' @title Combine Distribution Functions
 #'
-#' @description Combines two distribution functions with given weights by `weights`
-#' @param y.seq sequence of possible y values
+#' @description Combines distribution functions into their mixture
+#'  \eqn{F(y) = \sum_c w_c F_c(y)}, with weights given by `weights`.
+#'
+#'  By default (`y.seq = NULL`) the mixture is exact: when every
+#'  distribution function is a step function (as from [stats::ecdf()],
+#'  [weighted_ecdf()] or [make_dist()]), so is the mixture, with a jump at
+#'  each support point \eqn{y_{cj}} of each \eqn{F_c} equal to
+#'  \eqn{w_c} times the jump of \eqn{F_c} there. These are stacked and
+#'  sorted, and their cumulative sums give the mixture at every support
+#'  point. `quantile()` of the result is then exact as well.
+#'
+#'  With `y.seq`, the mixture is instead evaluated only at the points
+#'  `y.seq` (as in BMisc 1.4.10 and earlier), and its quantiles are rounded
+#'  to those points; this also works for distribution functions that are
+#'  not step functions.
+#'
+#' @param y.seq `NULL` (the default) for the exact mixture, or a sequence of
+#'  y values at which to evaluate it
 #' @param ecdflist list of ecdf objects (distribution functions) to combine
-#' @param weights a vector of weights to put on each distribution function;
-#'  if weights are not provided then equal weight is given to each
-#'  distribution function
+#' @param weights a vector of weights to put on each distribution function,
+#'  which should sum to 1; if weights are not provided then equal weight is
+#'  given to each distribution function. Distribution functions with weight
+#'  0 are skipped in the exact mixture.
 #' @param ... additional arguments that can be past to BMisc::make_dist
 #'
 #' @examples
@@ -1100,14 +1117,18 @@ dropCovFromFormla <- function(covs, formla) {
 #' y <- rnorm(100, 1, 1)
 #' Fx <- ecdf(x)
 #' Fy <- ecdf(y)
-#' both <- combine_ecdfs(seq(-2, 3, 0.1), list(Fx, Fy))
+#' both <- combine_ecdfs(ecdflist = list(Fx, Fy))
+#' quantile(both, 0.5) # exact median of the mixture
 #' plot(Fx, col = "green")
 #' plot(Fy, col = "blue", add = TRUE)
 #' plot(both, add = TRUE)
 #'
-#' @return ecdf
+#' # evaluated on a grid only
+#' both_grid <- combine_ecdfs(seq(-2, 3, 0.1), list(Fx, Fy))
+#'
+#' @return ecdf (a `BMisc_dist` object, see [make_dist()])
 #' @export
-combine_ecdfs <- function(y.seq, ecdflist, weights = NULL, ...) {
+combine_ecdfs <- function(y.seq = NULL, ecdflist, weights = NULL, ...) {
   # Handle deprecated 'dflist' argument name passed via ...
   extra_args <- list(...)
   if ("dflist" %in% names(extra_args)) {
@@ -1134,6 +1155,12 @@ combine_ecdfs <- function(y.seq, ecdflist, weights = NULL, ...) {
   if (is.null(weights)) {
     weights <- rep(1 / length(ecdflist), length(ecdflist))
   }
+  if (length(weights) != length(ecdflist)) {
+    stop("combine_ecdfs: weights must have one value per element of ecdflist")
+  }
+  if (is.null(y.seq)) {
+    return(do.call(mix_ecdfs_exact, c(list(ecdflist, weights), extra_args)))
+  }
   y.seq <- y.seq[order(y.seq)]
   df.valslist <- lapply(ecdflist, function(ddff) {
     ddff(y.seq)
@@ -1146,6 +1173,40 @@ combine_ecdfs <- function(y.seq, ecdflist, weights = NULL, ...) {
   df.vals <- rowSums(df.valsmat)
 
   do.call(make_dist, c(list(y.seq, df.vals), extra_args))
+}
+
+# --- Internal: exact mixture of step-function distribution functions -------
+# mix_ecdfs_exact(): the mixture sum_c w_c F_c of step functions, exactly.
+#   Each F_c jumps at its support points y_cj (knots()) by
+#   p_cj = F_c(y_cj) - F_c(y_c,j-1); the mixture jumps by w_c * p_cj there.
+#   Stacking, sorting and taking cumulative sums gives the mixture at every
+#   support point, at the cost of one sort, rather than evaluating every
+#   F_c on a grid (which rounds quantiles to the grid) or at every pooled
+#   point (quadratic). Arguments: ecdflist, weights (as in combine_ecdfs()),
+#   and ... passed to make_dist(). Returns a make_dist() object.
+mix_ecdfs_exact <- function(ecdflist, weights, ...) {
+  use <- which(!is.na(weights) & weights != 0)
+  if (length(use) == 0) {
+    stop("combine_ecdfs: all weights are 0 or NA")
+  }
+  linear <- vapply(ecdflist[use], function(f) {
+    identical(environment(f)$method, 1L)
+  }, logical(1L))
+  if (any(linear)) {
+    stop("combine_ecdfs: the exact mixture needs step functions; for ",
+         "make_dist(method = \"linear\") distribution functions, pass y.seq")
+  }
+  x <- lapply(ecdflist[use], stats::knots)
+  p <- Map(function(f, xx, w) w * diff(c(0, f(xx))), ecdflist[use], x,
+           weights[use])
+  x <- unlist(x, use.names = FALSE)
+  p <- unlist(p, use.names = FALSE)
+  o <- order(x)
+  x <- x[o]
+  cdf <- cumsum(p[o])
+  # one value per support point: the mixture at the last of tied points
+  last <- !duplicated(x, fromLast = TRUE)
+  make_dist(x[last], cdf[last], sorted = TRUE, ...)
 }
 
 #' @title combineDfs

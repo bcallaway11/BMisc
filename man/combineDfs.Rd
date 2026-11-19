@@ -7,7 +7,8 @@
 combineDfs(y.seq, dflist, pstrat = NULL, ...)
 }
 \arguments{
-\item{y.seq}{sequence of possible y values}
+\item{y.seq}{`NULL` (the default) for the exact mixture, or a sequence of
+y values at which to evaluate it}
 
 \item{...}{additional arguments that can be past to BMisc::make_dist}
 }
