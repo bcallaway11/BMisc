@@ -1,5 +1,19 @@
 # BMisc 1.4.11
 
+  * `quantile()` now gives correct results for distribution functions made
+    by `make_dist()`, `weighted_ecdf()` and `combine_ecdfs()` (#10). These
+    objects have a new class, `BMisc_dist` (they are still `ecdf` objects),
+    with a `quantile()` method that inverts the distribution function
+    directly: the smallest point where it reaches the probability. Before,
+    `quantile()` used `stats:::quantile.ecdf()`, which is only exact for
+    `stats::ecdf()`; with ties or unequal weights it could be badly wrong
+    (a 0/1 variable with P(1) = 0.6 had median 0). `type` is ignored, with a
+    warning unless it is 1.
+
+  * `invert_ecdf()` no longer returns the next-lower point between knots: it
+    now returns the smallest point where the distribution function reaches
+    the probability, matching `quantile(type = 1)`.
+
   * Faster `block_boot_sample()`, `orig2t()`, `t2orig()` and `weighted_ecdf()`,
     with the same results. On a 3,000-unit, 30-period panel,
     `block_boot_sample()` takes 0.03 s instead of 10 s.

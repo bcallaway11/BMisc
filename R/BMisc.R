@@ -4,7 +4,7 @@
 #   distribution helpers (weighted ECDFs, quantiles, combining ECDFs), time
 #   recoding (orig2t/t2orig), and formula utilities.
 # Author: Brant Callaway
-# Last update: 2026-11-14
+# Last update: 2026-11-19
 # Date created: 2017-02-07
 # =============================================================================
 
@@ -394,9 +394,77 @@ make_dist <- function(
     method = method,
     yleft = 0, yright = 1, f = 0, ties = "ordered"
   )
-  class(retF) <- c("ecdf", "stepfun", class(retF))
+  # "BMisc_dist" first, so quantile() uses quantile.BMisc_dist(), which
+  # inverts the distribution function directly. stats:::quantile.ecdf()
+  # rebuilds a sample by repeating each point round(nobs * mass) times,
+  # which is only exact for stats::ecdf() (nobs = sample size); here nobs
+  # is the number of points, so with ties or unequal weights it was wrong
+  # (e.g. a 0/1 variable with P(1) = 0.6 had median 0).
+  class(retF) <- c("BMisc_dist", "ecdf", "stepfun", class(retF))
   assign("nobs", length(x), envir = environment(retF))
   retF
+}
+
+#' @title Quantiles of a Distribution Function
+#'
+#' @description Quantiles of a distribution function created by
+#'   \code{\link{make_dist}} (and so by \code{\link{weighted_ecdf}} and
+#'   \code{\link{combine_ecdfs}}), computed by inverting it directly: for a
+#'   step function, the smallest support point \eqn{y} with
+#'   \eqn{F(y) \ge p} (the generalized inverse, \code{type = 1} in
+#'   \code{\link[stats]{quantile}}); for \code{method = "linear"}, the
+#'   inverse of the piecewise-linear \eqn{F}.
+#'
+#'   Sample-quantile types other than 1 interpolate between order statistics
+#'   of a sample, which a weighted distribution function doesn't have, so
+#'   \code{type} is ignored (with a warning if it isn't 1).
+#'
+#' @param x a distribution function from \code{\link{make_dist}}.
+#' @param probs numeric vector of probabilities in \eqn{[0, 1]}.
+#' @param names logical; if \code{TRUE}, name the result by \code{probs},
+#'   as \code{\link[stats]{quantile}} does.
+#' @param ... ignored, except \code{type} (see Description).
+#'
+#' @examples
+#' F <- weighted_ecdf(c(0, 1), weights = c(0.4, 0.6))
+#' quantile(F, 0.5) # 1
+#'
+#' @return numeric vector of quantiles.
+#' @export
+quantile.BMisc_dist <- function(x, probs = seq(0, 1, 0.25), names = TRUE,
+                                ...) {
+  type <- list(...)$type
+  if (!is.null(type) && !identical(as.numeric(type), 1)) {
+    warning("quantile() of a BMisc distribution function inverts it ",
+            "directly (type = 1); type = ", type, " is ignored.",
+            call. = FALSE)
+  }
+  if (any(probs < 0 | probs > 1, na.rm = TRUE)) {
+    stop("'probs' outside [0,1]")
+  }
+  knots_x <- sort(unique(environment(x)$x))
+  # running maximum: sums of weighted CDFs (combine_ecdfs()) can dip by
+  # floating-point error, e.g. 1 then 1 - 1e-16
+  cdf <- cummax(x(knots_x))
+  # tolerance so a probability equal to a cumulative sum up to rounding
+  # (e.g. 0.1 + 0.2 vs 0.3) lands on that point, not the next one
+  idx <- findInterval(probs - 1e-10, cdf) + 1L
+  idx <- pmin(idx, length(knots_x)) # F short of 1 by rounding: last point
+  out <- knots_x[idx]
+  # approxfun() stores its method as an integer code: 1 linear, 2 constant
+  if (identical(environment(x)$method, 1L)) {
+    # interpolate within the segment where F crosses p
+    prev <- pmax(idx - 1L, 1L)
+    seg <- idx > 1L & cdf[idx] > cdf[prev]
+    out[seg] <- knots_x[prev[seg]] + (probs[seg] - cdf[prev[seg]]) /
+      (cdf[idx[seg]] - cdf[prev[seg]]) * (knots_x[idx[seg]] - knots_x[prev[seg]])
+  }
+  out[is.na(probs)] <- NA
+  if (names) {
+    names(out) <- paste0(formatC(100 * probs, format = "fg", width = 1,
+                                 digits = 7), "%")
+  }
+  out
 }
 
 #' @title makeDist
@@ -447,8 +515,12 @@ makeDist <- function(
 invert_ecdf <- function(df) {
   q <- knots(df)
   tau <- df(q)
-  q <- c(q[1], q)
-  stepfun(tau, q)
+  # right = TRUE with values (q_1, ..., q_n, q_n): p <= tau_1 gives q_1 and
+  # p in (tau_k, tau_{k+1}] gives q_{k+1}, the smallest point with F >= p.
+  # This used to be stepfun(tau, c(q_1, q)), which returned q_k on
+  # [tau_k, tau_{k+1}), one step too low between knots (e.g. median 0 for a
+  # 0/1 variable with P(1) = 0.6).
+  stepfun(tau, c(q, q[length(q)]), right = TRUE)
 }
 
 #' @title invertEcdf
