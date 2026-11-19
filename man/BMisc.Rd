@@ -27,6 +27,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Grant McDermott \email{contact@grantmcdermott.com} [contributor]
+  \item Kyle Butts \email{buttskyle96@gmail.com} [contributor]
 }
 
 }
