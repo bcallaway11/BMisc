@@ -32,8 +32,11 @@ jobs:
             libpng-dev libjpeg-dev libtiff5-dev \
             gfortran libblas-dev liblapack-dev
 
+      # revdepcheck is not on CRAN; install it from GitHub
       - name: Install revdepcheck and remotes
-        run: install.packages(c("remotes", "revdepcheck"))
+        run: |
+          install.packages("remotes")
+          remotes::install_github("r-lib/revdepcheck")
         shell: Rscript {0}
 
       - name: Install package dependencies
