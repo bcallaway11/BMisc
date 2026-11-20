@@ -1,5 +1,16 @@
 # BMisc 1.4.11
 
+  * `multiplier_bootstrap()` is faster (#9, thanks to @kylebutts). It reads
+    the influence function once, in blocks of rows, instead of once per
+    bootstrap draw. With R's default (reference) BLAS it is about 1.3-1.5
+    times faster; with an optimized BLAS (Accelerate, OpenBLAS, MKL) each
+    block is a single matrix multiplication, which is several times faster
+    again. The new `method` argument chooses between the two ("auto", the
+    default, decides from the BLAS R uses). The Rademacher weights are now
+    drawn differently, so for a given seed the bootstrap draws, and hence
+    bootstrap standard errors and critical values in packages such as
+    `did`, differ slightly from earlier versions.
+
   * `combine_ecdfs()` now computes the mixture exactly when `y.seq` is
     omitted (its new default): the mixture of step functions is a step
     function with a jump at every support point of every component, which
