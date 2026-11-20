@@ -59,3 +59,49 @@ test_that("Rcpp functions return matrices of correct dimensions", {
   expect_equal(dim(mb), c(5L, k))
   expect_true(is.numeric(mb))
 })
+
+# multiplier_bootstrap: draws have the right first and second moments.
+# Each iteration draws a fresh Rademacher vector U and returns
+# dot(inf_func[, j], U) / n, so E[out[, j]] = 0 and
+# Var(out[, j]) = sum(inf_func[, j]^2) / n^2.
+test_that("multiplier_bootstrap draws have the correct moments", {
+  set.seed(20260908)
+  n <- 200
+  k <- 3
+  biters <- 20000L
+  # Correlated columns, so the cross-covariances are big enough to test.
+  Sigma <- matrix(c(
+    1.0, 0.5, 0.3,
+    0.5, 2.0, 0.2,
+    0.3, 0.2, 1.5
+  ), k, k)
+  inf_func <- matrix(rnorm(n * k), n, k) %*% chol(Sigma)
+
+  out <- multiplier_bootstrap(inf_func, biters)
+  expect_equal(dim(out), c(biters, k))
+
+  theoretical_vcov <- crossprod(inf_func) / n^2
+  se <- sqrt(diag(theoretical_vcov) / biters)
+  expect_true(all(abs(colMeans(out)) < 4 * se))
+
+  expect_equal(cov(out) / theoretical_vcov, matrix(1, k, k), tolerance = 0.05)
+})
+
+# The two accumulation methods draw the same weights, so for a given seed they
+# should only differ by floating point summation order.
+test_that("multiplier_bootstrap methods agree for the same seed", {
+  inf_func <- matrix(rnorm(5000 * 3), 5000, 3)  # 5000 rows spans two tiles
+  b <- 50L
+
+  set.seed(1234)
+  gemm <- multiplier_bootstrap(inf_func, b, method = "gemm")
+  set.seed(1234)
+  loop <- multiplier_bootstrap(inf_func, b, method = "loop")
+
+  expect_equal(gemm, loop, tolerance = 1e-10)
+
+  expect_error(
+    multiplier_bootstrap(inf_func, b, method = "nope"),
+    "should be one of"
+  )
+})

@@ -23,22 +23,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// multiplier_bootstrap
-arma::mat multiplier_bootstrap(arma::mat inf_func, int biters);
-RcppExport SEXP _BMisc_multiplier_bootstrap(SEXP inf_funcSEXP, SEXP bitersSEXP) {
+// multiplier_bootstrap_cpp
+arma::mat multiplier_bootstrap_cpp(arma::mat inf_func, int biters, bool use_gemm);
+RcppExport SEXP _BMisc_multiplier_bootstrap_cpp(SEXP inf_funcSEXP, SEXP bitersSEXP, SEXP use_gemmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type inf_func(inf_funcSEXP);
     Rcpp::traits::input_parameter< int >::type biters(bitersSEXP);
-    rcpp_result_gen = Rcpp::wrap(multiplier_bootstrap(inf_func, biters));
+    Rcpp::traits::input_parameter< bool >::type use_gemm(use_gemmSEXP);
+    rcpp_result_gen = Rcpp::wrap(multiplier_bootstrap_cpp(inf_func, biters, use_gemm));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_BMisc_element_wise_mult", (DL_FUNC) &_BMisc_element_wise_mult, 2},
-    {"_BMisc_multiplier_bootstrap", (DL_FUNC) &_BMisc_multiplier_bootstrap, 2},
+    {"_BMisc_multiplier_bootstrap_cpp", (DL_FUNC) &_BMisc_multiplier_bootstrap_cpp, 3},
     {NULL, NULL, 0}
 };
 

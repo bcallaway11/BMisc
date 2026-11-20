@@ -1,8 +1,8 @@
 #include <RcppArmadillo.h>
+#include <cstdint>
 using namespace Rcpp;
 
 // [[Rcpp::depends(RcppArmadillo)]]
-
 
 //' @title element_wise_mult
 //'
@@ -25,95 +25,100 @@ using namespace Rcpp;
 //'
 //' @return a Bxk matrix
 //' @export
- // [[Rcpp::export]]
+// [[Rcpp::export]]
 arma::mat element_wise_mult(arma::mat U, arma::mat inf_func) {
 
-  int n = U.n_rows;
-  int B = U.n_cols;
-  int K = inf_func.n_cols;
+  arma::uword n = U.n_rows;
+  arma::uword B = U.n_cols;
+  arma::uword K = inf_func.n_cols;
 
-  arma::mat innerMat(n,K);
+  arma::mat innerMat(n, K);
   arma::vec Ub(n);
   double innerSum;
-  arma::mat outMat(B,K);
+  arma::mat outMat(B, K);
 
-  for (int b=0; b < B; b++) {
+  for (arma::uword b = 0; b < B; b++) {
     Ub = U.col(b);
     innerMat = inf_func.each_col() % Ub;
-    for (int k=0; k < K; k++) {
+    for (arma::uword k = 0; k < K; k++) {
       innerSum = 0;
-      for (int i=0; i < n; i++) {
-	innerSum += innerMat(i,k);
+      for (arma::uword i = 0; i < n; i++) {
+        innerSum += innerMat(i, k);
       }
-      outMat(b,k) = innerSum/n;
+      outMat(b, k) = innerSum / n;
     }
   }
 
-  return(outMat);
-
+  return (outMat);
 }
 
-// In-place sample rademacher
-void fill_rademacher(arma::vec &v)
-{
-  size_t n = v.size();
+// In-place sample iid Rademacher weights.
+//
+// Each call to R::unif_rand() provides at most 32 random bits, and only 30 of
+// them under the Knuth-TAOCP generators, where the two lowest bits are always
+// zero. To be correct under every RNG kind (including user-supplied ones, whose
+// resolution is unknown), we take only the top 16 bits of each draw, which is
+// the largest power-of-two block we can trust, and use one bit per weight.
+// That costs two unif_rand() calls per 32 weights, still far fewer than the
+// one call per weight that drawing each weight separately would need.
+inline void fill_rademacher_mat(arma::mat &U) {
+  arma::uword n = U.n_elem;
+  double *p = U.memptr();
 
-  // Calculate the number of integers needed based on N
-  int num_integers = ceil(n / 31.0);
-
-  int k = 0;
-  int J = 30;
-  int curr;
-  for (int i = 0; i < num_integers - 1; ++i)
-  {
-    // 2^31 - 1 = 2147483647
-    curr = Rcpp::sample(2147483647, 1)[0];
-
-    for (int j = J; j >= 0; j--)
-    {
-      v[k] = ((curr >> j) & 1) * 2 - 1;
-      k = k + 1;
+  for (arma::uword i = 0; i < n; i += 16) {
+    uint32_t bits = static_cast<uint32_t>(R::unif_rand() * 65536.0);
+    arma::uword block = n - i < 16 ? n - i : 16;
+    for (arma::uword j = 0; j < block; ++j, ++p) {
+      *p = static_cast<double>((bits >> j) & 1u) * 2.0 - 1.0;
     }
   }
-
-  int j = J;
-  curr = Rcpp::sample(2147483647, 1)[0];
-  for (; k < static_cast<int>(n); ++k, --j)
-  {
-    v[k] = ((curr >> j) & 1) * 2 - 1;
-  }
 }
 
-//' @title multiplier_bootstrap
-//'
-//' @description A function that takes in an influence function (an
-//' nxk matrix) and the number of bootstrap iterations and
-//' returns a Bxk matrix of bootstrap results. This function
-//' uses Rademechar weights.
-//'
-//' @param inf_func nxk matrix of (e.g., these could be a matrix
-//'  containing the influence function for different parameter
-//'  estimates)
-//' @param biters the number of bootstrap iterations
-//'
-//' @return a Bxk matrix
-//' @export
+// The implementation behind multiplier_bootstrap(). `inf_func` is read from
+// memory once instead of once per bootstrap iteration: each tile of rows is
+// combined with all `biters` draws,
+//   out += U_tile' %*% inf_func_tile
+// and summing across tiles gives the result. The weights are drawn per tile,
+// identically for both accumulation methods, so `use_gemm` changes the speed
+// but not the draws.
 // [[Rcpp::export]]
-arma::mat multiplier_bootstrap(arma::mat inf_func, int biters)
-{
-  int n = inf_func.n_rows;
-  int K = inf_func.n_cols;
-  arma::vec Ub(n);
-  arma::mat outMat(biters, K);
+arma::mat multiplier_bootstrap_cpp(arma::mat inf_func, int biters,
+                                   bool use_gemm) {
+  arma::uword n = inf_func.n_rows;
+  arma::uword K = inf_func.n_cols;
+  arma::uword B = static_cast<arma::uword>(biters);
 
-  for (int b = 0; b < biters; ++b)
+  arma::mat outMat(B, K, arma::fill::zeros);
+
+  arma::uword tile_n = 4096;
   {
-    fill_rademacher(Ub);
-    for (int j = 0; j < K; ++j)
-    {
-      outMat.at(b, j) = arma::dot(inf_func.col(j), Ub);
+    // Bound the U tile to ~32MB even for very large `biters`.
+    arma::uword max_tile = (32u * 1024u * 1024u) / (8u * (B > 1 ? B : 1));
+    if (tile_n > max_tile) {
+      tile_n = max_tile > 0 ? max_tile : 1;
     }
   }
 
-  return (outMat / n);
+  for (arma::uword i0 = 0; i0 < n; i0 += tile_n) {
+    arma::uword rows = tile_n < n - i0 ? tile_n : n - i0;
+
+    arma::mat U(rows, B);
+    fill_rademacher_mat(U);
+
+    // A contiguous copy, so that the per-draw path gets plain dot products
+    // and the tiled path does not have to copy the subview itself.
+    arma::mat tile(inf_func.rows(i0, i0 + rows - 1));
+
+    if (use_gemm) {
+      outMat += U.t() * tile;
+    } else {
+      for (arma::uword b = 0; b < B; ++b) {
+        for (arma::uword k = 0; k < K; ++k) {
+          outMat(b, k) += arma::dot(tile.col(k), U.col(b));
+        }
+      }
+    }
+  }
+
+  return outMat / static_cast<double>(n);
 }
