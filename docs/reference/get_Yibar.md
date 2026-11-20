@@ -25,6 +25,11 @@ get_Yibar(df, idname, yname)
   name of column containing the outcome (or other variable) for which to
   calculate its outcome in the immediate pre-treatment period
 
+## Value
+
+a numeric vector with one element per row of `df`: the unit's average of
+`yname` over all of its periods
+
 ## Examples
 
 ``` r

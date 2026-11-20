@@ -240,3 +240,27 @@ test_that("check_staggered sorts by tname when it is supplied", {
   expect_true(check_staggered_inner(one, "treat", tname = "t"))
   expect_false(check_staggered_inner(one, "treat"))
 })
+
+# get_group() used the first treated row, not the earliest treated period,
+# so it was wrong when a unit's rows were not sorted by time
+test_that("panel getters do not depend on the order of the rows", {
+  dta <- make_staggered_panel()
+  set.seed(3)
+  shuffled <- dta[sample(nrow(dta)), ]
+  expect_equal(get_group(shuffled, "id", "t", "treat"), shuffled$group)
+  expect_equal(
+    vapply(split(shuffled, shuffled$id), get_group_inner, numeric(1),
+           tname = "t", treatname = "treat"),
+    vapply(split(dta, dta$id), function(d) d$group[1], numeric(1))
+  )
+  # each getter gives the same value for each row, whatever the row order
+  m <- match(rownames(shuffled), rownames(dta))
+  getters <- list(
+    function(d) get_Yi1(d, "id", "y", "t", "group"),
+    function(d) get_YiGmin1(d, "id", "y", "t", "group"),
+    function(d) get_Yibar_pre(d, "id", "y", "t", "group"),
+    function(d) get_lagYi(d, "id", "y", "t"),
+    function(d) get_first_difference(d, "id", "y", "t")
+  )
+  for (f in getters) expect_equal(f(shuffled), f(dta)[m])
+})

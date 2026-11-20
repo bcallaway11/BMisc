@@ -34,6 +34,12 @@ get_lagYi(df, idname, yname, tname, nlags = 1)
   The number of periods to lag. The default is 1, which computes the lag
   from the previous period.
 
+## Value
+
+a vector with one element per row of `df`: the value of `yname` `nlags`
+periods earlier for the same unit (ordered by `tname`), `NA` for each
+unit's first `nlags` periods
+
 ## Examples
 
 ``` r

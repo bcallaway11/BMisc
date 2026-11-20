@@ -16,6 +16,11 @@ for which to calculate its outcome in the immediate pre-treatment period}
 
 \item{tname}{name of column that holds the time period}
 }
+\value{
+a vector with one element per row of \code{df}: the change in \code{yname}
+from the unit's previous period (ordered by \code{tname}), \code{NA} for each
+unit's first period
+}
 \description{
 A function that calculates the first difference in a panel data
 setting.  If the data.frame that is passed in has nxT rows, the resulting

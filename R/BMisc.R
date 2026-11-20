@@ -1357,7 +1357,8 @@ get_group_inner <- function(this_df, tname, treatname) {
     return(0)
   }
 
-  as.numeric(this_df[this_df[, treatname] > 0, ][1, tname])
+  # the earliest treated period, whatever the row order
+  as.numeric(min(this_df[this_df[, treatname] > 0, tname]))
 }
 
 #' @title get_group
@@ -1377,6 +1378,9 @@ get_group_inner <- function(this_df, tname, treatname) {
 #' dta <- data.frame(id = id, t = t, treat = treat)
 #' dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
 #' head(unique(dta[, c("id", "group")]))
+#' @return a numeric vector with one element per row of `df`: the unit's
+#'  group, i.e. the first period in which it is treated, or 0 for units that
+#'  are never treated
 #' @export
 get_group <- function(df, idname, tname, treatname) {
   dt <- data.table::data.table(
@@ -1384,8 +1388,9 @@ get_group <- function(df, idname, tname, treatname) {
   )
   dt[, .nz := .tr != 0]
   units <- dt[, list(.n = .N, .nonzero = sum(.nz)), keyby = ".id"]
-  # a unit's group is the first period in which it is observed as treated
-  first_treated <- unique(dt[.tr > 0], by = ".id")
+  # a unit's group is the first period in which it is observed as treated;
+  # sort by time first, since rows need not be in time order within a unit
+  first_treated <- unique(dt[.tr > 0][order(.id, .t)], by = ".id")
   out <- as.numeric(first_treated$.t[match(units$.id, first_treated$.id)])
   # units that are untreated in every period belong to group 0
   out[units$.nonzero == 0] <- 0
@@ -1436,6 +1441,9 @@ get_YiGmin1_inner <- function(this_df, yname, tname, gname) {
 #' dta$YiGmin1 <- get_YiGmin1(dta, idname = "id", yname = "y",
 #'                             tname = "t", gname = "group")
 #' head(unique(dta[, c("id", "group", "YiGmin1")]))
+#' @return a vector with one element per row of `df`: the unit's value of
+#'  `yname` in period `group - 1` (in its last period if `group` is 0), or
+#'  `NA` if the unit is not observed in that period
 #' @export
 get_YiGmin1 <- function(df, idname, yname, tname, gname) {
   dt <- data.table::data.table(
@@ -1479,6 +1487,8 @@ get_Yi1_inner <- function(this_df, yname, tname, gname) {
 #' g <- rep(sample(c(0, 2, 3), n, replace = TRUE), each = 4)
 #' dta <- data.frame(id = id, t = t, y = y, group = g)
 #' dta$Yi1 <- get_Yi1(dta, idname = "id", yname = "y", tname = "t", gname = "group")
+#' @return a vector with one element per row of `df`: the unit's value of
+#'  `yname` in the first period in which it is observed
 #' @export
 get_Yi1 <- function(df, idname, yname, tname, gname) {
   dt <- data.table::data.table(.id = df[[idname]], .y = df[[yname]], .t = df[[tname]])
@@ -1560,6 +1570,8 @@ get_Yibar_inner <- function(this_df, yname) {
 #' y <- rnorm(n * 4)
 #' dta <- data.frame(id = id, t = t, y = y)
 #' dta$Yibar <- get_Yibar(dta, idname = "id", yname = "y")
+#' @return a numeric vector with one element per row of `df`: the unit's
+#'  average of `yname` over all of its periods
 #' @export
 get_Yibar <- function(df, idname, yname) {
   dt <- data.table::data.table(.id = df[[idname]], .y = df[[yname]])
@@ -1609,6 +1621,10 @@ get_Yibar_pre_inner <- function(this_df, yname, tname, gname) {
 #' dta <- data.frame(id = id, t = t, y = y, group = g)
 #' dta$Yibarpre <- get_Yibar_pre(dta, idname = "id", yname = "y",
 #'                                tname = "t", gname = "group")
+#' @return a numeric vector with one element per row of `df`: the unit's
+#'  average of `yname` over periods before its group (over all periods for
+#'  never-treated units, `NaN` for treated units with no pre-treatment
+#'  periods)
 #' @export
 get_Yibar_pre <- function(df, idname, yname, tname, gname) {
   dt <- data.table::data.table(
@@ -1644,6 +1660,9 @@ get_Yibar_pre <- function(df, idname, yname, tname, gname) {
 #' y <- rnorm(n * 4)
 #' dta <- data.frame(id = id, t = t, y = y)
 #' dta$lag_y <- get_lagYi(dta, idname = "id", yname = "y", tname = "t")
+#' @return a vector with one element per row of `df`: the value of `yname`
+#'  `nlags` periods earlier for the same unit (ordered by `tname`), `NA` for
+#'  each unit's first `nlags` periods
 #' @export
 get_lagYi <- function(df, idname, yname, tname, nlags = 1) {
   y <- df[[yname]]
@@ -1668,6 +1687,9 @@ get_lagYi <- function(df, idname, yname, tname, nlags = 1) {
 #' y <- rnorm(n * 4)
 #' dta <- data.frame(id = id, t = t, y = y)
 #' dy <- get_first_difference(dta, idname = "id", yname = "y", tname = "t")
+#' @return a vector with one element per row of `df`: the change in `yname`
+#'  from the unit's previous period (ordered by `tname`), `NA` for each
+#'  unit's first period
 #' @export
 get_first_difference <- function(df, idname, yname, tname) {
   df[[yname]] - get_lagYi(df, idname, yname, tname)

@@ -15,6 +15,11 @@ get_group(df, idname, tname, treatname)
 
 \item{treatname}{name of column with the treatment indicator}
 }
+\value{
+a numeric vector with one element per row of \code{df}: the unit's
+group, i.e. the first period in which it is treated, or 0 for units that
+are never treated
+}
 \description{
 A function to calculate a unit's group in a panel data setting
 with a binary treatment and staggered treatment adoption and where

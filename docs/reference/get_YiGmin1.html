@@ -81,6 +81,12 @@ for which to calculate its outcome in the immediate pre-treatment period</p></dd
 <dd><p>name of column containing the unit's group</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>a vector with one element per row of <code>df</code>: the unit's value of
+<code>yname</code> in period <code>group - 1</code> (in its last period if <code>group</code> is 0), or
+<code>NA</code> if the unit is not observed in that period</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

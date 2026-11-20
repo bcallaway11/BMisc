@@ -28,6 +28,12 @@ get_group(df, idname, tname, treatname)
 
   name of column with the treatment indicator
 
+## Value
+
+a numeric vector with one element per row of `df`: the unit's group,
+i.e. the first period in which it is treated, or 0 for units that are
+never treated
+
 ## Examples
 
 ``` r

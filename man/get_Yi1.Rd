@@ -18,6 +18,10 @@ for which to calculate its outcome in the immediate pre-treatment period}
 
 \item{gname}{name of column containing the unit's group}
 }
+\value{
+a vector with one element per row of \code{df}: the unit's value of
+\code{yname} in the first period in which it is observed
+}
 \description{
 A function to calculate outcomes for units in the first time
 period that is available in a panel data setting (this function can also

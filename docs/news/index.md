@@ -2,6 +2,25 @@
 
 ## BMisc 1.4.11
 
+- Bug fix:
+  [`get_group()`](https://bcallaway11.github.io/BMisc/reference/get_group.md)
+  returned the period of a unit’s first treated *row* rather than its
+  earliest treated *period*, so it gave the wrong group when a unit’s
+  rows were not sorted by time. It now sorts by time first. Data sorted
+  by unit and time were unaffected.
+
+- Documented the return values of
+  [`get_group()`](https://bcallaway11.github.io/BMisc/reference/get_group.md),
+  [`get_YiGmin1()`](https://bcallaway11.github.io/BMisc/reference/get_YiGmin1.md),
+  [`get_Yi1()`](https://bcallaway11.github.io/BMisc/reference/get_Yi1.md),
+  [`get_Yibar()`](https://bcallaway11.github.io/BMisc/reference/get_Yibar.md),
+  [`get_Yibar_pre()`](https://bcallaway11.github.io/BMisc/reference/get_Yibar_pre.md),
+  [`get_lagYi()`](https://bcallaway11.github.io/BMisc/reference/get_lagYi.md)
+  and
+  [`get_first_difference()`](https://bcallaway11.github.io/BMisc/reference/get_first_difference.md),
+  and turned on Markdown in the documentation, so code in the help pages
+  is no longer shown with literal backticks.
+
 - [`multiplier_bootstrap()`](https://bcallaway11.github.io/BMisc/reference/multiplier_bootstrap.md)
   is faster ([\#9](https://github.com/bcallaway11/BMisc/issues/9),
   thanks to [@kylebutts](https://github.com/kylebutts)). It reads the

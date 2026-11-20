@@ -81,6 +81,13 @@ for which to calculate its outcome in the immediate pre-treatment period</p></dd
 <dd><p>name of column containing the unit's group</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>a numeric vector with one element per row of <code>df</code>: the unit's
+average of <code>yname</code> over periods before its group (over all periods for
+never-treated units, <code>NaN</code> for treated units with no pre-treatment
+periods)</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

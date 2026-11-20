@@ -33,6 +33,11 @@ get_Yi1(df, idname, yname, tname, gname)
 
   name of column containing the unit's group
 
+## Value
+
+a vector with one element per row of `df`: the unit's value of `yname`
+in the first period in which it is observed
+
 ## Examples
 
 ``` r

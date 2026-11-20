@@ -29,6 +29,12 @@ get_first_difference(df, idname, yname, tname)
 
   name of column that holds the time period
 
+## Value
+
+a vector with one element per row of `df`: the change in `yname` from
+the unit's previous period (ordered by `tname`), `NA` for each unit's
+first period
+
 ## Examples
 
 ``` r

@@ -19,6 +19,11 @@ for which to calculate its outcome in the immediate pre-treatment period}
 \item{nlags}{The number of periods to lag.  The default is 1, which computes
 the lag from the previous period.}
 }
+\value{
+a vector with one element per row of \code{df}: the value of \code{yname}
+\code{nlags} periods earlier for the same unit (ordered by \code{tname}), \code{NA} for
+each unit's first \code{nlags} periods
+}
 \description{
 A function that calculates lagged outcomes in a panel data setting.
 If the data.frame that is passed in has nxT rows, the resulting vector will

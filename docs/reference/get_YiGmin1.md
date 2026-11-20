@@ -35,6 +35,12 @@ get_YiGmin1(df, idname, yname, tname, gname)
 
   name of column containing the unit's group
 
+## Value
+
+a vector with one element per row of `df`: the unit's value of `yname`
+in period `group - 1` (in its last period if `group` is 0), or `NA` if
+the unit is not observed in that period
+
 ## Examples
 
 ``` r

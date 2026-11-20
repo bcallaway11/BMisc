@@ -1,5 +1,15 @@
 # BMisc 1.4.11
 
+  * Bug fix: `get_group()` returned the period of a unit's first treated
+    *row* rather than its earliest treated *period*, so it gave the wrong
+    group when a unit's rows were not sorted by time. It now sorts by time
+    first. Data sorted by unit and time were unaffected.
+
+  * Documented the return values of `get_group()`, `get_YiGmin1()`,
+    `get_Yi1()`, `get_Yibar()`, `get_Yibar_pre()`, `get_lagYi()` and
+    `get_first_difference()`, and turned on Markdown in the documentation,
+    so code in the help pages is no longer shown with literal backticks.
+
   * `multiplier_bootstrap()` is faster (#9, thanks to @kylebutts). It reads
     the influence function once, in blocks of rows, instead of once per
     bootstrap draw. With R's default (reference) BLAS it is about 1.3-1.5

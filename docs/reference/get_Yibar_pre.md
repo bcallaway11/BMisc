@@ -35,6 +35,13 @@ get_Yibar_pre(df, idname, yname, tname, gname)
 
   name of column containing the unit's group
 
+## Value
+
+a numeric vector with one element per row of `df`: the unit's average of
+`yname` over periods before its group (over all periods for
+never-treated units, `NaN` for treated units with no pre-treatment
+periods)
+
 ## Examples
 
 ``` r

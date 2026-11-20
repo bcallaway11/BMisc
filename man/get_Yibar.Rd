@@ -14,6 +14,10 @@ get_Yibar(df, idname, yname)
 \item{yname}{name of column containing the outcome (or other variable)
 for which to calculate its outcome in the immediate pre-treatment period}
 }
+\value{
+a numeric vector with one element per row of \code{df}: the unit's
+average of \code{yname} over all of its periods
+}
 \description{
 A function to calculate the average outcome across all time
 periods separately for each unit in a panel data setting (this function can also
