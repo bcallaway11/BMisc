@@ -20,7 +20,7 @@ weighted_combine_list(l, w, normalize_weights = TRUE)
 - w:
 
   a vector of weights, the weights should have the same number of
-  elements as \`length(l)\`
+  elements as `length(l)`
 
 - normalize_weights:
 
@@ -29,7 +29,7 @@ weighted_combine_list(l, w, normalize_weights = TRUE)
 ## Value
 
 matrix or vector corresponding to the weighted average of all of the
-elements in \`l\`
+elements in `l`
 
 ## Examples
 

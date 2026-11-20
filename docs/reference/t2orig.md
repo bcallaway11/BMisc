@@ -21,7 +21,8 @@ t2orig(t, original_time.periods)
 
 ## Value
 
-original time period converted from new time period
+original time period converted from new time period; `NA` for values of
+`t` that do not correspond to a time period.
 
 ## Examples
 

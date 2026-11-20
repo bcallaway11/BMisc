@@ -54,6 +54,7 @@ corresponding CDF values.
 
 ```{r example1}
 library(BMisc)
+set.seed(1234)
 y <- rnorm(100)
 y <- y[order(y)]
 u <- runif(100)

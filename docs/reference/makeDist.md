@@ -1,6 +1,6 @@
 # makeDist
 
-Legacy name of \`make_dist\` function, please use that function instead.
+Legacy name of `make_dist` function, please use that function instead.
 This function will eventually be deleted.
 
 ## Usage

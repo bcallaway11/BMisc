@@ -1,6 +1,6 @@
 # compareBinary
 
-Legacy version of \`compare_binary\`, please use that function instead.
+Legacy version of `compare_binary`, please use that function instead.
 This function will eventually be deleted.
 
 ## Usage

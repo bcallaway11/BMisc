@@ -1,9 +1,9 @@
 # sort_panel
 
-Sorts a panel data set by unit id and then time period. \`data\` is
-copied before sorting, so the object passed in is left unmodified. For
-large panels where copying is undesirable, sort in place instead with
-\`data.table::setorderv(data, c(idname, tname))\`.
+Sorts a panel data set by unit id and then time period. `data` is copied
+before sorting, so the object passed in is left unmodified. For large
+panels where copying is undesirable, sort in place instead with
+`data.table::setorderv(data, c(idname, tname))`.
 
 ## Usage
 
@@ -27,8 +27,8 @@ sort_panel(data, idname, tname)
 
 ## Value
 
-\`data\` sorted by \`(idname, tname)\`, with the same class
-(\`data.frame\` or \`data.table\`) as \`data\`
+`data` sorted by `(idname, tname)`, with the same class (`data.frame` or
+`data.table`) as `data`
 
 ## Examples
 

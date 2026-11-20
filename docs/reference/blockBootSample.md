@@ -1,6 +1,6 @@
 # blockBootSample
 
-Legacy name for the function \`block_boot_sample\`, please use that
+Legacy name for the function `block_boot_sample`, please use that
 function going forward. This function will eventually be deleted
 
 ## Usage

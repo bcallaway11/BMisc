@@ -24,5 +24,5 @@ check_staggered_inner(this_df, treatname, tname = NULL)
 - tname:
 
   name of column that holds the time period. If supplied, the unit's
-  rows are sorted by it before checking. If \`NULL\` (the default), the
+  rows are sorted by it before checking. If `NULL` (the default), the
   rows are assumed to already be in time order.

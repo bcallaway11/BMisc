@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BMisc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="bmisc-development-version">BMisc (development version)<a class="anchor" aria-label="anchor" href="#bmisc-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.4.11" id="bmisc-1411">BMisc 1.4.11<a class="anchor" aria-label="anchor" href="#bmisc-1411"></a></h2>
+<ul><li><p><code><a href="../reference/multiplier_bootstrap.html">multiplier_bootstrap()</a></code> is faster (<a href="https://github.com/bcallaway11/BMisc/issues/9" class="external-link">#9</a>, thanks to <a href="https://github.com/kylebutts" class="external-link">@kylebutts</a>). It reads the influence function once, in blocks of rows, instead of once per bootstrap draw. With R’s default (reference) BLAS it is about 1.3-1.5 times faster; with an optimized BLAS (Accelerate, OpenBLAS, MKL) each block is a single matrix multiplication, which is several times faster again. The new <code>method</code> argument chooses between the two (“auto”, the default, decides from the BLAS R uses). The Rademacher weights are now drawn differently, so for a given seed the bootstrap draws, and hence bootstrap standard errors and critical values in packages such as <code>did</code>, differ slightly from earlier versions.</p></li>
+<li><p><code><a href="../reference/combine_ecdfs.html">combine_ecdfs()</a></code> now computes the mixture exactly when <code>y.seq</code> is omitted (its new default): the mixture of step functions is a step function with a jump at every support point of every component, which are stacked, sorted and summed, at the cost of one sort. Quantiles of the result are then exact; on a grid <code>y.seq</code> they were rounded to the grid. Supplying <code>y.seq</code> gives the previous behavior.</p></li>
+<li><p><code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile()</a></code> now gives correct results for distribution functions made by <code><a href="../reference/make_dist.html">make_dist()</a></code>, <code><a href="../reference/weighted_ecdf.html">weighted_ecdf()</a></code> and <code><a href="../reference/combine_ecdfs.html">combine_ecdfs()</a></code> (<a href="https://github.com/bcallaway11/BMisc/issues/10" class="external-link">#10</a>). These objects have a new class, <code>BMisc_dist</code> (they are still <code>ecdf</code> objects), with a <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile()</a></code> method that inverts the distribution function directly: the smallest point where it reaches the probability. Before, <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile()</a></code> used <code>stats:::quantile.ecdf()</code>, which is only exact for <code><a href="https://rdrr.io/r/stats/ecdf.html" class="external-link">stats::ecdf()</a></code>; with ties or unequal weights it could be badly wrong (a 0/1 variable with P(1) = 0.6 had median 0). <code>type</code> is ignored, with a warning unless it is 1.</p></li>
+<li><p><code><a href="../reference/invert_ecdf.html">invert_ecdf()</a></code> no longer returns the next-lower point between knots: it now returns the smallest point where the distribution function reaches the probability, matching <code>quantile(type = 1)</code>.</p></li>
+<li><p>Faster <code><a href="../reference/block_boot_sample.html">block_boot_sample()</a></code>, <code><a href="../reference/orig2t.html">orig2t()</a></code>, <code><a href="../reference/t2orig.html">t2orig()</a></code> and <code><a href="../reference/weighted_ecdf.html">weighted_ecdf()</a></code>, with the same results. On a 3,000-unit, 30-period panel, <code><a href="../reference/block_boot_sample.html">block_boot_sample()</a></code> takes 0.03 s instead of 10 s. <code><a href="../reference/weighted_ecdf.html">weighted_ecdf()</a></code> agrees with the previous version to floating-point precision.</p></li>
+<li><p><code><a href="../reference/orig2t.html">orig2t()</a></code> and <code><a href="../reference/t2orig.html">t2orig()</a></code> now return <code>NA</code> for values that are not time periods. Previously they returned a list.</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4.10" id="bmisc-1410">BMisc 1.4.10<a class="anchor" aria-label="anchor" href="#bmisc-1410"></a></h2><p class="text-muted">CRAN release: 2026-08-22</p>
 <ul><li>
 <p>Smaller footprint and improved performance.</p>
 <ul><li><p>Removed the <code>dplyr</code> and <code>tidyr</code> dependencies. The affected functions are now implemented with <code>data.table</code>, which was already a dependency, leading to a total reduction of ~20 packages (incl. strong recursive deps).</p></li>

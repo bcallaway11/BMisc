@@ -1,8 +1,7 @@
 # get_Yit_inner
 
-Calculates a units outcome in some particular period \`tp\`. This
-function operates on a data.frame that is already local to a particular
-unit.
+Calculates a units outcome in some particular period `tp`. This function
+operates on a data.frame that is already local to a particular unit.
 
 ## Usage
 

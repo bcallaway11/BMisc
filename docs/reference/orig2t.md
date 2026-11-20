@@ -23,7 +23,8 @@ orig2t(orig, original_time.periods)
 
 ## Value
 
-new time period converted from original time period
+new time period converted from original time period; `NA` for values of
+`orig` that are not among `original_time.periods` (or 0).
 
 ## Examples
 

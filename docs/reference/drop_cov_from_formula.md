@@ -29,9 +29,9 @@ formula
 ff <- y ~ x + w + z
 drop_cov_from_formula(list("w", "z"), ff)
 #> y ~ x
-#> <environment: 0x5657caff2688>
+#> <environment: 0x590a26b785d0>
 
 drop_cov_from_formula("z", ff)
 #> y ~ x + w
-#> <environment: 0x5657cb0325f0>
+#> <environment: 0x590a26b36f00>
 ```

@@ -1,6 +1,6 @@
 # getWeightedMean
 
-Legacy version of \`weighted_mean\`, please use that function instead.
+Legacy version of `weighted_mean`, please use that function instead.
 This function will eventually be deleted.
 
 ## Usage

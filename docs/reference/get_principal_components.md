@@ -44,9 +44,9 @@ get_principal_components(
 - ret_wide:
 
   whether to return the data in wide format (where the number of rows is
-  equal to n = length(unique(data\[\[idname\]\])) or long format (where
-  the number of rows is equal to nT = nrow(data)). The default is FALSE,
-  so that long data is returned by default.
+  equal to `n = length(unique(data[[idname]]))` or long format (where
+  the number of rows is equal to `nT = nrow(data)`). The default is
+  FALSE, so that long data is returned by default.
 
 - ret_id:
 

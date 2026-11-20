@@ -11,7 +11,7 @@
 [![CRAN
 version](https://www.r-pkg.org/badges/version/BMisc?color=blue.png)](https://cran.r-project.org/package=BMisc)
 [![Development
-version](https://img.shields.io/badge/devel%20version-1.4.10-blue.svg)](https://github.com/bcallaway11/BMisc)
+version](https://img.shields.io/badge/devel%20version-1.4.11-blue.svg)](https://github.com/bcallaway11/BMisc)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/BMisc.svg)](https://cran.r-project.org/web/checks/check_results_BMisc.html)
 [![Last
@@ -46,13 +46,14 @@ their corresponding CDF values.
 
 ``` r
 library(BMisc)
+set.seed(1234)
 y <- rnorm(100)
 y <- y[order(y)]
 u <- runif(100)
 u <- u[order(u)]
 F <- make_dist(y, u)
 class(F)
-#> [1] "ecdf"     "stepfun"  "function"
+#> [1] "BMisc_dist" "ecdf"       "stepfun"    "function"
 # plot(F)
 ```
 
@@ -93,10 +94,10 @@ dta$group <- get_group(dta, idname = "id", tname = "t", treatname = "treat")
 head(unique(dta[, c("id", "group")]))
 #>    id group
 #> 1   1     2
-#> 5   2     3
+#> 5   2     0
 #> 9   3     2
-#> 13  4     0
-#> 17  5     0
+#> 13  4     3
+#> 17  5     3
 #> 21  6     2
 check_staggered(dta, idname = "id", treatname = "treat")
 #> [1] TRUE
@@ -112,10 +113,10 @@ programmatically.
 ff <- y ~ x1 + x2 + x3
 rhs(ff)
 #> ~x1 + x2 + x3
-#> <environment: 0x651fca30df70>
+#> <environment: 0x562e8dc4a510>
 toformula("y", c("x1", "x2", "x3"))
 #> y ~ x1 + x2 + x3
-#> <environment: 0x651fca396268>
+#> <environment: 0x562e8dc962f0>
 ```
 
 ## Example 5: Working with lists

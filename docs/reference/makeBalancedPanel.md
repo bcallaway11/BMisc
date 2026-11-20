@@ -1,6 +1,6 @@
 # makeBalancedPanel
 
-Legacy version of \`make_balanced_panel\`, please use that function name
+Legacy version of `make_balanced_panel`, please use that function name
 going forward, though this will still work for now.
 
 ## Usage

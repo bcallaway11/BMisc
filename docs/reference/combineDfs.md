@@ -1,6 +1,6 @@
 # combineDfs
 
-Legacy version of \`combine_ecdfs\`, please use that function instead.
+Legacy version of `combine_ecdfs`, please use that function instead.
 This function will eventually be deleted.
 
 ## Usage
@@ -13,7 +13,8 @@ combineDfs(y.seq, dflist, pstrat = NULL, ...)
 
 - y.seq:
 
-  sequence of possible y values
+  `NULL` (the default) for the exact mixture, or a sequence of y values
+  at which to evaluate it
 
 - ...:
 

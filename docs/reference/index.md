@@ -54,9 +54,11 @@
 - [`make_dist()`](https://bcallaway11.github.io/BMisc/reference/make_dist.md)
   : Make a Distribution Function
 - [`combine_ecdfs()`](https://bcallaway11.github.io/BMisc/reference/combine_ecdfs.md)
-  : Combine Two Distribution Functions
+  : Combine Distribution Functions
 - [`invert_ecdf()`](https://bcallaway11.github.io/BMisc/reference/invert_ecdf.md)
   : Invert Ecdf
+- [`quantile(`*`<BMisc_dist>`*`)`](https://bcallaway11.github.io/BMisc/reference/quantile.BMisc_dist.md)
+  : Quantiles of a Distribution Function
 - [`checkfun()`](https://bcallaway11.github.io/BMisc/reference/checkfun.md)
   : Check Function
 - [`weighted_checkfun()`](https://bcallaway11.github.io/BMisc/reference/weighted_checkfun.md)

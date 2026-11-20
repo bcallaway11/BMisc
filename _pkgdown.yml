@@ -36,6 +36,7 @@ reference:
       - make_dist
       - combine_ecdfs
       - invert_ecdf
+      - quantile.BMisc_dist
       - checkfun
       - weighted_checkfun
       - weighted_quantile

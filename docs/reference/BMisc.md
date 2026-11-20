@@ -21,3 +21,5 @@ Authors:
 Other contributors:
 
 - Grant McDermott <contact@grantmcdermott.com> \[contributor\]
+
+- Kyle Butts <buttskyle96@gmail.com> \[contributor\]

@@ -2,9 +2,9 @@
 
 In-place version of
 [`make_balanced_panel`](https://bcallaway11.github.io/BMisc/reference/make_balanced_panel.md)
-for large panels where copying \`data\` is undesirable. Converts
-\`data\` to a data.table by reference (mutating the caller's object into
-a data.table as a side effect, if it is not one already) instead of
+for large panels where copying `data` is undesirable. Converts `data` to
+a data.table by reference (mutating the caller's object into a
+data.table as a side effect, if it is not one already) instead of
 copying it. The balanced result must still be captured from the return
 value, the same as any other function in this package (filtering out
 unbalanced units cannot itself happen without allocating the smaller,

@@ -1,7 +1,7 @@
 # Balance a Panel Data Set
 
 This function drops observations from data.frame that are not part of
-balanced panel data set. \`data\` is copied before dropping any rows, so
+balanced panel data set. `data` is copied before dropping any rows, so
 the object passed in is left unmodified; see
 [`set_balanced_panel`](https://bcallaway11.github.io/BMisc/reference/set_balanced_panel.md)
 for an in-place alternative that avoids copying large inputs.
@@ -28,8 +28,8 @@ make_balanced_panel(data, idname, tname)
 
 ## Value
 
-a balanced panel, with the same class (\`data.frame\` or \`data.table\`)
-as \`data\`
+a balanced panel, with the same class (`data.frame` or `data.table`) as
+`data`
 
 ## Examples
 

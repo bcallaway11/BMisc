@@ -1,7 +1,7 @@
 # getWeightedQuantiles
 
-Legacy version of \`weighted_quantile\`, please use that function
-instead. This function will eventually be deleted.
+Legacy version of `weighted_quantile`, please use that function instead.
+This function will eventually be deleted.
 
 ## Usage
 

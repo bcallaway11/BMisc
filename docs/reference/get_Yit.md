@@ -1,8 +1,8 @@
 # get_Yit
 
 A function to calculate outcomes for units in a particular time period
-\`tp\` in a panel data setting (this function can also be used to
-recover covariates, etc. in the first period).
+`tp` in a panel data setting (this function can also be used to recover
+covariates, etc. in the first period).
 
 ## Usage
 
@@ -37,7 +37,7 @@ get_Yit(df, tp, idname, yname, tname)
 
 a vector of outcomes in period t, the vector will have the length nT
 (i.e., this is returned for each element in the panel, not for a
-particular period); \`NA\` for units not observed in period \`tp\`
+particular period); `NA` for units not observed in period `tp`
 
 ## Examples
 

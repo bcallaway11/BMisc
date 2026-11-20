@@ -1,6 +1,71 @@
 # Changelog
 
-## BMisc (development version)
+## BMisc 1.4.11
+
+- [`multiplier_bootstrap()`](https://bcallaway11.github.io/BMisc/reference/multiplier_bootstrap.md)
+  is faster ([\#9](https://github.com/bcallaway11/BMisc/issues/9),
+  thanks to [@kylebutts](https://github.com/kylebutts)). It reads the
+  influence function once, in blocks of rows, instead of once per
+  bootstrap draw. With R’s default (reference) BLAS it is about 1.3-1.5
+  times faster; with an optimized BLAS (Accelerate, OpenBLAS, MKL) each
+  block is a single matrix multiplication, which is several times faster
+  again. The new `method` argument chooses between the two (“auto”, the
+  default, decides from the BLAS R uses). The Rademacher weights are now
+  drawn differently, so for a given seed the bootstrap draws, and hence
+  bootstrap standard errors and critical values in packages such as
+  `did`, differ slightly from earlier versions.
+
+- [`combine_ecdfs()`](https://bcallaway11.github.io/BMisc/reference/combine_ecdfs.md)
+  now computes the mixture exactly when `y.seq` is omitted (its new
+  default): the mixture of step functions is a step function with a jump
+  at every support point of every component, which are stacked, sorted
+  and summed, at the cost of one sort. Quantiles of the result are then
+  exact; on a grid `y.seq` they were rounded to the grid. Supplying
+  `y.seq` gives the previous behavior.
+
+- [`quantile()`](https://rdrr.io/r/stats/quantile.html) now gives
+  correct results for distribution functions made by
+  [`make_dist()`](https://bcallaway11.github.io/BMisc/reference/make_dist.md),
+  [`weighted_ecdf()`](https://bcallaway11.github.io/BMisc/reference/weighted_ecdf.md)
+  and
+  [`combine_ecdfs()`](https://bcallaway11.github.io/BMisc/reference/combine_ecdfs.md)
+  ([\#10](https://github.com/bcallaway11/BMisc/issues/10)). These
+  objects have a new class, `BMisc_dist` (they are still `ecdf`
+  objects), with a [`quantile()`](https://rdrr.io/r/stats/quantile.html)
+  method that inverts the distribution function directly: the smallest
+  point where it reaches the probability. Before,
+  [`quantile()`](https://rdrr.io/r/stats/quantile.html) used
+  `stats:::quantile.ecdf()`, which is only exact for
+  [`stats::ecdf()`](https://rdrr.io/r/stats/ecdf.html); with ties or
+  unequal weights it could be badly wrong (a 0/1 variable with P(1) =
+  0.6 had median 0). `type` is ignored, with a warning unless it is 1.
+
+- [`invert_ecdf()`](https://bcallaway11.github.io/BMisc/reference/invert_ecdf.md)
+  no longer returns the next-lower point between knots: it now returns
+  the smallest point where the distribution function reaches the
+  probability, matching `quantile(type = 1)`.
+
+- Faster
+  [`block_boot_sample()`](https://bcallaway11.github.io/BMisc/reference/block_boot_sample.md),
+  [`orig2t()`](https://bcallaway11.github.io/BMisc/reference/orig2t.md),
+  [`t2orig()`](https://bcallaway11.github.io/BMisc/reference/t2orig.md)
+  and
+  [`weighted_ecdf()`](https://bcallaway11.github.io/BMisc/reference/weighted_ecdf.md),
+  with the same results. On a 3,000-unit, 30-period panel,
+  [`block_boot_sample()`](https://bcallaway11.github.io/BMisc/reference/block_boot_sample.md)
+  takes 0.03 s instead of 10 s.
+  [`weighted_ecdf()`](https://bcallaway11.github.io/BMisc/reference/weighted_ecdf.md)
+  agrees with the previous version to floating-point precision.
+
+- [`orig2t()`](https://bcallaway11.github.io/BMisc/reference/orig2t.md)
+  and
+  [`t2orig()`](https://bcallaway11.github.io/BMisc/reference/t2orig.md)
+  now return `NA` for values that are not time periods. Previously they
+  returned a list.
+
+## BMisc 1.4.10
+
+CRAN release: 2026-08-22
 
 - Smaller footprint and improved performance.
 
