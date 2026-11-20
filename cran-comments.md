@@ -25,13 +25,13 @@ This is a minor release (1.4.11). Main changes:
 ## Test environments
 
 - Local Ubuntu 26.04.1 LTS, R 4.5.2
-- GitHub Actions
-    <!-- TODO (release step 10): fill in after the R-CMD-check workflow run -->
-    - Windows-latest (R release)
-    - Windows-latest (R devel)
-    - macOS-latest (R release)
-    - Ubuntu-latest (R release)
-    - Ubuntu-latest (R devel)
+- GitHub Actions (`R CMD check --no-manual`), all Status: OK (0 errors,
+  0 warnings, 0 notes):
+    - Windows-latest, R 4.6.2 (release)
+    - Windows-latest, R-devel (2026-11-17 r90926)
+    - macOS-latest, R 4.6.2 (release)
+    - Ubuntu-latest, R 4.6.2 (release)
+    - Ubuntu-latest, R-devel (2026-11-19 r90939)
 
 ## R CMD check results
 
