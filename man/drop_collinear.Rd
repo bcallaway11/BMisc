@@ -14,7 +14,7 @@ a matrix with collinear columns removed
 }
 \description{
 A function to check for multicollinearity and drop collinear terms
- from a matrix
+from a matrix
 }
 \examples{
 \donttest{

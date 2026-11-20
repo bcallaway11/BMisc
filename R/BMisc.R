@@ -4,7 +4,7 @@
 #   distribution helpers (weighted ECDFs, quantiles, combining ECDFs), time
 #   recoding (orig2t/t2orig), and formula utilities.
 # Author: Brant Callaway
-# Last update: 2026-11-19
+# Last update: 2026-11-20
 # Date created: 2017-02-07
 # =============================================================================
 
@@ -1936,8 +1936,8 @@ drop_collinear <- function(matrix) {
 #' @param n_components the number of principal components to retain, the default is NULL which
 #'  will result in all principal components being retained
 #' @param ret_wide whether to return the data in wide format (where the number of rows
-#'  is equal to n = length(unique(data[[idname]])) or long format (where the number
-#'  of rows is equal to nT = nrow(data)).  The default is FALSE, so that long data
+#'  is equal to `n = length(unique(data[[idname]]))` or long format (where the number
+#'  of rows is equal to `nT = nrow(data)`).  The default is FALSE, so that long data
 #'  is returned by default.
 #' @param ret_id whether to return the id column in the output data.frame.  The default is FALSE.
 #' @examples

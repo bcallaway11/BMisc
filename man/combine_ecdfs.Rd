@@ -7,7 +7,7 @@
 combine_ecdfs(y.seq = NULL, ecdflist, weights = NULL, ...)
 }
 \arguments{
-\item{y.seq}{`NULL` (the default) for the exact mixture, or a sequence of
+\item{y.seq}{\code{NULL} (the default) for the exact mixture, or a sequence of
 y values at which to evaluate it}
 
 \item{ecdflist}{list of ecdf objects (distribution functions) to combine}
@@ -20,24 +20,24 @@ given to each distribution function. Distribution functions with weight
 \item{...}{additional arguments that can be past to BMisc::make_dist}
 }
 \value{
-ecdf (a `BMisc_dist` object, see [make_dist()])
+ecdf (a \code{BMisc_dist} object, see \code{\link[=make_dist]{make_dist()}})
 }
 \description{
 Combines distribution functions into their mixture
- \eqn{F(y) = \sum_c w_c F_c(y)}, with weights given by `weights`.
+\eqn{F(y) = \sum_c w_c F_c(y)}, with weights given by \code{weights}.
 
- By default (`y.seq = NULL`) the mixture is exact: when every
- distribution function is a step function (as from [stats::ecdf()],
- [weighted_ecdf()] or [make_dist()]), so is the mixture, with a jump at
- each support point \eqn{y_{cj}} of each \eqn{F_c} equal to
- \eqn{w_c} times the jump of \eqn{F_c} there. These are stacked and
- sorted, and their cumulative sums give the mixture at every support
- point. `quantile()` of the result is then exact as well.
+By default (\code{y.seq = NULL}) the mixture is exact: when every
+distribution function is a step function (as from \code{\link[stats:ecdf]{stats::ecdf()}},
+\code{\link[=weighted_ecdf]{weighted_ecdf()}} or \code{\link[=make_dist]{make_dist()}}), so is the mixture, with a jump at
+each support point \eqn{y_{cj}} of each \eqn{F_c} equal to
+\eqn{w_c} times the jump of \eqn{F_c} there. These are stacked and
+sorted, and their cumulative sums give the mixture at every support
+point. \code{quantile()} of the result is then exact as well.
 
- With `y.seq`, the mixture is instead evaluated only at the points
- `y.seq` (as in BMisc 1.4.10 and earlier), and its quantiles are rounded
- to those points; this also works for distribution functions that are
- not step functions.
+With \code{y.seq}, the mixture is instead evaluated only at the points
+\code{y.seq} (as in BMisc 1.4.10 and earlier), and its quantiles are rounded
+to those points; this also works for distribution functions that are
+not step functions.
 }
 \examples{
 x <- rnorm(100)

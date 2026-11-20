@@ -33,8 +33,8 @@ distribution function.  Default is "constant"; other possible choice is
 cdf; "linear" linearly interpolates between neighboring points.}
 }
 \description{
-Legacy name of `make_dist` function, please
- use that function instead.  This function will eventually
- be deleted.
+Legacy name of \code{make_dist} function, please
+use that function instead.  This function will eventually
+be deleted.
 }
 \keyword{internal}

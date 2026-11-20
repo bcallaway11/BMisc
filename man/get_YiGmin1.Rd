@@ -20,11 +20,11 @@ for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{
 A function to calculate outcomes for units in the period
- right before they become treated (this function can also be used to recover
- covariates, etc. in the period right before a unit becomes treated).
- For units that do not
- participate in the treatment (and therefore have group==0), they are
- assigned their outcome in the last period.
+right before they become treated (this function can also be used to recover
+covariates, etc. in the period right before a unit becomes treated).
+For units that do not
+participate in the treatment (and therefore have group==0), they are
+assigned their outcome in the last period.
 }
 \examples{
 n <- 50

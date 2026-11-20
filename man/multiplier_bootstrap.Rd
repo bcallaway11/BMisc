@@ -13,9 +13,9 @@ estimates)}
 
 \item{biters}{the number of bootstrap iterations}
 
-\item{method}{one of `"auto"` (the default), `"gemm"` to always use the
-tiled matrix multiplication, or `"loop"` to always accumulate one draw
-at a time.}
+\item{method}{one of \code{"auto"} (the default), \code{"gemm"} to always
+use the blocked matrix multiplication, or \code{"loop"} to always
+accumulate one draw at a time.}
 }
 \value{
 a Bxk matrix
@@ -24,13 +24,15 @@ a Bxk matrix
 A function that takes in an influence function (an
 nxk matrix) and the number of bootstrap iterations and
 returns a Bxk matrix of bootstrap results. This function
-uses Rademechar weights.
+uses Rademacher weights.
 }
 \details{
-The influence function is read once and combined with all
-`biters` draws at a time. That is only faster when R uses an optimized
-BLAS (Accelerate, OpenBLAS, MKL, BLIS); the reference BLAS is scalar, and
-there the draws are accumulated one at a time instead. `method = "auto"`
-picks between the two from `extSoftVersion()[["BLAS"]]`; both give the
-same draws, so the choice only affects speed.
+The influence function is read once, in blocks of rows, and each
+block is combined with all \code{biters} draws at once. With an optimized
+BLAS (Accelerate, OpenBLAS, MKL, BLIS) that is a single matrix
+multiplication per block, which is much faster. With R's reference BLAS
+it is not, and the draws are accumulated one at a time within each block
+instead. \code{method = "auto"} picks between the two from
+\code{extSoftVersion()[["BLAS"]]}. Both give the same draws for a given
+seed (up to floating-point rounding), so the choice only affects speed.
 }

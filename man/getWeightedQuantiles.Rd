@@ -18,7 +18,7 @@ to sum to 1.}
 to normalize}
 }
 \description{
-Legacy version of `weighted_quantile`, please use that
- function instead.  This function will eventually be deleted.
+Legacy version of \code{weighted_quantile}, please use that
+function instead.  This function will eventually be deleted.
 }
 \keyword{internal}

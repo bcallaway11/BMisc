@@ -18,8 +18,8 @@ the change in outcomes over time
 }
 \description{
 Turn repeated cross sections data into panel data by
- imposing rank invariance; does not require
- that the inputs have the same length
+imposing rank invariance; does not require
+that the inputs have the same length
 }
 \examples{
 cs1 <- data.frame(y = rnorm(100))

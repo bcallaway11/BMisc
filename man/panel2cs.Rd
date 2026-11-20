@@ -20,12 +20,12 @@ data.frame
 }
 \description{
 panel2cs takes a 2 period dataset and turns it
- into a cross sectional dataset.  The data includes the
- change in time varying variables between the
- time periods.  The default functionality
- is to keep all the variables from period 1
- and add all the variables listed by name in timevars
- from period 2 to those.
+into a cross sectional dataset.  The data includes the
+change in time varying variables between the
+time periods.  The default functionality
+is to keep all the variables from period 1
+and add all the variables listed by name in timevars
+from period 2 to those.
 }
 \examples{
 id <- rep(seq(1, 50), 2)

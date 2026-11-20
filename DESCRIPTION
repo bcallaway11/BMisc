@@ -24,4 +24,5 @@ LinkingTo:
     RcppArmadillo
 URL: https://bcallaway11.github.io/BMisc/
 BugReports: https://github.com/bcallaway11/BMisc/issues
+Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.1.1

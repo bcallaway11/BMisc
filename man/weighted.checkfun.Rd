@@ -17,7 +17,7 @@ weighted.checkfun(q, cvec, tau, weights)
 to sum to 1.}
 }
 \description{
-Legacy version of `weighted_checkfun`, please use that
- function instead.  This function will eventually be deleted.
+Legacy version of \code{weighted_checkfun}, please use that
+function instead.  This function will eventually be deleted.
 }
 \keyword{internal}

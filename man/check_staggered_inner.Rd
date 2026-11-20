@@ -13,12 +13,12 @@ a particular unit}
 \item{treatname}{name of column with the treatment indicator}
 
 \item{tname}{name of column that holds the time period.  If supplied, the
-unit's rows are sorted by it before checking.  If `NULL` (the default),
+unit's rows are sorted by it before checking.  If \code{NULL} (the default),
 the rows are assumed to already be in time order.}
 }
 \description{
 A helper function to check whether treatment is absorbing for
- a single unit; that is, whether the unit never reverts from treated back
- to untreated.
+a single unit; that is, whether the unit never reverts from treated back
+to untreated.
 }
 \keyword{internal}

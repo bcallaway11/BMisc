@@ -14,8 +14,8 @@ makeBalancedPanel(data, idname, tname)
 \item{tname}{time period name}
 }
 \description{
-Legacy version of `make_balanced_panel`,
- please use that function name going forward, though this will
- still work for now.
+Legacy version of \code{make_balanced_panel},
+please use that function name going forward, though this will
+still work for now.
 }
 \keyword{internal}

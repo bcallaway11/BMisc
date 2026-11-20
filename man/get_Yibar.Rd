@@ -17,7 +17,7 @@ for which to calculate its outcome in the immediate pre-treatment period}
 \description{
 A function to calculate the average outcome across all time
 periods separately for each unit in a panel data setting (this function can also
- be used to recover covariates, etc.).
+be used to recover covariates, etc.).
 }
 \examples{
 n <- 50

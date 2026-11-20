@@ -20,14 +20,14 @@ for which to calculate its outcome in the immediate pre-treatment period}
 }
 \value{
 a vector of outcomes in period t, the vector
- will have the length nT (i.e., this is returned for
- each element in the panel, not for a particular period);
- `NA` for units not observed in period `tp`
+will have the length nT (i.e., this is returned for
+each element in the panel, not for a particular period);
+\code{NA} for units not observed in period \code{tp}
 }
 \description{
 A function to calculate outcomes for units in a particular
- time period `tp` in a panel data setting (this function can also
- be used to recover covariates, etc. in the first period).
+time period \code{tp} in a panel data setting (this function can also
+be used to recover covariates, etc. in the first period).
 }
 \examples{
 n <- 50

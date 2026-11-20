@@ -19,7 +19,7 @@ for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{
 Calculates a units outcome in the first time period.
- This function operates on a data.frame that is already local to a particular
- unit.
+This function operates on a data.frame that is already local to a particular
+unit.
 }
 \keyword{internal}

@@ -21,16 +21,16 @@ numeric vector of quantiles.
 }
 \description{
 Quantiles of a distribution function created by
-  \code{\link{make_dist}} (and so by \code{\link{weighted_ecdf}} and
-  \code{\link{combine_ecdfs}}), computed by inverting it directly: for a
-  step function, the smallest support point \eqn{y} with
-  \eqn{F(y) \ge p} (the generalized inverse, \code{type = 1} in
-  \code{\link[stats]{quantile}}); for \code{method = "linear"}, the
-  inverse of the piecewise-linear \eqn{F}.
+\code{\link{make_dist}} (and so by \code{\link{weighted_ecdf}} and
+\code{\link{combine_ecdfs}}), computed by inverting it directly: for a
+step function, the smallest support point \eqn{y} with
+\eqn{F(y) \ge p} (the generalized inverse, \code{type = 1} in
+\code{\link[stats]{quantile}}); for \code{method = "linear"}, the
+inverse of the piecewise-linear \eqn{F}.
 
-  Sample-quantile types other than 1 interpolate between order statistics
-  of a sample, which a weighted distribution function doesn't have, so
-  \code{type} is ignored (with a warning if it isn't 1).
+Sample-quantile types other than 1 interpolate between order statistics
+of a sample, which a weighted distribution function doesn't have, so
+\code{type} is ignored (with a warning if it isn't 1).
 }
 \examples{
 F <- weighted_ecdf(c(0, 1), weights = c(0.4, 0.6))

@@ -13,14 +13,14 @@ orig2t(orig, original_time.periods)
 }
 \value{
 new time period converted from original time period; \code{NA}
- for values of \code{orig} that are not among \code{original_time.periods}
- (or 0).
+for values of \code{orig} that are not among \code{original_time.periods}
+(or 0).
 }
 \description{
 A helper function to switch from original time periods to
- "new" time periods (which are just time periods going from 1 to total
- number of available periods).  This allows for periods not being
- exactly spaced apart by 1.
+"new" time periods (which are just time periods going from 1 to total
+number of available periods).  This allows for periods not being
+exactly spaced apart by 1.
 }
 \examples{
 original_time.periods <- c(2001, 2003, 2005, 2007)

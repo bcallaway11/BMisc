@@ -37,7 +37,7 @@ ecdf
 }
 \description{
 turn vectors of a values and their distribution function values
- into an ecdf.  Vectors should be the same length and both increasing.
+into an ecdf.  Vectors should be the same length and both increasing.
 }
 \examples{
 y <- rnorm(100)

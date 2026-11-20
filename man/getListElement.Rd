@@ -12,7 +12,7 @@ getListElement(listolists, whichone = 1)
 \item{whichone}{which item to get out of each list (can be numeric or name)}
 }
 \description{
-Legacy version of `get_list_element`, please use that function
- instead.  This function will eventually be deleted.
+Legacy version of \code{get_list_element}, please use that function
+instead.  This function will eventually be deleted.
 }
 \keyword{internal}

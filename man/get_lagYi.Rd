@@ -21,8 +21,8 @@ the lag from the previous period.}
 }
 \description{
 A function that calculates lagged outcomes in a panel data setting.
- If the data.frame that is passed in has nxT rows, the resulting vector will
- also have nxT elements with one element for each unit set to be NA
+If the data.frame that is passed in has nxT rows, the resulting vector will
+also have nxT elements with one element for each unit set to be NA
 }
 \examples{
 n <- 50

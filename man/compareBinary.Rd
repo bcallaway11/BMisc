@@ -25,7 +25,7 @@ compareBinary(
 the two variables by group}
 }
 \description{
-Legacy version of `compare_binary`, please use that
- function instead.  This function will eventually be deleted.
+Legacy version of \code{compare_binary}, please use that
+function instead.  This function will eventually be deleted.
 }
 \keyword{internal}

@@ -20,8 +20,8 @@ for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{
 A function to calculate outcomes for units in the first time
- period that is available in a panel data setting (this function can also
- be used to recover covariates, etc. in the first period).
+period that is available in a panel data setting (this function can also
+be used to recover covariates, etc. in the first period).
 }
 \examples{
 n <- 50

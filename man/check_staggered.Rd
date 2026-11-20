@@ -14,7 +14,7 @@ check_staggered(df, idname, treatname, tname = NULL)
 \item{treatname}{name of column with the treatment indicator}
 
 \item{tname}{name of column that holds the time period.  If supplied, each
-unit's rows are sorted by it before checking.  If `NULL` (the default),
+unit's rows are sorted by it before checking.  If \code{NULL} (the default),
 the rows are assumed to already be in time order.}
 }
 \value{
@@ -22,8 +22,8 @@ a logical indicating whether treatment is staggered
 }
 \description{
 A function to check whether treatment is staggered in a panel
- data set; that is, whether treatment is absorbing, so that no unit ever
- reverts from treated back to untreated.
+data set; that is, whether treatment is absorbing, so that no unit ever
+reverts from treated back to untreated.
 }
 \examples{
 n <- 50

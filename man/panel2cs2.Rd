@@ -20,16 +20,16 @@ faster if this is set to be FALSE.}
 }
 \value{
 data from first period with .y0 (outcome in first period),
- .y1 (outcome in second period), and .dy (change in outcomes
- over time) appended to it
+.y1 (outcome in second period), and .dy (change in outcomes
+over time) appended to it
 }
 \description{
 panel2cs2 takes a 2 period dataset and turns it
- into a cross sectional dataset; i.e., long to wide.
- This function considers a particular case where there is some outcome
- whose value can change over time.  It returns the dataset from the first
- period with the outcome in the second period and the change in outcomes
- over time appended to it
+into a cross sectional dataset; i.e., long to wide.
+This function considers a particular case where there is some outcome
+whose value can change over time.  It returns the dataset from the first
+period with the outcome in the second period and the change in outcomes
+over time appended to it
 }
 \examples{
 id <- rep(seq(1, 50), 2)

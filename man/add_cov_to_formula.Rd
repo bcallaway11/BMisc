@@ -16,7 +16,7 @@ formula
 }
 \description{
 \code{add_cov_to_formula} adds some covariates to a formula;
-  covs should be a list of variable names
+covs should be a list of variable names
 }
 \examples{
 ff <- y ~ x

@@ -22,7 +22,7 @@ a vector of length equal to the number of rows in df.
 }
 \description{
 This function takes a time-invariant variable and repeats it
- for each period in a panel data set.
+for each period in a panel data set.
 }
 \examples{
 n <- 50

@@ -13,11 +13,11 @@ block_boot_sample(data, idname)
 }
 \value{
 data.frame bootstrapped from the original dataset; this data.frame
- will contain new ids
+will contain new ids
 }
 \description{
 make draws of all observations with the same id in a panel
- data context.  This is useful for bootstrapping with panel data.
+data context.  This is useful for bootstrapping with panel data.
 }
 \examples{
 \dontshow{

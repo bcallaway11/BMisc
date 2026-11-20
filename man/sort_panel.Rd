@@ -14,15 +14,15 @@ sort_panel(data, idname, tname)
 \item{tname}{time period name}
 }
 \value{
-`data` sorted by `(idname, tname)`, with the same class
- (`data.frame` or `data.table`) as `data`
+\code{data} sorted by \verb{(idname, tname)}, with the same class
+(\code{data.frame} or \code{data.table}) as \code{data}
 }
 \description{
 Sorts a panel data set by unit id and then time period.
- `data` is copied before sorting, so the object passed in is left
- unmodified. For large panels where copying is undesirable, sort in
- place instead with
- `data.table::setorderv(data, c(idname, tname))`.
+\code{data} is copied before sorting, so the object passed in is left
+unmodified. For large panels where copying is undesirable, sort in
+place instead with
+\code{data.table::setorderv(data, c(idname, tname))}.
 }
 \examples{
 id <- rep(sample(1:5), each = 2) # units in a shuffled, unsorted order

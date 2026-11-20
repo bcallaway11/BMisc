@@ -25,7 +25,7 @@ element-wise multiplication of every column
 in the first matrix times the entire second matrix and the
 averaging over the n-dimension.  It is equivalent (but faster
 than) the following R code:
-`sapply(1:biters, function(b) sqrt(n)*colMeans(Umat[,b]*inf.func))`
+\code{sapply(1:biters, function(b) sqrt(n)*colMeans(Umat[,b]*inf.func))}
 .  This function is particularly useful for fast computations
 using the multiplier bootstrap.
 }

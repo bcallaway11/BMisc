@@ -10,7 +10,7 @@ invertEcdf(df)
 \item{df}{an ecdf object}
 }
 \description{
-Legacy function for `invert_ecdf`, please use that
- function instead.  This function will eventually be deleted.
+Legacy function for \code{invert_ecdf}, please use that
+function instead.  This function will eventually be deleted.
 }
 \keyword{internal}

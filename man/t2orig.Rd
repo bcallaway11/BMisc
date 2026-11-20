@@ -14,7 +14,7 @@ periods.}
 }
 \value{
 original time period converted from new time period; \code{NA}
- for values of \code{t} that do not correspond to a time period.
+for values of \code{t} that do not correspond to a time period.
 }
 \description{
 A helper function to switch from "new" t values to

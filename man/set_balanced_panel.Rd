@@ -18,13 +18,13 @@ a balanced data.table
 }
 \description{
 In-place version of \code{\link{make_balanced_panel}}
- for large panels where copying `data` is undesirable. Converts
- `data` to a data.table by reference (mutating the caller's object
- into a data.table as a side effect, if it is not one already)
- instead of copying it. The balanced result must still be captured
- from the return value, the same as any other function in this
- package (filtering out unbalanced units cannot itself happen
- without allocating the smaller, filtered result somewhere).
+for large panels where copying \code{data} is undesirable. Converts
+\code{data} to a data.table by reference (mutating the caller's object
+into a data.table as a side effect, if it is not one already)
+instead of copying it. The balanced result must still be captured
+from the return value, the same as any other function in this
+package (filtering out unbalanced units cannot itself happen
+without allocating the smaller, filtered result somewhere).
 }
 \examples{
 id <- rep(seq(1, 100), each = 2)

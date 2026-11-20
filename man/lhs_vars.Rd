@@ -14,7 +14,7 @@ vector of variable names
 }
 \description{
 Take a formula and return a vector of the variables
- on the left hand side, it will return NULL for a one sided formula
+on the left hand side, it will return NULL for a one sided formula
 }
 \examples{
 ff <- yvar ~ x1 + x2

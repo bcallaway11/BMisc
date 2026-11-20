@@ -19,8 +19,8 @@ for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{
 Calculates a units outcome (or also can be used for a covariate)
- in the period right before it becomes treated.  The unit's group must
- be specified at this point.  This function operates on a data.frame
- that is already local to a particular unit.
+in the period right before it becomes treated.  The unit's group must
+be specified at this point.  This function operates on a data.frame
+that is already local to a particular unit.
 }
 \keyword{internal}

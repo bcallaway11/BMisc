@@ -14,15 +14,15 @@ make_balanced_panel(data, idname, tname)
 \item{tname}{time period name}
 }
 \value{
-a balanced panel, with the same class (`data.frame` or
- `data.table`) as `data`
+a balanced panel, with the same class (\code{data.frame} or
+\code{data.table}) as \code{data}
 }
 \description{
 This function drops observations from data.frame
- that are not part of balanced panel data set. `data` is copied
- before dropping any rows, so the object passed in is left
- unmodified; see \code{\link{set_balanced_panel}} for an in-place
- alternative that avoids copying large inputs.
+that are not part of balanced panel data set. \code{data} is copied
+before dropping any rows, so the object passed in is left
+unmodified; see \code{\link{set_balanced_panel}} for an in-place
+alternative that avoids copying large inputs.
 }
 \examples{
 id <- rep(seq(1, 100), each = 2) # individual ids for setting up a two period panel

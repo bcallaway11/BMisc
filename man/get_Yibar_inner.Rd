@@ -15,7 +15,7 @@ for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{
 Calculates a units average outcome across all periods.
- This function operates on a data.frame that is already local to a particular
- unit.
+This function operates on a data.frame that is already local to a particular
+unit.
 }
 \keyword{internal}

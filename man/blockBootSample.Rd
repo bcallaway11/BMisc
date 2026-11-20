@@ -12,8 +12,8 @@ blockBootSample(data, idname)
 \item{idname}{column in data which contains an individual identifier}
 }
 \description{
-Legacy name for the function `block_boot_sample`,
- please use that function going forward.  This function will
- eventually be deleted
+Legacy name for the function \code{block_boot_sample},
+please use that function going forward.  This function will
+eventually be deleted
 }
 \keyword{internal}

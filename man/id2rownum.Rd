@@ -15,7 +15,7 @@ id2rownum(id, data, idname)
 }
 \description{
 id2rownum takes an id and converts it to the right
- row number in the dataset; ids should be unique in the dataset
- that is, don't pass the function panel data with multiple same ids
+row number in the dataset; ids should be unique in the dataset
+that is, don't pass the function panel data with multiple same ids
 }
 \keyword{internal}

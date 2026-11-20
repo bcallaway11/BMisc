@@ -18,7 +18,7 @@ for; the default is to use all unique values of y}
 to normalize}
 }
 \description{
-Legacy version of `weighted_ecdf`, please use that function
- instead.  This function will eventually be deleted.
+Legacy version of \code{weighted_ecdf}, please use that function
+instead.  This function will eventually be deleted.
 }
 \keyword{internal}

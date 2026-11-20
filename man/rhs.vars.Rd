@@ -10,7 +10,7 @@ rhs.vars(formla)
 \item{formla}{a formula}
 }
 \description{
-Legacy version of `rhs_vars`, please use that
- function instead.  This function will eventually be deleted.
+Legacy version of \code{rhs_vars}, please use that
+function instead.  This function will eventually be deleted.
 }
 \keyword{internal}

@@ -10,7 +10,7 @@ dropCovFromFormla(covs, formla)
 \item{covs}{should be a list of variable names}
 }
 \description{
-Legacy version of `drop_cov_from_formula`, please use
- that function instead.  This function will eventually be deleted.
+Legacy version of \code{drop_cov_from_formula}, please use
+that function instead.  This function will eventually be deleted.
 }
 \keyword{internal}

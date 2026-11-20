@@ -7,13 +7,13 @@
 combineDfs(y.seq, dflist, pstrat = NULL, ...)
 }
 \arguments{
-\item{y.seq}{`NULL` (the default) for the exact mixture, or a sequence of
+\item{y.seq}{\code{NULL} (the default) for the exact mixture, or a sequence of
 y values at which to evaluate it}
 
 \item{...}{additional arguments that can be past to BMisc::make_dist}
 }
 \description{
-Legacy version of `combine_ecdfs`, please use that
- function instead.  This function will eventually be deleted.
+Legacy version of \code{combine_ecdfs}, please use that
+function instead.  This function will eventually be deleted.
 }
 \keyword{internal}

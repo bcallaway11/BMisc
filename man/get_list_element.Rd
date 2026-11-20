@@ -16,7 +16,7 @@ list of all the elements 'whichone' from each list
 }
 \description{
 a function to take a list and get a particular part
- out of each element in the list
+out of each element in the list
 }
 \examples{
 len <- 100 # number elements in list

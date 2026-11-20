@@ -18,8 +18,8 @@ vector of row numbers
 }
 \description{
 ids2rownum takes a vector of ids and converts it to the right
- row number in the dataset; ids should be unique in the dataset
- that is, don't pass the function panel data with multiple same ids
+row number in the dataset; ids should be unique in the dataset
+that is, don't pass the function panel data with multiple same ids
 }
 \examples{
 ids <- seq(1, 1000, length.out = 100)

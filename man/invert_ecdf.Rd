@@ -14,7 +14,7 @@ stepfun object that contains the quantiles of the df
 }
 \description{
 take an ecdf object and invert it to get a step-quantile
- function
+function
 }
 \examples{
 y <- rnorm(100)

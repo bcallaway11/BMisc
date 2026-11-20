@@ -14,7 +14,7 @@ vector of variable names
 }
 \description{
 Take a formula and return a vector of the variables
- on the right hand side
+on the right hand side
 }
 \examples{
 ff <- yvar ~ x1 + x2

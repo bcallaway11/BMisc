@@ -7,7 +7,7 @@
 lhs.vars(formla)
 }
 \description{
-Legacy version of `lhs_vars`, please use that function
- instead.  This function will eventually be deleted.
+Legacy version of \code{lhs_vars}, please use that function
+instead.  This function will eventually be deleted.
 }
 \keyword{internal}

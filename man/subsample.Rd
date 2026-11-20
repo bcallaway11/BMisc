@@ -23,8 +23,8 @@ a data.frame that contains a subsample of \code{dta}
 }
 \description{
 returns a subsample of a panel data set; in particular drops
- all observations that are not in \code{keepids}.  If it is not set,
- randomly keeps \code{nkeep} observations.
+all observations that are not in \code{keepids}.  If it is not set,
+randomly keeps \code{nkeep} observations.
 }
 \examples{
 \dontshow{

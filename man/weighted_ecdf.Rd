@@ -22,7 +22,7 @@ ecdf
 }
 \description{
 Get a distribution function from a vector of values
- after applying some weights
+after applying some weights
 }
 \examples{
 y <- rnorm(100)

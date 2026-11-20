@@ -18,9 +18,9 @@ for which to calculate its outcome in the immediate pre-treatment period}
 }
 \description{
 A function that calculates the first difference in a panel data
- setting.  If the data.frame that is passed in has nxT rows, the resulting
- vector will also have nxT elements with one element for each unit set to be
- NA.
+setting.  If the data.frame that is passed in has nxT rows, the resulting
+vector will also have nxT elements with one element for each unit set to be
+NA.
 }
 \examples{
 n <- 50

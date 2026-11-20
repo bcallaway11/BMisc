@@ -18,8 +18,8 @@ for which to calculate its outcome in the immediate pre-treatment period}
 \item{tname}{name of column that holds the time period}
 }
 \description{
-Calculates a units outcome in some particular period `tp`.
- This function operates on a data.frame that is already local to a particular
- unit.
+Calculates a units outcome in some particular period \code{tp}.
+This function operates on a data.frame that is already local to a particular
+unit.
 }
 \keyword{internal}

@@ -14,7 +14,7 @@ a one sided formula
 }
 \description{
 Take a formula and return the right hand side
- of the formula
+of the formula
 }
 \examples{
 ff <- yvar ~ x1 + x2

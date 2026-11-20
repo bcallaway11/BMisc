@@ -10,8 +10,8 @@ addCovToFormla(covs, formla)
 \item{covs}{should be a list of variable names}
 }
 \description{
-Legacy version of `add_cov_to_formula`, please
- use that function instead.  This function will eventually be
- deleted.
+Legacy version of \code{add_cov_to_formula}, please
+use that function instead.  This function will eventually be
+deleted.
 }
 \keyword{internal}

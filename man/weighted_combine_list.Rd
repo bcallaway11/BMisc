@@ -11,19 +11,19 @@ weighted_combine_list(l, w, normalize_weights = TRUE)
 that are to be combined}
 
 \item{w}{a vector of weights, the weights should have the same number
-of elements as `length(l)`}
+of elements as \code{length(l)}}
 
 \item{normalize_weights}{whether or not to force the weights to sum to 1,
 default is true}
 }
 \value{
 matrix or vector corresponding to the weighted average of
- all of the elements in `l`
+all of the elements in \code{l}
 }
 \description{
 A function that takes in either a list of vectors or matrices
- and computes a weighted average of them, where the weights are applied to
- every element in the list.
+and computes a weighted average of them, where the weights are applied to
+every element in the list.
 }
 \examples{
 l <- list(c(1, 2, 3), c(4, 5, 6))
