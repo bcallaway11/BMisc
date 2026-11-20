@@ -35,11 +35,7 @@ This is a minor release (1.4.11). Main changes:
 
 ## R CMD check results
 
-`R CMD check --as-cran`: 0 errors | 0 warnings | 0 notes, apart from notes
-that come from the local setup: the current time could not be verified,
-HTML Tidy and V8 are not installed, a compiler flag set by the system's R
-build (`-mno-omit-leaf-frame-pointer`), and a transient HTTP 429 (rate
-limit) from GitHub when checking a README URL.
+`R CMD check --as-cran`: 0 errors | 0 warnings | 0 notes
 
 ## Downstream dependencies
 
