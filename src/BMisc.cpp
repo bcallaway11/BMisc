@@ -74,40 +74,26 @@ inline void fill_rademacher_mat(arma::mat &U) {
   }
 }
 
-//' @title multiplier_bootstrap
-//'
-//' @description A function that takes in an influence function (an
-//' nxk matrix) and the number of bootstrap iterations and
-//' returns a Bxk matrix of bootstrap results. This function
-//' uses Rademechar weights.
-//'
-//' @param inf_func nxk matrix of (e.g., these could be a matrix
-//'  containing the influence function for different parameter
-//'  estimates)
-//' @param biters the number of bootstrap iterations
-//'
-//' @return a Bxk matrix
-//' @export
+// The implementation behind multiplier_bootstrap(). `inf_func` is read from
+// memory once instead of once per bootstrap iteration: each tile of rows is
+// combined with all `biters` draws,
+//   out += U_tile' %*% inf_func_tile
+// and summing across tiles gives the result. The weights are drawn per tile,
+// identically for both accumulation methods, so `use_gemm` changes the speed
+// but not the draws.
 // [[Rcpp::export]]
-arma::mat multiplier_bootstrap(arma::mat inf_func, int biters) {
+arma::mat multiplier_bootstrap_cpp(arma::mat inf_func, int biters,
+                                   bool use_gemm) {
   arma::uword n = inf_func.n_rows;
   arma::uword K = inf_func.n_cols;
+  arma::uword B = static_cast<arma::uword>(biters);
 
-  arma::mat outMat(biters, K, arma::fill::zeros);
+  arma::mat outMat(B, K, arma::fill::zeros);
 
-  // The original version was memory-bound, so that the slow part was re-reading
-  // the inf_func again and again (`biters` times!)
-  //
-  // To optimize for cache locality, we want to read from inf_func only once.
-  // What we do is grab a tile of size `n_smaller x K` from inf_func,
-  // draw all `biters` iterations of Rademacher weights, and matrix multiply
-  //   U_tile' * inf_func_tile
-  // Then looping over each tile and summing across tiles gives the result
-  //
   arma::uword tile_n = 4096;
   {
     // Bound the U tile to ~32MB even for very large `biters`.
-    arma::uword max_tile = (32 * 1024 * 1024) / (8 * (biters > 1 ? biters : 1));
+    arma::uword max_tile = (32u * 1024u * 1024u) / (8u * (B > 1 ? B : 1));
     if (tile_n > max_tile) {
       tile_n = max_tile > 0 ? max_tile : 1;
     }
@@ -116,12 +102,23 @@ arma::mat multiplier_bootstrap(arma::mat inf_func, int biters) {
   for (arma::uword i0 = 0; i0 < n; i0 += tile_n) {
     arma::uword rows = tile_n < n - i0 ? tile_n : n - i0;
 
-    arma::mat U(rows, biters);
+    arma::mat U(rows, B);
     fill_rademacher_mat(U);
 
-    arma::subview<double> sub = inf_func.rows(i0, i0 + rows - 1);
-    outMat += U.t() * sub;
+    // A contiguous copy, so that the per-draw path gets plain dot products
+    // and the tiled path does not have to copy the subview itself.
+    arma::mat tile(inf_func.rows(i0, i0 + rows - 1));
+
+    if (use_gemm) {
+      outMat += U.t() * tile;
+    } else {
+      for (arma::uword b = 0; b < B; ++b) {
+        for (arma::uword k = 0; k < K; ++k) {
+          outMat(b, k) += arma::dot(tile.col(k), U.col(b));
+        }
+      }
+    }
   }
 
-  return (outMat / n);
+  return outMat / static_cast<double>(n);
 }

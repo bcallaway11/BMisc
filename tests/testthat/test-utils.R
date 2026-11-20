@@ -86,3 +86,22 @@ test_that("multiplier_bootstrap draws have the correct moments", {
 
   expect_equal(cov(out) / theoretical_vcov, matrix(1, k, k), tolerance = 0.05)
 })
+
+# The two accumulation methods draw the same weights, so for a given seed they
+# should only differ by floating point summation order.
+test_that("multiplier_bootstrap methods agree for the same seed", {
+  inf_func <- matrix(rnorm(5000 * 3), 5000, 3)  # 5000 rows spans two tiles
+  b <- 50L
+
+  set.seed(1234)
+  gemm <- multiplier_bootstrap(inf_func, b, method = "gemm")
+  set.seed(1234)
+  loop <- multiplier_bootstrap(inf_func, b, method = "loop")
+
+  expect_equal(gemm, loop, tolerance = 1e-10)
+
+  expect_error(
+    multiplier_bootstrap(inf_func, b, method = "nope"),
+    "should be one of"
+  )
+})
